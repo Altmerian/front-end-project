@@ -1,0 +1,156 @@
+body {
+  background-color: #f0f0f0;
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+
+
+/* ============== Navigation bar ================================= */
+.navbar {
+  align-items: center;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0 8px;
+}
+
+.navbar a {
+  color: black;
+  text-decoration: none;
+}
+
+.wrapper > a {
+  padding: 6px 4px;
+}
+
+/* hover & focus */
+.navbar a:hover, 
+.dropdown-button:hover, .dropdown-button:focus {
+  background-color: #ddd;
+}
+
+.wrapper {
+  align-items: center;
+  display: flex;
+}
+
+/* Navbar icon-link*/
+a > i.fa {
+  border: 0;
+  color: rgba(0,0,0,0.6);
+  font-size: 26px;
+}
+
+/* Navbar logo */
+img.avatar-navbar {
+  height: 30px;
+}
+
+img.avatar-navbar:hover {
+  opacity: 0.8;
+}
+
+.search-container form input {
+  text-align: left;
+  width: 210px;
+}
+
+/* Dropdown Button */
+.dropdown-button {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  padding: 9px;
+  margin: 0;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  display: none;
+  margin-top: 8px;
+  min-width: 160px;
+  position: absolute;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  padding: 12px 16px;
+  display: block;
+  text-align: left;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}
+
+
+/* ======================= Login form =========================== */
+.form-container {
+  border: 2px solid #a0a0a0;
+}
+  
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  display: block;
+  margin: 8px 0;
+  padding: 9px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Set a style for all buttons */
+form button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin: 0 auto 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Center content inside form container */
+.form-container {
+  font-size: larger;
+  background-color: #f9f9f9;
+  margin: 100px auto;
+  width: 40%;
+}
+
+/* Center the avatar image inside this container */
+.img-container {
+  margin: -75px auto;
+  text-align: center;
+  width: 45%;
+}
+
+/* Add padding to containers */
+.input-container {
+  margin: 75px auto auto;
+  padding: 16px;
+  width: 70%;
+}
+
+/* Avatar image */
+img.avatar {
+  border-radius: 0 0 50% 50%;
+  width: 80%;
+}

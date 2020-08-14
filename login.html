@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/logo1.png">
+  <!-- reset and normalize embedded styles -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+  <!-- main css style -->
+  <link rel="stylesheet" href="css/main.css">
+  <!-- awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- navigation bar javascript file -->
+  <script src="js/navbar.js"></script>
+  <title>User Login</title>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="wrapper">
+      <div class="dropdown">
+        <a href="#" onclick="myFunction(1)">
+          <i class="fa fa-bars dropdown-button"></i></a>
+        <div id="myDropdown1" class="dropdown-content">
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+        </div>
+      </div>
+      <a href="http://localhost:8087/gift-rest-service/swagger-ui/">
+        <img src="assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
+    </div>
+    <div class="wrapper">
+      <div class="search-container">
+        <form action="http://localhost:8087/gift-rest-service/api/v1/certificates">
+          <input type="text" placeholder="Search by certificate name..." name="search">
+          <input type="submit" hidden />
+        </form>
+      </div>
+      <div class="dropdown">
+        <button onclick="myFunction(2)" class="dropdown-button">Categories
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div id="myDropdown2" class="dropdown-content">
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper">
+      <a href="#favorite"><i class="fa fa-heart"></i></a>
+      <a href="#shoppingcart"><i class="fa fa-shopping-cart"></i></a>
+      <a href="#login">Login</a>
+      <a style="border-left: 1px solid black;" href="#signup">SignUp</a>
+    </div>
+  </nav>
+  <div class="form-container">
+    <form action="http://localhost:8087/gift-rest-service/login" method="post">
+      <div class="img-container">
+        <img src="assets/logo2.png" alt="Logo" class="avatar">
+      </div>
+      <div class="input-container">
+        <input type="text" placeholder="Login" name="email" required>
+        <input type="password" placeholder="Password" name="password" required>
+        <button type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
