@@ -1,7 +1,25 @@
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function myFunction(number) {
+function addShowClass(number) {
   document.getElementById('myDropdown' + number).classList.toggle('show');
+}
+
+/* toggle display between registration and login forms */
+function toggleModal(id) {
+  if (location.pathname != '/login.html') {
+    self.location.assign('../login.html');
+  }
+  
+  var element = document.getElementById(id);
+  var display = element.style.display;
+  var loginElement = document.getElementById('login')
+  if (display == 'flex') {
+    element.style.display = 'none'
+    loginElement.style.display = 'block';
+  } else {
+    element.style.display = 'flex';
+    loginElement.style.display = 'none';
+  }
 }
 
 // Close the dropdown menus if the user clicks outside of it
