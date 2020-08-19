@@ -199,6 +199,11 @@ form textarea {
   padding: 8px;
 }
 
+form input:hover,
+form select:hover {
+  background-color: rgb(243, 243, 243);
+}
+
 form input[type="file"] {
   font-size: 14px;
   font-weight: 400;
@@ -251,6 +256,7 @@ button:hover {
   font-size: larger;
   margin: auto;
   min-width: 300px;
+  max-width: 600px;
   width: 40%;
 }
 
@@ -287,7 +293,7 @@ img.avatar {
 
 /* Add padding to containers */
 .input-container {
-  margin: 75px auto 20px;
+  margin: 15% auto 20px;
   padding: 16px;
   width: 70%;
 }
@@ -299,6 +305,7 @@ img.avatar {
   background-color: #f9f9f9;
   box-shadow: 0 15px 30px 0 rgba(0,0,0,0.5);
   margin: auto;
+  max-width: 1200px;
   width: 70%;
 }
 

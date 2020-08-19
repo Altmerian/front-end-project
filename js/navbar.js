@@ -7,16 +7,20 @@ function addShowClass(number) {
 /* toggle display between registration and login forms */
 function toggleModal(id) {
   if (location.pathname != '/login.html') {
-    self.location.assign('../login.html');
+    document.location.assign('../login.html');
   }
-  
-  var element = document.getElementById(id);
+  document.body.addEventListener("load", switchDisplay);
+}
+
+function switchDisplay() {
+  var element = document.getElementById('signUp');
   var display = element.style.display;
-  var loginElement = document.getElementById('login')
+  var loginElement = document.getElementById('login');
   if (display == 'flex') {
-    element.style.display = 'none'
+    element.style.display = 'none';
     loginElement.style.display = 'block';
-  } else {
+  }
+  else {
     element.style.display = 'flex';
     loginElement.style.display = 'none';
   }
@@ -34,3 +38,4 @@ window.onclick = function (event) {
     }
   }
 }
+
