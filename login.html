@@ -15,64 +15,66 @@
   <!-- main css style -->
   <link rel="stylesheet" href="css/main.css">
   <!-- navigation bar javascript file -->
-  <script src="js/navbar.js"></script>
+  <script src="js/main.js"></script>
   <title>User Login</title>
 </head>
 
-<body>
-  <nav class="navbar">
-    <div class="wrapper">
-      <div class="dropdown">
-        <a href="#" onclick="addShowClass(1)">
-          <i class="material-icons dropdown-button" style="font-size: 24px;">menu</i></a>
-        <div id="myDropdown1" class="dropdown-content">
-          <div class="sub-menu">
-            <a href="#">Certificates <i class="material-icons">arrow_right</i></a>
-            <div class="dropdown-content">
-              <a href="#">All certificates</a>
-              <a href="./certificate.html">New certificate</a>
-              <a href="#">Sublink 3</a>
+<body onload="showSignUp()">
+  <header>
+    <nav class="navbar">
+      <div class="wrapper">
+        <div class="dropdown">
+          <a href="#" onclick="addShowClass(1)">
+            <i class="material-icons dropdown-button">menu</i></a>
+          <div id="myDropdown1" class="dropdown-content">
+            <div class="sub-menu">
+              <a href="./main.html">Certificates <i class="material-icons">arrow_right</i></a>
+              <div class="dropdown-content">
+                <a href="./main.html">All certificates</a>
+                <a href="./certificate.html">New certificate</a>
+                <a href="#">Sublink 3</a>
+              </div>
             </div>
-          </div>
-          <div class="sub-menu">
-            <a href="#">Orders <i class="material-icons">arrow_right</i></a>
-            <div class="dropdown-content">
-              <a href="#">All orders</a>
-              <a href="#">New order</a>
-              <a href="#">SubLink 3</a>
+            <div class="sub-menu">
+              <a href="#">Orders <i class="material-icons">arrow_right</i></a>
+              <div class="dropdown-content">
+                <a href="#">All orders</a>
+                <a href="#">New order</a>
+                <a href="#">SubLink 3</a>
+              </div>
             </div>
+            <a href="http://localhost:8088/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
           </div>
-          <a href="http://localhost:8088/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
+        </div>
+        <a href="./main.html">
+          <img src="assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
+      </div>
+      <div class="wrapper">
+        <div class="search-container">
+          <form action="http://localhost:8087/gift-rest-service/api/v1/certificates">
+            <input type="text" placeholder="Search by certificate name..." name="search">
+            <input type="submit" hidden />
+          </form>
+        </div>
+        <div class="dropdown">
+          <button onclick="addShowClass(2)" class="dropdown-button">All categories
+            <i class="material-icons">arrow_drop_down</i>
+          </button>
+          <div id="myDropdown2" class="dropdown-content">
+            <a href="#">Category 1</a>
+            <a href="#">Category 2</a>
+            <a href="#">Category 3</a>
+          </div>
         </div>
       </div>
-      <a href="#home">
-        <img src="assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
-    </div>
-    <div class="wrapper">
-      <div class="search-container">
-        <form action="http://localhost:8087/gift-rest-service/api/v1/certificates">
-          <input type="text" placeholder="Search by certificate name..." name="search">
-          <input type="submit" hidden />
-        </form>
+      <div class="wrapper">
+        <a href="#favorite"><i class="material-icons">favorite_border</i></a>
+        <a href="#shoppingcart"><i class="material-icons">local_grocery_store</i></a>
+        <a href="./login.html">Login</a>
+        <a href="./register.html">SignUp</a>
       </div>
-      <div class="dropdown">
-        <button onclick="addShowClass(2)" class="dropdown-button">All categories
-          <i class="material-icons">arrow_drop_down</i>
-        </button>
-        <div id="myDropdown2" class="dropdown-content">
-          <a href="#">Category 1</a>
-          <a href="#">Category 2</a>
-          <a href="#">Category 3</a>
-        </div>
-      </div>
-    </div>
-    <div class="wrapper">
-      <a href="#favorite"><i class="material-icons">favorite_border</i></a>
-      <a href="#shoppingcart"><i class="material-icons">local_grocery_store</i></a>
-      <a href="./login.html">Login</a>
-      <a href="#" onclick="toggleModal('signUp')" style="border-left: 2px solid rgba(0, 0, 0, 0.6);">SignUp</a>
-    </div>
-  </nav>
+    </nav>
+  </header>
   <main class="main-wrapper">
     <div id=login class="login-form-container">
       <form action="http://localhost:8087/gift-rest-service/login" method="post">
@@ -85,36 +87,6 @@
           <button type="submit" class="btn">Login</button>
         </div>
       </form>
-    </div>
-    <div id="signUp" class="modal">
-      <div class="register-form-container">
-        <div class="form-header">
-          <p>Register<span class="close" onclick="toggleModal('signUp')">
-            &times;</span></p>
-        </div>
-        <form action="#signUp" method="post">
-          <div class="form-wrapper">
-            <label for="login">Login name</label>
-            <input type="text" name="login" required>
-            <label for="password">Password</label>
-            <input type="password" name="password" required>
-            <label for="email">Email</label>
-            <input type="email" name="email" required>
-          </div>
-          <div class="form-wrapper">
-            <label for="first-name">First Name</label>
-            <input type="text" name="first-name">
-            <label for="password-rpt">Repeat Password</label>
-            <input type="password" name="password-rpt" required>
-            <label for="address">Address</label>
-            <input type="text" name="address">
-            <div class="btn-group">
-              <button type="button" onclick="toggleModal('signUp')" class="cancel-btn">Cancel</button>
-              <button type="submit" class="btn">Sign Up</button>
-            </div>
-          </div>
-        </form>
-      </div>
     </div>
   </main>
 </body>

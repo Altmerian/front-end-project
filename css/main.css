@@ -2,13 +2,24 @@ body {
   background-color: #f0f0f0;
   margin: 0;
   font-family: Helvetica, Arial, sans-serif;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+body * {
+  box-sizing: border-box;
 }
 
 .main-wrapper {
   align-items: center;
   display: flex;
   height: 90vh;
+}
+
+.wrapper {
+  align-items: center;
+  display: flex;
 }
 
 /* The Modal (background) */
@@ -53,22 +64,22 @@ body {
 }
 
 .navbar a {
-  color: black;
+  color: rgba(0, 0, 0, 0.7);
   text-decoration: none;
-}
-
-.wrapper {
-  align-items: center;
-  display: flex;
 }
 
 .wrapper > a {
   color: rgba(0, 0, 0, 0.6);
   font-size: 14px;
   font-weight: 600;
+  margin: 6px 0;
   padding: 4px;
   text-decoration: none;
 }
+
+.navbar > .wrapper >  a + a:last-child {
+  border-left: 2px solid rgba(0, 0, 0, 0.6);
+} 
 
 /* hover & focus */
 .navbar a:hover, 
@@ -123,12 +134,12 @@ img.avatar-navbar:hover {
   white-space: nowrap;
 }
 
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  display: inline-block;
+.material-icons.dropdown-button {
+  font-size: 24px;
 }
 
-.dropdown a {
+/* The container <div> - needed to position the dropdown content */
+.dropdown, .dropdown a {
   display: inline-block;
 }
 
@@ -159,10 +170,65 @@ img.avatar-navbar:hover {
 }
 
 .sub-menu > a{
-  width: 80%;
+  width: 100%;
   display: inline-block;
 }
 
+
+/* ============================ Main Page ============================= */
+.main-page-wrapper {
+  display: block;
+}
+
+.categories-panel {
+  box-sizing: border-box;
+  background-color: #ddd;
+  display: inline-flex;
+  height: calc(60px + 3%);
+  justify-content: center;
+  padding: 0 20px;
+  width: 100vw;
+}
+
+.category-figure {
+  display: inline-block;
+  flex: 0 1 auto;
+  margin: 6px auto;
+  min-width: 50px;
+  max-width: 100px;
+  text-align: center;
+}
+
+.category-figure img{
+  background-color: white;
+  display: inline-block;
+  margin: 0;
+  max-height: 70%;
+  max-width: 40%;
+}
+
+.category-figure p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-top: 6px;
+}
+
+.certificates-container {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-evenly;
+}
+
+.card {
+  display: inline-flex;
+  flex-flow: column;
+  margin: 8px;
+  width: 150px;
+}
+
+.card img {
+  width: 100%;
+}
 
 /* ============================ Forms ================================= */
 .form-header {
@@ -185,12 +251,17 @@ img.avatar-navbar:hover {
   flex: 1 0 auto;
   font-size: 12px;
   font-weight: 600;
-  min-width: 150px;
+  min-width: 180px;
+  width: 40%;
 }
 
-form input,
-form select,
-form textarea {
+.form-wrapper + .form-wrapper {
+  margin-left: 5%;
+}
+
+.app-form input,
+.app-form select,
+.app-form textarea {
   border: 1px solid #ccc;
   color: rgba(0, 0, 0, 0.8);
   font-size: 14px;
@@ -199,17 +270,19 @@ form textarea {
   padding: 8px;
 }
 
-form input:hover,
-form select:hover {
-  background-color: rgb(243, 243, 243);
+.app-form input:hover,
+.app-form input:hover,
+.app-form select:hover,
+.img-upload:hover {
+  background-color: #f3f3f3;
 }
 
-form input[type="file"] {
+.app-form input[type="file"] {
   font-size: 14px;
   font-weight: 400;
 }
 
-form button {
+.app-form button {
   font-size: 14px;
   font-weight: 600;  
 }
@@ -239,7 +312,6 @@ form .cancel-btn {
   display: flex;
   justify-content: space-between;
   margin: 19px 0 10px;
-  width: 95%;
 }
 
 /* Add a hover effect for buttons */
@@ -247,6 +319,23 @@ button:hover {
   opacity: 0.8;
 }
 
+.image-input {
+  background-color: white;
+  border: 1px solid #ccc;
+  height: 38px;
+  margin: 8px 0;
+  padding: 2px 2px 2px 8px;
+}
+
+.img-upload {
+  margin: 3px;
+  max-height: 80%;
+  float: right;
+}
+
+#customText {
+  line-height: 32px;
+}
 
 /* Login form ---------------------------------------------------------- */ 
 /* Center content inside form container */
@@ -305,7 +394,7 @@ img.avatar {
   background-color: #f9f9f9;
   box-shadow: 0 15px 30px 0 rgba(0,0,0,0.5);
   margin: auto;
-  max-width: 1200px;
+  max-width: 1100px;
   width: 70%;
 }
 
@@ -314,7 +403,7 @@ img.avatar {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 10px 10px 10px 5%;
+  padding: 15px;
 }
 
 .register-form-container button,
@@ -322,16 +411,13 @@ img.avatar {
   width: 45%;
 }
 
-.register-form-container input, 
-.register-form-container label,
-.add-form-container input, 
-.add-form-container label,
-.add-form-container textarea {
-  width: 90%;
-}
-
 
 /* Add new Certificate form ----------------------------------------------*/
+.add-certificate-wrapper {
+  background-color: #f9f9f9; 
+  display: block;
+}
+
 /* Center content inside form container */
 .add-form-container {
   background-color: #f9f9f9;
@@ -340,10 +426,23 @@ img.avatar {
   width: 70%;
 }
 
-.add-form-container select {
-  width: 95%;
-}
-
 .add-form-container label {
   margin-top: 8px;
+}
+
+
+/* =================== MEDIA QUERIES =========================== */
+@media (max-width: 640px) {
+  
+  body {
+    font-size: 12px;
+  }
+
+  .add-form-container {
+    width: 90%;
+  }
+
+  .form-wrapper + .form-wrapper {
+    margin-left: 0;
+  }
 }
