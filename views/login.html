@@ -4,22 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="assets/logo1.png">
+  <link rel="icon" href="/assets/logo1.png">
   <!-- reset and normalize embedded styles -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
   <!-- awesome icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Material icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- main css style -->
-  <link rel="stylesheet" href="css/main.css">
-  <!-- navigation bar javascript file -->
-  <script src="js/main.js"></script>
+  <link rel="stylesheet" href="/css/main.css">
   <title>User Login</title>
 </head>
 
-<body onload="showSignUp()">
+<body>
   <header>
     <nav class="navbar">
       <div class="wrapper">
@@ -28,10 +25,10 @@
             <i class="material-icons dropdown-button">menu</i></a>
           <div id="myDropdown1" class="dropdown-content">
             <div class="sub-menu">
-              <a href="./main.html">Certificates <i class="material-icons">arrow_right</i></a>
+              <a href="/views/main.html">Certificates <i class="material-icons">arrow_right</i></a>
               <div class="dropdown-content">
-                <a href="./main.html">All certificates</a>
-                <a href="./certificate.html">New certificate</a>
+                <a href="/views/main.html">All certificates</a>
+                <a href="/views/certificate-new.html">New certificate</a>
                 <a href="#">Sublink 3</a>
               </div>
             </div>
@@ -39,15 +36,15 @@
               <a href="#">Orders <i class="material-icons">arrow_right</i></a>
               <div class="dropdown-content">
                 <a href="#">All orders</a>
-                <a href="#">New order</a>
+                <a href="/views/order.html">New order</a>
                 <a href="#">SubLink 3</a>
               </div>
             </div>
             <a href="http://localhost:8088/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
           </div>
         </div>
-        <a href="./main.html">
-          <img src="assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
+        <a href="/views/main.html">
+          <img src="/assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
       </div>
       <div class="wrapper">
         <div class="search-container">
@@ -69,9 +66,9 @@
       </div>
       <div class="wrapper">
         <a href="#favorite"><i class="material-icons">favorite_border</i></a>
-        <a href="#shoppingcart"><i class="material-icons">local_grocery_store</i></a>
-        <a href="./login.html">Login</a>
-        <a href="./register.html">SignUp</a>
+        <a href="/views/order.html"><i class="material-icons">local_grocery_store</i></a>
+        <a href="/views/login.html">Login</a>
+        <a href="/views/register.html">SignUp</a>
       </div>
     </nav>
   </header>
@@ -79,7 +76,7 @@
     <div id=login class="login-form-container">
       <form action="http://localhost:8087/gift-rest-service/login" method="post">
         <div class="img-container">
-          <img src="assets/logo2.png" alt="Logo" class="avatar">
+          <img src="/assets/logo2.png" alt="Logo" class="avatar">
         </div>
         <div class="input-container">
           <input type="text" placeholder="Login" name="email" required>
@@ -89,6 +86,7 @@
       </form>
     </div>
   </main>
+  <script src="/js/main.js"></script>
 </body>
 
 </html>

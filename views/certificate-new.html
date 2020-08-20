@@ -4,17 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="assets/logo1.png">
+  <link rel="icon" href="/assets/logo1.png">
   <!-- reset and normalize embedded styles -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
   <!-- awesome icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Material icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- main css style -->
-  <link rel="stylesheet" href="css/main.css">
-  <!-- navigation bar javascript file -->
+  <link rel="stylesheet" href="/css/main.css">
   <title>Add new item</title>
 </head>
 
@@ -27,10 +25,10 @@
             <i class="material-icons dropdown-button">menu</i></a>
           <div id="myDropdown1" class="dropdown-content">
             <div class="sub-menu">
-              <a href="./main.html">Certificates <i class="material-icons">arrow_right</i></a>
+              <a href="/views/main.html">Certificates <i class="material-icons">arrow_right</i></a>
               <div class="dropdown-content">
-                <a href="./main.html">All certificates</a>
-                <a href="./certificate.html">New certificate</a>
+                <a href="/views/main.html">All certificates</a>
+                <a href="/views/certificate-new.html">New certificate</a>
                 <a href="#">Sublink 3</a>
               </div>
             </div>
@@ -38,15 +36,15 @@
               <a href="#">Orders <i class="material-icons">arrow_right</i></a>
               <div class="dropdown-content">
                 <a href="#">All orders</a>
-                <a href="#">New order</a>
+                <a href="/views/order.html">New order</a>
                 <a href="#">SubLink 3</a>
               </div>
             </div>
             <a href="http://localhost:8088/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
           </div>
         </div>
-        <a href="./main.html">
-          <img src="assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
+        <a href="/views/main.html">
+          <img src="/assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
       </div>
       <div class="wrapper">
         <div class="search-container">
@@ -68,9 +66,9 @@
       </div>
       <div class="wrapper">
         <a href="#favorite"><i class="material-icons">favorite_border</i></a>
-        <a href="#shoppingcart"><i class="material-icons">local_grocery_store</i></a>
-        <a href="./login.html">Login</a>
-        <a href="./register.html">SignUp</a>
+        <a href="/views/order.html"><i class="material-icons">local_grocery_store</i></a>
+        <a href="/views/login.html">Login</a>
+        <a href="/views/register.html">SignUp</a>
       </div>
     </nav>
   </header>
@@ -81,8 +79,8 @@
     <div class="add-form-container">
       <form action="#addCertificate" method="post" id="addCertificate" class="app-form">
         <div class="form-wrapper">
-          <label for="company">Company</label>
-          <input type="text" id="company" name="company">
+          <label id="item-name" for="item-name">Certificate Name</label>
+          <input type="text" name="item-name" required>
           <label for="category">Category</label>
           <select id="category" name="tag">
             <option value="" disabled selected>Category Name</option>
@@ -94,20 +92,16 @@
           <input type="datetime-local" id="validTo" name="validTo" required>
           <label for="price">Price</label>
           <input type="number" id="price" name="price" min="0" step="0.01">
+        </div>
+        <div class="form-wrapper">
           <label for="imgBtn">Images</label>
           <div class="image-input">
             <span id="customText">No file chosen</span>
-            <img class="img-upload" id="imgUpload" src="./assets/image.png" alt="upload">
+            <img class="img-upload" id="imgUpload" src="/assets/image.png" alt="upload">
           </div>
           <input type="file" id="imgRealBtn" name="img" accept="image/*" multiple hidden>
-        </div>
-        <div class="form-wrapper">
-          <label id="item-name" for="item-name">Item Name</label>
-          <input type="text" name="item-name" required>
-          <label for="description">Short description</label>
-          <textarea id="description" name="description" rows="3"></textarea>
-          <label for="longDescription">Long description</label>
-          <textarea id="longDescription" name="longDescription" rows="5"></textarea>
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="6"></textarea>
           <div class="btn-group">
             <button type="reset" class="cancel-btn">Back</button>
             <button type="submit" class="btn">Save</button>
@@ -116,7 +110,8 @@
       </form>
     </div>
   </main>
-  <script src="js/main.js"></script>
+  <script src="/js/add-image.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 
 </html>

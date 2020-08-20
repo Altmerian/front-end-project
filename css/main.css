@@ -148,6 +148,7 @@ img.avatar-navbar:hover {
   background-color: #f1f1f1;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   display: none;
+  font-size: 15px;
   min-width: 160px;
   position: absolute;
 }
@@ -184,18 +185,25 @@ img.avatar-navbar:hover {
   box-sizing: border-box;
   background-color: #ddd;
   display: inline-flex;
+  flex-wrap: wrap;
+  font-size: 12px;
   height: calc(60px + 3%);
   justify-content: center;
-  padding: 0 20px;
   width: 100vw;
+}
+
+.categories-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .category-figure {
   display: inline-block;
   flex: 0 1 auto;
   margin: 6px auto;
-  min-width: 50px;
-  max-width: 100px;
+  min-width: 60px;
+  width: 100px;
   text-align: center;
 }
 
@@ -203,8 +211,12 @@ img.avatar-navbar:hover {
   background-color: white;
   display: inline-block;
   margin: 0;
-  max-height: 70%;
-  max-width: 40%;
+  object-fit: scale-down;
+  width: 67%;
+}
+
+.category-figure img:hover{
+  background-color: #ddd;
 }
 
 .category-figure p {
@@ -216,21 +228,262 @@ img.avatar-navbar:hover {
 .certificates-container {
   display: flex;
   flex-flow: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .card {
-  display: inline-flex;
-  flex-flow: column;
+  background-color: white;
   margin: 8px;
-  width: 150px;
+  min-width: 100px;
+  max-width: 160px;
+  height: 300px;
 }
 
 .card img {
+  background-color: #ddd;
+  border-block-end: 2px ridge rgb(226, 226, 226);
+  object-fit: cover;
+  height: 66%;
   width: 100%;
 }
 
-/* ============================ Forms ================================= */
+.card-text {
+  display: flex;
+  flex-flow: column nowrap;
+  font-size: 12px;
+  justify-content: space-between;
+  height: 33%;
+  padding: 0 8px;
+}
+
+.card-text > * {
+  flex: 1 0 auto;
+}
+
+.card i {
+  float: right;
+}
+
+.card i:hover {
+  background-color: rgb(218, 218, 218);
+  cursor: pointer;
+}
+
+.card-description {
+  font-weight: 400;
+  max-height: 2.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+}
+
+.card-item-name,
+.price {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 2em;
+  max-height: 2em;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-btn {
+  float: right;
+  cursor: pointer;
+  margin: 4px;
+  padding: 1px;
+}
+
+.category-figure img:hover {
+  cursor: pointer;
+  object-fit: contain;
+}
+
+.card img:hover {
+  cursor: pointer;
+  object-fit: scale-down;
+}
+
+
+/* ============================ Item page ============================== */
+.item-page-wrapper {
+  padding: 20px;
+}
+
+.item-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  flex: 1 1 auto;
+}
+
+.flex-item + .flex-item {
+  padding: 20px;
+  margin-left: 20px;
+}
+
+.item-container {
+  max-width: 1000px;
+  width: 500px;
+}
+
+.item-img {
+  background-color: #ddd;
+  height: 300px;
+}
+
+.item-img > img {
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.item-card {
+  background-color: white;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  height: 300px;
+  max-width: 500px;
+  width: 300px;
+}
+
+.expires-block div {
+  font-size: 12px;
+}
+
+.expires-block span {
+  font-size: 16px;
+}
+
+.item-name,
+.item-price,
+.item-price p {
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.cart-icon {
+  float: right;
+  font-size: 30px;
+  line-height: 10px;
+  margin-left: 10px;
+}
+
+.add-to-cart-link {
+  float: right;
+  text-decoration-line: none;
+  color: rgb(0, 50, 250);
+}
+
+.add-to-cart-link:hover,
+.cart-icon:hover {
+  background-color: #ddd;
+  
+}
+
+/* ========================== Order page ======================= */
+.order-container {
+  width: 70%;
+  max-height: 600px;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+}
+
+.order-wrapper {
+  color: rgba(0, 0, 0, 0.6);
+  display: grid;
+  flex: 0 1 auto;
+  grid-template-columns: 15% auto 15% 15%;
+  grid-template-rows: repeat(3, 2fr) 1fr;
+  margin-top: 30px;
+}
+
+.order-form {
+  flex: 0 1 auto;
+}
+
+.order-item {
+  display: flex;
+  grid-column: 1 / 5;
+  height: 120px;
+  padding-bottom: 20px;
+}
+
+.order-item img{
+  background-color: #ddd; 
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.order-item-name {
+  margin-top: 0;
+}
+
+.order-item-name:hover {
+  color: rgba(0, 0, 255, 0.8);
+  cursor: pointer;
+  text-decoration-line: underline;
+}
+.order-item-description {
+  flex: 1 1 55%;
+  padding-left: 20px;
+}
+
+.order-item-description a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.order-item-description p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+h3.order-item-name {
+  margin-block-end: 10px;
+}
+
+.order-item-img,
+.empty-block,
+.order-item-price {
+  flex: 1 1 15%;
+}
+
+.total-text {
+  grid-column: 3 / 4;
+  grid-row: 4 / 5 ;
+}
+
+.total-cost {
+  grid-column: 4 / 5;
+  grid-row: 4 / 5 ;
+}
+
+.total-cost,
+.total-text,
+.order-item-name,
+.order-item-price p {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.order-container .btn {
+  width: 40%;
+}
+
+
+/* ============================ Forms ============================ */
 .form-header {
   background-color: #a0a0a0;
   color: white;
@@ -305,13 +558,13 @@ form .cancel-btn {
   color: rgba(0, 0, 0, 0.7);
   font-weight: bold;
   padding: 8px;
-  width: 100%;
+  width: 40%;
 }
 
 .btn-group {
   display: flex;
   justify-content: space-between;
-  margin: 19px 0 10px;
+  margin: 24px 0 10px;
 }
 
 /* Add a hover effect for buttons */
@@ -444,5 +697,55 @@ img.avatar {
 
   .form-wrapper + .form-wrapper {
     margin-left: 0;
+  }
+
+  .card {
+    height: 250px;
+    max-width: 120px;
+  }
+
+  .card img {
+    max-height: 50%;
+  }
+
+  .card-text {
+    font-size: 11px;
+    padding: 2px;
+  }
+
+  .card-item-name,
+  .price {
+    line-height: 1em;
+    font-size: 13px;
+  }
+
+  .price {
+    margin-top: 10px;
+  }
+
+  .card i {
+    display: inline-block;
+    float: none;
+  }
+
+  .card-btn {
+    width: 50px;
+  }
+
+  .category-figure img {
+    width: 45%;
+  }
+
+  .flex-item + .flex-item {
+    margin-left: 0px;
+  }
+
+  .order-container {
+    width: 90%;
+  }
+
+  .total-text {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5 ;
   }
 }
