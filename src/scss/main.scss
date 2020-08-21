@@ -1,3 +1,33 @@
+@charset 'utf-8';
+@import '../css/variables.css';
+
+$mobile-breakpoint: 640px;
+$tablet-breakpoint: 768px;
+
+@mixin flex-container($justify: space-between) {
+  display: flex;
+  justify-content: $justify;
+  flex-wrap: wrap;
+}
+
+@mixin fit-image($height, $fit: cover) {
+  width: 100%;
+  height: $height;
+  object-fit: $fit;
+}
+
+@mixin cart-font {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+@mixin common-button($width) {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;  
+  width: $width;
+}
+
 body {
   background-color: #f0f0f0;
   margin: 0;
@@ -5,10 +35,14 @@ body {
   font-size: 14px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.75);
-}
 
-body * {
-  box-sizing: border-box;
+  @media (max-width: $mobile-breakpoint) {
+      font-size: 12px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 .main-wrapper {
@@ -20,21 +54,30 @@ body * {
 .wrapper {
   align-items: center;
   display: flex;
+
+  & > a {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 6px 0;
+    padding: 4px;
+    text-decoration: none;
+  }
 }
 
 /* The Modal (background) */
 .modal {
   background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  display: none; /* Hidden by default */
+  background-color: rgba(0,0,0,0.4); 
+  display: none;
   justify-items: center;
-  height: 100%; /* Full height */
+  height: 100%;
   left: 0;
-  overflow: auto; /* Enable scroll if needed */
-  position: fixed; /* Stay in place */
+  overflow: auto;
+  position: fixed;
   top: 0;
-  width: 100%; /* Full width */
-  z-index: 1; /* Sit on top */
+  width: 100%;
+  z-index: 1;
 }
 
 /* The Close Button */
@@ -43,43 +86,33 @@ body * {
   float: right;
   font-size: 28px;
   font-weight: bold;
+
+  &:hover,
+  &:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
 
 /* ==================== Navigation bar ================================= */
 .navbar {
+  @include flex-container(space-between);
   align-items: center;
   background-color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
   margin: 0;
   padding: 0 8px;
-}
 
-.navbar a {
-  color: rgba(0, 0, 0, 0.7);
-  text-decoration: none;
-}
+  & > .wrapper > a + a:last-child {
+    border-left: 2px solid rgba(0, 0, 0, 0.6);
+  }
 
-.wrapper > a {
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 14px;
-  font-weight: 600;
-  margin: 6px 0;
-  padding: 4px;
-  text-decoration: none;
+  a {
+    color: rgba(0, 0, 0, 0.7);
+    text-decoration: none;
+  }
 }
-
-.navbar > .wrapper >  a + a:last-child {
-  border-left: 2px solid rgba(0, 0, 0, 0.6);
-} 
 
 /* hover & focus */
 .navbar a:hover, 
@@ -98,15 +131,19 @@ a > i.material-icons {
 /* Material icons*/
 .material-icons {
   vertical-align: text-bottom;
+
+  &.dropdown-button {
+    font-size: 32px;
+  }
 }
 
 /* Navbar logo */
 img.avatar-navbar {
   height: 30px;
-}
 
-img.avatar-navbar:hover {
-  opacity: 0.6;
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
 .search-container form input {
@@ -134,10 +171,6 @@ img.avatar-navbar:hover {
   white-space: nowrap;
 }
 
-.material-icons.dropdown-button {
-  font-size: 24px;
-}
-
 /* The container <div> - needed to position the dropdown content */
 .dropdown, .dropdown a {
   display: inline-block;
@@ -151,13 +184,12 @@ img.avatar-navbar:hover {
   font-size: 15px;
   min-width: 160px;
   position: absolute;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  padding: 12px 16px;
-  display: block;
-  text-align: left;
+  
+    a {
+    padding: 12px 16px;
+    display: block;
+    text-align: left;
+  }
 }
 
 /* Show the dropdown menu */
@@ -177,10 +209,6 @@ img.avatar-navbar:hover {
 
 
 /* ============================ Main Page ============================= */
-.main-page-wrapper {
-  display: block;
-}
-
 .categories-panel {
   box-sizing: border-box;
   background-color: #ddd;
@@ -189,7 +217,7 @@ img.avatar-navbar:hover {
   font-size: 12px;
   height: calc(60px + 3%);
   justify-content: center;
-  width: 100vw;
+  width: 100%;
 }
 
 .categories-wrapper {
@@ -205,30 +233,34 @@ img.avatar-navbar:hover {
   min-width: 60px;
   width: 100px;
   text-align: center;
-}
 
-.category-figure img{
-  background-color: white;
-  display: inline-block;
-  margin: 0;
-  object-fit: scale-down;
-  width: 67%;
-}
+  img{
+    background-color: white;
+    display: inline-block;
+    margin: 0;
+    object-fit: scale-down;
+    width: 67%;
 
-.category-figure img:hover{
-  background-color: #ddd;
-}
+    &:hover {
+      cursor: pointer;
+      object-fit: contain;
+      background-color: #ddd;
+    }
 
-.category-figure p {
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-top: 6px;
+    @media (max-width: $mobile-breakpoint) {
+      width: 45%;
+    }
+  }
+
+  p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-top: 6px;
+  }
 }
 
 .certificates-container {
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
+  @include flex-container(center)
 }
 
 .card {
@@ -237,14 +269,26 @@ img.avatar-navbar:hover {
   min-width: 100px;
   max-width: 160px;
   height: 300px;
-}
 
-.card img {
-  background-color: #ddd;
-  border-block-end: 2px ridge rgb(226, 226, 226);
-  object-fit: cover;
-  height: 66%;
-  width: 100%;
+  img {
+    background-color: #ddd;
+    border-block-end: 2px ridge rgb(226, 226, 226);
+    @include fit-image(66%);
+
+    &:hover {
+      cursor: pointer;
+      object-fit: scale-down;
+    }
+
+    @media (max-width: $mobile-breakpoint) {
+      max-height: 50%;
+    }
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+      height: 250px;
+      max-width: 120px;
+  }
 }
 
 .card-text {
@@ -254,19 +298,29 @@ img.avatar-navbar:hover {
   justify-content: space-between;
   height: 33%;
   padding: 0 8px;
-}
 
-.card-text > * {
-  flex: 1 0 auto;
+  & > * {
+    flex: 1 0 auto;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 11px;
+    padding: 2px;
+  }
 }
 
 .card i {
   float: right;
-}
 
-.card i:hover {
-  background-color: rgb(218, 218, 218);
-  cursor: pointer;
+  &:hover {
+    background-color: rgb(218, 218, 218);
+    cursor: pointer;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    display: inline-block;
+    float: none;
+  }
 }
 
 .card-description {
@@ -286,6 +340,17 @@ img.avatar-navbar:hover {
   max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media (max-width: $mobile-breakpoint) {
+    line-height: 1em;
+    font-size: 13px;
+  }
+}
+
+.price {
+@media (max-width: $mobile-breakpoint) {
+    margin-top: 10px;
+  }
 }
 
 .card-btn {
@@ -293,16 +358,10 @@ img.avatar-navbar:hover {
   cursor: pointer;
   margin: 4px;
   padding: 1px;
-}
 
-.category-figure img:hover {
-  cursor: pointer;
-  object-fit: contain;
-}
-
-.card img:hover {
-  cursor: pointer;
-  object-fit: scale-down;
+  @media (max-width: $mobile-breakpoint) {
+    width: 50px;
+  }
 }
 
 
@@ -312,18 +371,20 @@ img.avatar-navbar:hover {
 }
 
 .item-wrapper {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  @include flex-container(space-evenly)
 }
 
 .flex-item {
   flex: 1 1 auto;
-}
 
-.flex-item + .flex-item {
-  padding: 20px;
-  margin-left: 20px;
+  & + & {
+    padding: 20px;
+    margin-left: 20px;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    margin-left: 0px;
+  }
 }
 
 .item-container {
@@ -334,12 +395,10 @@ img.avatar-navbar:hover {
 .item-img {
   background-color: #ddd;
   height: 300px;
-}
 
-.item-img > img {
-  height: 100%;
-  object-fit: contain;
-  width: 100%;
+  & > img {
+    @include fit-image(100%, contain);
+  }
 }
 
 .item-card {
@@ -352,12 +411,14 @@ img.avatar-navbar:hover {
   width: 300px;
 }
 
-.expires-block div {
-  font-size: 12px;
-}
+.expires-block {
+  div {
+    font-size: 12px;
+  }
 
-.expires-block span {
-  font-size: 16px;
+  span {
+    font-size: 16px;
+  }
 }
 
 .item-name,
@@ -372,19 +433,22 @@ img.avatar-navbar:hover {
   font-size: 30px;
   line-height: 10px;
   margin-left: 10px;
+
+  &:hover {
+    background-color: #ddd;
+  }
 }
 
 .add-to-cart-link {
   float: right;
   text-decoration-line: none;
   color: rgb(0, 50, 250);
+
+  &:hover {
+    background-color: #ddd;
+  }
 }
 
-.add-to-cart-link:hover,
-.cart-icon:hover {
-  background-color: #ddd;
-  
-}
 
 /* ========================== Order page ======================= */
 .order-container {
@@ -392,22 +456,29 @@ img.avatar-navbar:hover {
   max-height: 600px;
   max-width: 800px;
   margin: 0 auto;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-evenly;
+  padding-bottom: 20px;
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 90%;
+  }
 }
 
 .order-wrapper {
   color: rgba(0, 0, 0, 0.6);
   display: grid;
-  flex: 0 1 auto;
   grid-template-columns: 15% auto 15% 15%;
-  grid-template-rows: repeat(3, 2fr) 1fr;
+  grid-template-rows: repeat(var(--cart-items-count), 2fr) 0.7fr;
   margin-top: 30px;
+
+  & > div:nth-last-of-type(3) {
+    border-bottom: 2px ridge #ddd;
+  }
 }
 
 .order-form {
-  flex: 0 1 auto;
+  display: inline-block;
+  margin: 0 8%;
+  width: 40%;
 }
 
 .order-item {
@@ -415,43 +486,44 @@ img.avatar-navbar:hover {
   grid-column: 1 / 5;
   height: 120px;
   padding-bottom: 20px;
-}
 
-.order-item img{
-  background-color: #ddd; 
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  img {
+    @include fit-image(100%);
+    background-color: #ddd; 
+  }
 
-.order-item-name {
-  margin-top: 0;
-}
+  &-name {
+    @include cart-font;
+    margin-top: 0;
+    margin-block-end: 10px;
+  }
 
-.order-item-name:hover {
-  color: rgba(0, 0, 255, 0.8);
-  cursor: pointer;
-  text-decoration-line: underline;
-}
-.order-item-description {
-  flex: 1 1 55%;
-  padding-left: 20px;
-}
+  &-name:hover {
+    color: rgba(0, 0, 255, 0.8);
+    cursor: pointer;
+    text-decoration-line: underline;
+  }
 
-.order-item-description a {
-  color: inherit;
-  text-decoration: none;
-}
+  &-price p {
+    @include cart-font;
+  }
 
-.order-item-description p {
-  margin-block-start: 0;
-  margin-block-end: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+  &-description {
+    flex: 1 1 55%;
+    padding-left: 20px;
 
-h3.order-item-name {
-  margin-block-end: 10px;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    p {
+      margin-block-start: 0;
+      margin-block-end: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 }
 
 .order-item-img,
@@ -461,25 +533,24 @@ h3.order-item-name {
 }
 
 .total-text {
+  @include cart-font;
   grid-column: 3 / 4;
   grid-row: 4 / 5 ;
+
+  @media (max-width: $mobile-breakpoint) {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5 ;
+  }
 }
 
 .total-cost {
+  @include cart-font;
   grid-column: 4 / 5;
   grid-row: 4 / 5 ;
 }
 
-.total-cost,
-.total-text,
-.order-item-name,
-.order-item-price p {
-  font-size: 20px;
-  font-weight: 800;
-}
-
-.order-container .btn {
-  width: 40%;
+.order-btn-group {
+  text-align: right;
 }
 
 
@@ -489,12 +560,12 @@ h3.order-item-name {
   color: white;
   font-size: 18px;
   font-weight: 500;
-}
 
-.form-header p {
-  height: 50px;
-  line-height: 50px;
-  margin: 0 5%;
+  p {
+    height: 50px;
+    line-height: 50px;
+    margin: 0 3% 0 16%;
+  }
 }
 
 .form-wrapper {
@@ -506,10 +577,14 @@ h3.order-item-name {
   font-weight: 600;
   min-width: 180px;
   width: 40%;
-}
 
-.form-wrapper + .form-wrapper {
-  margin-left: 5%;
+  & + & {
+    margin-left: 5%;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    margin-left: 0;
+  }
 }
 
 .app-form input,
@@ -524,46 +599,31 @@ h3.order-item-name {
 }
 
 .app-form input:hover,
-.app-form input:hover,
 .app-form select:hover,
 .img-upload:hover {
   background-color: #f3f3f3;
 }
 
-.app-form input[type="file"] {
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.app-form button {
-  font-size: 14px;
-  font-weight: 600;  
-}
-
 /* Set a style for submit buttons */
-form .btn{
+.btn {
+  @include common-button(100%);
   background-color: #4CAF50;
-  color: white;
   border: none;
-  cursor: pointer;
+  color: white;
   padding: 10px;
-  width: 100%;
 }
 
 /* Set a style for cancel buttons */
-form .cancel-btn {
+.cancel-btn {
+  @include common-button(40%);
   background-color: white;
   border: 2px solid #ccc;
-  cursor: pointer;
   color: rgba(0, 0, 0, 0.7);
-  font-weight: bold;
   padding: 8px;
-  width: 40%;
 }
 
 .btn-group {
-  display: flex;
-  justify-content: space-between;
+  @include flex-container(space-between);
   margin: 24px 0 10px;
 }
 
@@ -590,8 +650,9 @@ button:hover {
   line-height: 32px;
 }
 
-/* Login form ---------------------------------------------------------- */ 
-/* Center content inside form container */
+
+/* Login form ----------------------------------------------- */ 
+/* Center content inside login form container */
 .login-form-container {
   background-color: #f9f9f9;
   border: 2px solid #a0a0a0;
@@ -600,23 +661,22 @@ button:hover {
   min-width: 300px;
   max-width: 600px;
   width: 40%;
-}
 
-.login-form-container button,
-.login-form-container ::placeholder {
-  font-size: 19px;
-  font-weight: 500;
-}
+  button,
+  &::placeholder {
+    font-size: 19px;
+    font-weight: 500;
+  }
 
-/* Full-width inputs */
-.login-form-container input {
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  display: block;
-  margin: 8px 0;
-  padding: 8px;
-  text-align: center;
-  width: 100%;
+  input {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    display: block;
+    margin: 8px 0;
+    padding: 8px;
+    text-align: center;
+    width: 100%;
+  }
 }
 
 /* Center the avatar image inside this container */
@@ -625,12 +685,11 @@ button:hover {
   max-width: 150px;
   text-align: center;
   width: 45%;
-}
 
-/* Avatar image */
-img.avatar {
-  border-radius: 0 0 50% 50%;
-  width: 80%;
+  .avatar {
+    border-radius: 0 0 50% 50%;
+    width: 80%;
+  }
 }
 
 /* Add padding to containers */
@@ -649,19 +708,19 @@ img.avatar {
   margin: auto;
   max-width: 1100px;
   width: 70%;
-}
 
-.register-form-container form,
-.add-form-container form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 15px;
-}
+  form {
+    @include flex-container();
+    padding: 15px;
+  }
+  
+  p {
+    margin-left: 3%;
+  }
 
-.register-form-container button,
-.add-form-container button {
-  width: 45%;
+  button {
+    width: 45%;
+  }
 }
 
 
@@ -677,75 +736,21 @@ img.avatar {
   display: block;
   margin: 0 auto;
   width: 70%;
+
+  form {
+    @include flex-container();
+    padding: 15px;
+  }
+
+  button {
+    width: 45%;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 90%;
+  }
 }
 
 .add-form-container label {
   margin-top: 8px;
-}
-
-
-/* =================== MEDIA QUERIES =========================== */
-@media (max-width: 640px) {
-  
-  body {
-    font-size: 12px;
-  }
-
-  .add-form-container {
-    width: 90%;
-  }
-
-  .form-wrapper + .form-wrapper {
-    margin-left: 0;
-  }
-
-  .card {
-    height: 250px;
-    max-width: 120px;
-  }
-
-  .card img {
-    max-height: 50%;
-  }
-
-  .card-text {
-    font-size: 11px;
-    padding: 2px;
-  }
-
-  .card-item-name,
-  .price {
-    line-height: 1em;
-    font-size: 13px;
-  }
-
-  .price {
-    margin-top: 10px;
-  }
-
-  .card i {
-    display: inline-block;
-    float: none;
-  }
-
-  .card-btn {
-    width: 50px;
-  }
-
-  .category-figure img {
-    width: 45%;
-  }
-
-  .flex-item + .flex-item {
-    margin-left: 0px;
-  }
-
-  .order-container {
-    width: 90%;
-  }
-
-  .total-text {
-    grid-column: 2 / 3;
-    grid-row: 4 / 5 ;
-  }
 }

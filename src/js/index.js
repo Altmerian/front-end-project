@@ -1,6 +1,9 @@
+import '../scss/main.scss'
+import '../css/variables.css'
+
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function addShowClass(number) {
+window.addShowClass = function addShowClass(number) {
   document.getElementById('myDropdown' + number).classList.toggle('show');
 }
 
@@ -8,7 +11,7 @@ function addShowClass(number) {
 window.onclick = function (event) {
   if (!event.target.matches('.dropdown-button')) {
     const dropdowns = document.getElementsByClassName("dropdown-content");
-    for (i = 0; i < dropdowns.length; i++) {
+    for (var i = 0; i < dropdowns.length; i++) {
       const openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
@@ -18,7 +21,7 @@ window.onclick = function (event) {
 }
 
 /* toggles display of a modal content */
-function toggleModal(id) {
+window.toggleModal = function toggleModal(id) {
   const element = document.getElementById(id);
   const display = element.style.display;
   if (display == 'flex') {
@@ -26,4 +29,9 @@ function toggleModal(id) {
   } else {
     element.style.display = 'flex';
   }
+}
+
+// go to previous page
+window.goBack = function goBack() {
+  window.history.back();
 }

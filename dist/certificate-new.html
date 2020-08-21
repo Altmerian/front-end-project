@@ -12,8 +12,8 @@
   <!-- Material icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- main css style -->
-  <link rel="stylesheet" href="/css/main.css">
-  <title>User Login</title>
+  <link rel="stylesheet" href="./css/main.css">
+  <title>Add new item</title>
 </head>
 
 <body>
@@ -25,10 +25,10 @@
             <i class="material-icons dropdown-button">menu</i></a>
           <div id="myDropdown1" class="dropdown-content">
             <div class="sub-menu">
-              <a href="/views/main.html">Certificates <i class="material-icons">arrow_right</i></a>
+              <a href="index.html">Certificates <i class="material-icons">arrow_right</i></a>
               <div class="dropdown-content">
-                <a href="/views/main.html">All certificates</a>
-                <a href="/views/certificate-new.html">New certificate</a>
+                <a href="index.html">All certificates</a>
+                <a href="certificate-new.html">New certificate</a>
                 <a href="#">Sublink 3</a>
               </div>
             </div>
@@ -36,19 +36,19 @@
               <a href="#">Orders <i class="material-icons">arrow_right</i></a>
               <div class="dropdown-content">
                 <a href="#">All orders</a>
-                <a href="/views/order.html">New order</a>
+                <a href="order.html">New order</a>
                 <a href="#">SubLink 3</a>
               </div>
             </div>
             <a href="http://localhost:8088/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
           </div>
         </div>
-        <a href="/views/main.html">
+        <a href="index.html">
           <img src="/assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
       </div>
       <div class="wrapper">
         <div class="search-container">
-          <form action="http://localhost:8087/gift-rest-service/api/v1/certificates">
+          <form action="http://localhost:8088/gift-rest-service/api/v1/certificates">
             <input type="text" placeholder="Search by certificate name..." name="search">
             <input type="submit" hidden />
           </form>
@@ -66,27 +66,52 @@
       </div>
       <div class="wrapper">
         <a href="#favorite"><i class="material-icons">favorite_border</i></a>
-        <a href="/views/order.html"><i class="material-icons">local_grocery_store</i></a>
-        <a href="/views/login.html">Login</a>
-        <a href="/views/register.html">SignUp</a>
+        <a href="order.html"><i class="material-icons">local_grocery_store</i></a>
+        <a href="login.html">Login</a>
+        <a href="register.html">SignUp</a>
       </div>
     </nav>
   </header>
-  <main class="main-wrapper">
-    <div id=login class="login-form-container">
-      <form action="http://localhost:8087/gift-rest-service/login" method="post">
-        <div class="img-container">
-          <img src="/assets/logo2.png" alt="Logo" class="avatar">
+  <main class="add-certificate-wrapper">
+    <div class="form-header">
+      <p>Add new Certificate</p>
+    </div>
+    <div class="add-form-container">
+      <form action="#addCertificate" method="post" id="addCertificate" class="app-form">
+        <div class="form-wrapper">
+          <label id="item-name" for="item-name">Certificate Name</label>
+          <input type="text" name="item-name" required>
+          <label for="category">Category</label>
+          <select id="category" name="tag">
+            <option value="" disabled selected>Category Name</option>
+            <option value="tag1">Category 1</option>
+            <option value="tag2">Category 2</option>
+            <option value="tag3">Category 3</option>
+          </select>
+          <label for="validTo">Valid to</label>
+          <input type="datetime-local" id="validTo" name="validTo" required>
+          <label for="price">Price</label>
+          <input type="number" id="price" name="price" min="0" step="0.01">
         </div>
-        <div class="input-container">
-          <input type="text" placeholder="Login" name="email" required>
-          <input type="password" placeholder="Password" name="password" required>
-          <button type="submit" class="btn">Login</button>
+        <div class="form-wrapper">
+          <label for="imgBtn">Images</label>
+          <div class="image-input">
+            <span id="customText">No file chosen</span>
+            <img class="img-upload" id="imgUpload" src="/assets/image.png" alt="upload">
+          </div>
+          <input type="file" id="imgRealBtn" name="img" accept="image/*" multiple hidden>
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="6"></textarea>
+          <div class="btn-group">
+            <button type="reset" class="cancel-btn">Cancel</button>
+            <button type="submit" class="btn">Save</button>
+          </div>
         </div>
       </form>
     </div>
   </main>
-  <script src="/js/main.js"></script>
+  <script src="/src/js/add-image.js"></script>
+  <script src="./bundle.js"></script>
 </body>
 
 </html>

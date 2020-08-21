@@ -12,11 +12,11 @@
   <!-- Material icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- main css style -->
-  <link rel="stylesheet" href="/css/main.css">
-  <title>Sign Up</title>
+  <link rel="stylesheet" href="./css/main.css">
+  <title>User Login</title>
 </head>
 
-<body onload="toggleModal('signUp')">
+<body>
   <header>
     <nav class="navbar">
       <div class="wrapper">
@@ -25,10 +25,10 @@
             <i class="material-icons dropdown-button">menu</i></a>
           <div id="myDropdown1" class="dropdown-content">
             <div class="sub-menu">
-              <a href="/views/main.html">Certificates <i class="material-icons">arrow_right</i></a>
+              <a href="index.html">Certificates <i class="material-icons">arrow_right</i></a>
               <div class="dropdown-content">
-                <a href="/views/main.html">All certificates</a>
-                <a href="/views/certificate-new.html">New certificate</a>
+                <a href="index.html">All certificates</a>
+                <a href="certificate-new.html">New certificate</a>
                 <a href="#">Sublink 3</a>
               </div>
             </div>
@@ -36,19 +36,19 @@
               <a href="#">Orders <i class="material-icons">arrow_right</i></a>
               <div class="dropdown-content">
                 <a href="#">All orders</a>
-                <a href="/views/order.html">New order</a>
+                <a href="order.html">New order</a>
                 <a href="#">SubLink 3</a>
               </div>
             </div>
             <a href="http://localhost:8088/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
           </div>
         </div>
-        <a href="/views/main.html">
+        <a href="index.html">
           <img src="/assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
       </div>
       <div class="wrapper">
         <div class="search-container">
-          <form action="http://localhost:8087/gift-rest-service/api/v1/certificates">
+          <form action="http://localhost:8088/gift-rest-service/api/v1/certificates">
             <input type="text" placeholder="Search by certificate name..." name="search">
             <input type="submit" hidden />
           </form>
@@ -66,46 +66,27 @@
       </div>
       <div class="wrapper">
         <a href="#favorite"><i class="material-icons">favorite_border</i></a>
-        <a href="/views/order.html"><i class="material-icons">local_grocery_store</i></a>
-        <a href="/views/login.html">Login</a>
-        <a href="/views/register.html">SignUp</a>
+        <a href="order.html"><i class="material-icons">local_grocery_store</i></a>
+        <a href="login.html">Login</a>
+        <a href="register.html">SignUp</a>
       </div>
     </nav>
   </header>
   <main class="main-wrapper">
-    <div id="signUp" class="modal">
-      <div class="register-form-container">
-        <div class="form-header">
-          <p>Register<span class="close" onclick="toggleModal('signUp')">
-              &times;</span></p>
+    <div id=login class="login-form-container">
+      <form action="http://localhost:8088/gift-rest-service/login" method="post">
+        <div class="img-container">
+          <img src="/assets/logo2.png" alt="Logo" class="avatar">
         </div>
-        <form action="#signUp" method="post" class="app-form">
-          <div class="form-wrapper">
-            <label for="login">Login (Email)</label>
-            <input type="text" id="login" name="login" required>
-            <label for="password">Password</label>
-            <input type="password" name="password" required>
-            <label for="first-name">First Name</label>
-            <input type="text" name="first-name">
-          </div>
-          <div class="form-wrapper">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-            <label for="password-rpt">Repeat Password</label>
-            <input type="password" name="password-rpt" required>
-            <label for="last-name">Last Name</label>
-            <input type="text" name="last-name">
-            <div class="btn-group">
-              <button type="button" onclick="toggleModal('signUp')" class="cancel-btn">Cancel</button>
-              <button type="submit" class="btn">Sign Up</button>
-            </div>
-          </div>
-        </form>
-      </div>
+        <div class="input-container">
+          <input type="text" placeholder="Login" name="email" required>
+          <input type="password" placeholder="Password" name="password" required>
+          <button type="submit" class="btn">Login</button>
+        </div>
+      </form>
     </div>
   </main>
-  <script src="/js/main.js"></script>
-  <script src="/js/register.js"></script>
+  <script src="./bundle.js"></script>
 </body>
 
 </html>
