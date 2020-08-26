@@ -18,59 +18,7 @@
 
 <body>
   <header>
-    <nav class="navbar">
-      <div class="wrapper">
-        <div class="dropdown">
-          <a href="#" onclick="addShowClass(1)">
-            <i class="material-icons dropdown-button">menu</i></a>
-          <div id="myDropdown1" class="dropdown-content">
-            <div class="sub-menu">
-              <a href="index.html">Certificates <i class="material-icons">arrow_right</i></a>
-              <div class="dropdown-content">
-                <a href="index.html">All certificates</a>
-                <a href="certificate-new.html">New certificate</a>
-                <a href="#">Sublink 3</a>
-              </div>
-            </div>
-            <div class="sub-menu">
-              <a href="#">Orders <i class="material-icons">arrow_right</i></a>
-              <div class="dropdown-content">
-                <a href="#">All orders</a>
-                <a href="order.html">New order</a>
-                <a href="#">SubLink 3</a>
-              </div>
-            </div>
-            <a href="http://localhost:8088/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
-          </div>
-        </div>
-        <a href="index.html">
-          <img src="/assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
-      </div>
-      <div class="wrapper">
-        <div class="search-container">
-          <form action="http://localhost:8088/gift-rest-service/api/v1/certificates">
-            <input type="text" placeholder="Search by certificate name..." name="search">
-            <input type="submit" hidden />
-          </form>
-        </div>
-        <div class="dropdown">
-          <button onclick="addShowClass(2)" class="dropdown-button">All categories
-            <i class="material-icons">arrow_drop_down</i>
-          </button>
-          <div id="myDropdown2" class="dropdown-content">
-            <a href="#">Category 1</a>
-            <a href="#">Category 2</a>
-            <a href="#">Category 3</a>
-          </div>
-        </div>
-      </div>
-      <div class="wrapper">
-        <a href="#favorite"><i class="material-icons">favorite_border</i></a>
-        <a href="order.html"><i class="material-icons">local_grocery_store</i></a>
-        <a href="login.html">Login</a>
-        <a href="register.html">SignUp</a>
-      </div>
-    </nav>
+    <html-include src="navbar.html"></html-include>
   </header>
   <main class="add-certificate-wrapper">
     <div class="form-header">
