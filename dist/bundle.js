@@ -976,6 +976,12 @@ const PAGE_SIZE = 10;
 function createContent(certificates, page) {
 	let startIndex = page * PAGE_SIZE;
 	parentElement.append(...writeCertificatesContent(certificates, startIndex));
+	let cards = parentElement.querySelectorAll('.card');
+	for (const card of cards) {
+		setTimeout(function () {
+			card.style.opacity = 1;
+		}, 500);
+	}
 }
 
 function checkMoreContent(certificates, currentPage) {
@@ -992,24 +998,24 @@ function removeContent() {
 		parentElement = document.querySelector('section');
 	}
 	while (parentElement.firstChild) {
-    parentElement.removeChild(parentElement.lastChild);
-  }
+		parentElement.removeChild(parentElement.lastChild);
+	}
 }
 
 function wtiteNoResults(search) {
 	parentElement.innerHTML = `<p>No results were found for your search: "${search}" :(.<p>`
-  }
+}
 
 function writeCertificatesContent(certificates, startIndex) {
 	let result = [];
-	let endIndex = Math.min(startIndex + 10, certificates.length) 
+	let endIndex = Math.min(startIndex + 10, certificates.length)
 
 	for (let i = startIndex; i < endIndex; i++) {
 		let certificate = certificates[i];
 		let div = document.createElement('div');
 		div.className = 'card';
 		div.insertAdjacentHTML('beforeend',
-			 `<a href="certificate.html"><img src="/assets/logo1.png" alt="Certificate img"></a>
+			`<a href="certificate.html"><img src="/assets/logo1.png" alt="Certificate img"></a>
 				<div class="card-text">
 					<div>
 						<span class="card-item-name">${certificate.name}</span>
@@ -1111,12 +1117,11 @@ let certificates;
 let tags;
 let currentPage = 0;
 
+//fetch certificates data
 if (location.pathname.endsWith('index.html')) {
   (async function fetchData() {
     certificates = await getCertificates(1, 100);
-    tags = await getTags(1, 8);
-    localStorage.certificates = JSON.stringify(certificates);
-    localStorage.tags = JSON.stringify(tags);
+    tags = await getTags(1, 10);
     Object(_tags__WEBPACK_IMPORTED_MODULE_6__["createTags"])(tags);
     Object(_certificates__WEBPACK_IMPORTED_MODULE_5__["createContent"])(certificates, currentPage);
   })();
@@ -1131,18 +1136,19 @@ const navbarLoadedCallback = function () {
 window.addShowClass = _navigation__WEBPACK_IMPORTED_MODULE_3__["addShowClass"];
 window.onclick = _navigation__WEBPACK_IMPORTED_MODULE_3__["removeShowClass"];
 window.addEventListener('navbarLoaded', navbarLoadedCallback);
-window.addEventListener('body-loaded', _navigation__WEBPACK_IMPORTED_MODULE_3__["scrollTop"]);
+window.addEventListener('body-loaded', _navigation__WEBPACK_IMPORTED_MODULE_3__["addScrollTopEvent"]);
 window.addEventListener('scroll', lodash_throttle__WEBPACK_IMPORTED_MODULE_2___default()(checkWindowScroll, 200)
 );
 
 function checkWindowScroll() {
   if (((window.pageYOffset + document.documentElement.clientHeight + 50) >=
-        document.documentElement.scrollHeight) &&
-        Object(_certificates__WEBPACK_IMPORTED_MODULE_5__["checkMoreContent"])(certificates, currentPage)) {
+    document.documentElement.scrollHeight) &&
+    Object(_certificates__WEBPACK_IMPORTED_MODULE_5__["checkMoreContent"])(certificates, currentPage)) {
     currentPage++;
     Object(_html_elements__WEBPACK_IMPORTED_MODULE_4__["addLodingIcon"])();
     setTimeout(function () {
-      document.querySelector('.loading-icon').remove();
+      let icon = document.querySelector('.loading-icon');
+      (icon) ? icon.remove() : {};
       Object(_certificates__WEBPACK_IMPORTED_MODULE_5__["createContent"])(certificates, currentPage);
     }, 700);
   }
@@ -1215,6 +1221,14 @@ async function searchByTag(event) {
 }
 window.searchByTag = searchByTag;
 
+//save and restore the last scroll position on the page
+window.addEventListener('beforeunload', function () {
+  if (window.location.endsWith('index.html')) {
+    _navigation__WEBPACK_IMPORTED_MODULE_3__["saveScroll"]();
+  }
+});
+window.setScroll = _navigation__WEBPACK_IMPORTED_MODULE_3__["setScroll"];
+
 
 /***/ }),
 
@@ -1222,7 +1236,7 @@ window.searchByTag = searchByTag;
 /*!******************************!*\
   !*** ./src/js/navigation.js ***!
   \******************************/
-/*! exports provided: addShowClass, removeShowClass, toggleModal, scrollTop, goBack */
+/*! exports provided: addShowClass, removeShowClass, toggleModal, addScrollTopEvent, goBack, saveScroll, setScroll */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1230,8 +1244,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addShowClass", function() { return addShowClass; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeShowClass", function() { return removeShowClass; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleModal", function() { return toggleModal; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollTop", function() { return scrollTop; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addScrollTopEvent", function() { return addScrollTopEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "goBack", function() { return goBack; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveScroll", function() { return saveScroll; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setScroll", function() { return setScroll; });
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function addShowClass(number) {
@@ -1262,7 +1278,7 @@ function toggleModal(id) {
   }
 }
 
-function scrollTop() {
+function addScrollTopEvent() {
   const element = document.querySelector('.scroll-top');
   element.addEventListener('click', () => {
     window.scrollTo(0, 0);
@@ -1273,6 +1289,16 @@ function goBack() {
   window.history.back();
 }
 
+function saveScroll() {
+  localStorage.scrollLeft = window.pageXOffset;
+  localStorage.scrollTop = window.pageYOffset;
+}
+
+function setScroll() {
+  let x = localStorage.scrollLeft;
+  let y = localStorage.scrollTop;
+  window.scrollTo(x, y);
+}
 
 
 /***/ }),
@@ -1290,12 +1316,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ "./src/js/index.js");
 
 
+const TAGS_ON_PAGE = 6;
+
 function createTags(tags) {
 	const parentElement = document.querySelector('.categories-wrapper');
 	parentElement.append(...writeTagsContent(tags));
 	for (const child of parentElement.children) {
+		setTimeout(function () {
+			child.style.opacity = 1;
+		}, 500);
 		child.onclick = _index_js__WEBPACK_IMPORTED_MODULE_0__["searchByTag"];
-	} 
+	}
 }
 
 function writeTagsContent(tags) {
@@ -1308,12 +1339,13 @@ function writeTagsContent(tags) {
 		categoryDropdown.insertAdjacentHTML('beforeend',
 			`<a href="#" onclick="searchByTag(event)">${tag.name}</a>`);
 
-		let div = document.createElement('div');
-		div.className = 'category-figure';
-		div.insertAdjacentHTML('beforeend',
-			`<img src="/assets/logo.png" alt="Category img">
-			 <div>${tag.name}</div>`);
-		result.push(div);
+		if (i < TAGS_ON_PAGE) {
+			let div = document.createElement('div');
+			div.className = 'category-figure';
+			div.insertAdjacentHTML('beforeend',
+			`<div class="tag-name">${tag.name}</div>`);
+			result.push(div);
+		}
 	}
 
 	return result;

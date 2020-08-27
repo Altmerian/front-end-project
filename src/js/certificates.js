@@ -4,6 +4,12 @@ const PAGE_SIZE = 10;
 export function createContent(certificates, page) {
 	let startIndex = page * PAGE_SIZE;
 	parentElement.append(...writeCertificatesContent(certificates, startIndex));
+	let cards = parentElement.querySelectorAll('.card');
+	for (const card of cards) {
+		setTimeout(function () {
+			card.style.opacity = 1;
+		}, 500);
+	}
 }
 
 export function checkMoreContent(certificates, currentPage) {
@@ -20,24 +26,24 @@ export function removeContent() {
 		parentElement = document.querySelector('section');
 	}
 	while (parentElement.firstChild) {
-    parentElement.removeChild(parentElement.lastChild);
-  }
+		parentElement.removeChild(parentElement.lastChild);
+	}
 }
 
 export function wtiteNoResults(search) {
 	parentElement.innerHTML = `<p>No results were found for your search: "${search}" :(.<p>`
-  }
+}
 
 function writeCertificatesContent(certificates, startIndex) {
 	let result = [];
-	let endIndex = Math.min(startIndex + 10, certificates.length) 
+	let endIndex = Math.min(startIndex + 10, certificates.length)
 
 	for (let i = startIndex; i < endIndex; i++) {
 		let certificate = certificates[i];
 		let div = document.createElement('div');
 		div.className = 'card';
 		div.insertAdjacentHTML('beforeend',
-			 `<a href="certificate.html"><img src="/assets/logo1.png" alt="Certificate img"></a>
+			`<a href="certificate.html"><img src="/assets/logo1.png" alt="Certificate img"></a>
 				<div class="card-text">
 					<div>
 						<span class="card-item-name">${certificate.name}</span>

@@ -11,12 +11,11 @@ let certificates;
 let tags;
 let currentPage = 0;
 
+//fetch certificates data
 if (location.pathname.endsWith('index.html')) {
   (async function fetchData() {
     certificates = await getCertificates(1, 100);
-    tags = await getTags(1, 8);
-    localStorage.certificates = JSON.stringify(certificates);
-    localStorage.tags = JSON.stringify(tags);
+    tags = await getTags(1, 10);
     createTags(tags);
     createContent(certificates, currentPage);
   })();
@@ -31,18 +30,19 @@ const navbarLoadedCallback = function () {
 window.addShowClass = Navigation.addShowClass;
 window.onclick = Navigation.removeShowClass;
 window.addEventListener('navbarLoaded', navbarLoadedCallback);
-window.addEventListener('body-loaded', Navigation.scrollTop);
+window.addEventListener('body-loaded', Navigation.addScrollTopEvent);
 window.addEventListener('scroll', throttle(checkWindowScroll, 200)
 );
 
 function checkWindowScroll() {
   if (((window.pageYOffset + document.documentElement.clientHeight + 50) >=
-        document.documentElement.scrollHeight) &&
-        checkMoreContent(certificates, currentPage)) {
+    document.documentElement.scrollHeight) &&
+    checkMoreContent(certificates, currentPage)) {
     currentPage++;
     addLodingIcon();
     setTimeout(function () {
-      document.querySelector('.loading-icon').remove();
+      let icon = document.querySelector('.loading-icon');
+      (icon) ? icon.remove() : {};
       createContent(certificates, currentPage);
     }, 700);
   }
@@ -114,3 +114,11 @@ export async function searchByTag(event) {
   }
 }
 window.searchByTag = searchByTag;
+
+//save and restore the last scroll position on the page
+window.addEventListener('beforeunload', function () {
+  if (window.location.endsWith('index.html')) {
+    Navigation.saveScroll();
+  }
+});
+window.setScroll = Navigation.setScroll;

@@ -1,11 +1,16 @@
-import {searchByTag} from './index.js'
+import { searchByTag } from './index.js'
+
+const TAGS_ON_PAGE = 6;
 
 export function createTags(tags) {
 	const parentElement = document.querySelector('.categories-wrapper');
 	parentElement.append(...writeTagsContent(tags));
 	for (const child of parentElement.children) {
+		setTimeout(function () {
+			child.style.opacity = 1;
+		}, 500);
 		child.onclick = searchByTag;
-	} 
+	}
 }
 
 function writeTagsContent(tags) {
@@ -18,12 +23,13 @@ function writeTagsContent(tags) {
 		categoryDropdown.insertAdjacentHTML('beforeend',
 			`<a href="#" onclick="searchByTag(event)">${tag.name}</a>`);
 
-		let div = document.createElement('div');
-		div.className = 'category-figure';
-		div.insertAdjacentHTML('beforeend',
-			`<img src="/assets/logo.png" alt="Category img">
-			 <div>${tag.name}</div>`);
-		result.push(div);
+		if (i < TAGS_ON_PAGE) {
+			let div = document.createElement('div');
+			div.className = 'category-figure';
+			div.insertAdjacentHTML('beforeend',
+			`<div class="tag-name">${tag.name}</div>`);
+			result.push(div);
+		}
 	}
 
 	return result;

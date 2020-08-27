@@ -158,6 +158,11 @@ img.avatar-navbar {
   min-width: 210px;
   padding: 8px;
   width: 33vw;
+
+  &:hover {
+    background-color: rgb(232, 232, 232);
+  }
+
 }
 
 .tag-search-container {
@@ -282,38 +287,62 @@ img.avatar-navbar {
   align-items: flex-start;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  width: 80%;
 }
 
 .category-figure {
-  display: inline-block;
+  align-items: center;
+  background-color: white;
+  background-image: url("../assets/logo.png");
+  background-position: center;
+  border-radius: 5%;
+  display: flex;
   flex: 0 1 auto;
+  height: 120px;
   margin: 6px auto;
+  min-height: 60px;
   min-width: 60px;
-  width: 100px;
-  text-align: center;
+  opacity: 0;
+  transition: opacity 1s 1s;
+  width: 120px;
 
-  img{
-    background-color: white;
-    display: inline-block;
-    margin: 0;
-    object-fit: scale-down;
-    width: 67%;
+  &:hover {
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)) url("../assets/logo.png");
+    background-color: #ddd;
+    background-size: cover;
+    cursor: pointer;
+    opacity: 0.9;
 
-    &:hover {
-      cursor: pointer;
-      object-fit: contain;
-      background-color: #ddd;
-    }
-
-    @media (max-width: $mobile-breakpoint) {
-      width: 45%;
-    }
+    .tag-name {
+      display: block;
+    }  
   }
 
-  p {
-    margin-block-start: 0;
-    margin-block-end: 0;
-    margin-top: 6px;
+  .tag-name {
+    background-color: rgb(0, 0, 0);
+    border-radius: 7%;
+    color: white;
+    display: none;
+    height: 40px;
+    line-height: 40px;
+    margin: 10px auto;
+    padding: 0 4px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    width: 90%;
+  }
+
+  
+
+  @media (max-width: $mobile-breakpoint) {
+    height: 100px;
+    width: 100px;
+    .tag-name {
+      font-size: 10px;
+    }
   }
 }
 
@@ -325,10 +354,12 @@ img.avatar-navbar {
 
 .card {
   background-color: white;
-  margin: 8px;
-  min-width: 100px;
-  max-width: 160px;
   height: 300px;
+  margin: 8px;
+  max-width: 160px;
+  min-width: 100px;
+  opacity: 0;
+  transition: opacity 1s;
 
   img {
     background-color: #ddd;

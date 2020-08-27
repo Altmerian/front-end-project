@@ -124,6 +124,9 @@ img.avatar-navbar:hover {
   padding: 8px;
   width: 33vw;
 }
+.search-container input:hover {
+  background-color: #e8e8e8;
+}
 
 .tag-search-container:hover {
   background-color: white;
@@ -239,37 +242,59 @@ img.avatar-navbar:hover {
   align-items: flex-start;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  width: 80%;
 }
 
 .category-figure {
-  display: inline-block;
-  flex: 0 1 auto;
-  margin: 6px auto;
-  min-width: 60px;
-  width: 100px;
-  text-align: center;
-}
-.category-figure img {
+  align-items: center;
   background-color: white;
-  display: inline-block;
-  margin: 0;
-  object-fit: scale-down;
-  width: 67%;
+  background-image: url(../assets/logo.png);
+  background-position: center;
+  border-radius: 5%;
+  display: flex;
+  flex: 0 1 auto;
+  height: 120px;
+  margin: 6px auto;
+  min-height: 60px;
+  min-width: 60px;
+  opacity: 0;
+  transition: opacity 1s 1s;
+  width: 120px;
 }
-.category-figure img:hover {
-  cursor: pointer;
-  object-fit: contain;
+.category-figure:hover {
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)) url(../assets/logo.png);
   background-color: #ddd;
+  background-size: cover;
+  cursor: pointer;
+  opacity: 0.9;
+}
+.category-figure:hover .tag-name {
+  display: block;
+}
+.category-figure .tag-name {
+  background-color: black;
+  border-radius: 7%;
+  color: white;
+  display: none;
+  height: 40px;
+  line-height: 40px;
+  margin: 10px auto;
+  padding: 0 4px;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  width: 90%;
 }
 @media (max-width: 640px) {
-  .category-figure img {
-    width: 45%;
+  .category-figure {
+    height: 100px;
+    width: 100px;
   }
-}
-.category-figure p {
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-top: 6px;
+  .category-figure .tag-name {
+    font-size: 10px;
+  }
 }
 
 .certificates-container {
@@ -282,10 +307,12 @@ img.avatar-navbar:hover {
 
 .card {
   background-color: white;
-  margin: 8px;
-  min-width: 100px;
-  max-width: 160px;
   height: 300px;
+  margin: 8px;
+  max-width: 160px;
+  min-width: 100px;
+  opacity: 0;
+  transition: opacity 1s;
 }
 .card img {
   background-color: #ddd;

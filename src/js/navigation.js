@@ -28,7 +28,7 @@ export function toggleModal(id) {
   }
 }
 
-export function scrollTop() {
+export function addScrollTopEvent() {
   const element = document.querySelector('.scroll-top');
   element.addEventListener('click', () => {
     window.scrollTo(0, 0);
@@ -39,3 +39,13 @@ export function goBack() {
   window.history.back();
 }
 
+export function saveScroll() {
+  localStorage.scrollLeft = window.pageXOffset;
+  localStorage.scrollTop = window.pageYOffset;
+}
+
+export function setScroll() {
+  let x = localStorage.scrollLeft;
+  let y = localStorage.scrollTop;
+  window.scrollTo(x, y);
+}
