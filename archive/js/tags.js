@@ -15,7 +15,7 @@ export function createTags(tags) {
 
 function writeTagsContent(tags) {
 	let result = [];
-	const categoryDropdown = document.getElementById('myDropdown2');
+	const categoryDropdown = document.getElementById('myDropdown');
 
 	for (let i = 0; i < tags.length; i++) {
 		let tag = tags[i];
