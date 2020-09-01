@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-navbar',
@@ -6,14 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  showClass: boolean = false;
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  toggleShowClass() {
-    this.showClass = !this.showClass;
+  searchByTag(event: Event) {
+    this.trigger.closeMenu();
+    console.log('search by tag...')
   }
 }

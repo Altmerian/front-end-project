@@ -29,21 +29,36 @@
         <input type="submit" hidden>
       </form>
     </div>
-    <div class="dropdown">
-      <button (click)="toggleShowClass()" class="dropdown-button">All categories
-        <i class="material-icons">arrow_drop_down</i>
-      </button>
-      <div id="myDropdown" [class.show]="showClass" class="dropdown-content">
-        <div class="tag-search-container">
-          <form action="#" onsubmit="searchByTag(event)">
-            <input class="dropdown-input" type="text" placeholder="Tag name..." name="tag">
-            <i class="material-icons">search</i>
-            <input type="submit" hidden />
-          </form>
-        </div>
+    <button mat-button [matMenuTriggerFor]="categories">All categories
+      <i class="material-icons">arrow_drop_down</i></button>
+    <mat-menu #categories="matMenu">
+      <div class="tag-search-container" (click)="$event.stopPropagation()">
+        <form action="#" (submit)="searchByTag($event)">
+          <input class="dropdown-input" type="text" placeholder="Tag name..." name="tag">
+          <i class="material-icons">search</i>
+          <input type="submit" hidden />
+        </form>
       </div>
-    </div>
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
   </div>
+
+  <!-- <div class="dropdown">
+          <button (click)="toggleShowClass()" class="dropdown-button">All categories
+            <i class="material-icons">arrow_drop_down</i>
+          </button>
+          <div id="myDropdown" [class.show]="showClass" class="dropdown-content">
+            <div class="tag-search-container">
+              <form action="#" onsubmit="searchByTag(event)">
+                <input class="dropdown-input" type="text" placeholder="Tag name..." name="tag">
+                <i class="material-icons">search</i>
+                <input type="submit" hidden />
+              </form>
+            </div>
+          </div>
+        </div> -->
+
   <div class="wrapper">
     <a href="#favorite"><i class="material-icons">favorite_border</i></a>
     <a href="order.html"><i class="material-icons">local_grocery_store</i></a>
