@@ -12,12 +12,13 @@ let tags;
 let currentPage = 0;
 
 //fetch certificates data
-if (location.pathname.endsWith('index.html')) {
+if (location.pathname.includes('index.html')) {
   (async function fetchData() {
     certificates = await getCertificates(1, 100);
     tags = await getTags(1, 10);
     createTags(tags);
     createContent(certificates, currentPage);
+    Navigation.setScroll();
   })();
 }
 
@@ -117,8 +118,7 @@ window.searchByTag = searchByTag;
 
 //save and restore the last scroll position on the page
 window.addEventListener('beforeunload', function () {
-  if (window.location.endsWith('index.html')) {
+  if (window.location.href.includes('index.html')) {
     Navigation.saveScroll();
   }
 });
-window.setScroll = Navigation.setScroll;

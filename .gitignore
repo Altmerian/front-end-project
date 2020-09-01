@@ -31,8 +31,15 @@ hs_err_pid*
 #IDE files
 *.iml
 /.idea/
-/.vscode/
 /.vs/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
 #Gradle files
 .gradle/

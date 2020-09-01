@@ -1118,12 +1118,13 @@ let tags;
 let currentPage = 0;
 
 //fetch certificates data
-if (location.pathname.endsWith('index.html')) {
+if (location.pathname.includes('index.html')) {
   (async function fetchData() {
     certificates = await getCertificates(1, 100);
     tags = await getTags(1, 10);
     Object(_tags__WEBPACK_IMPORTED_MODULE_6__["createTags"])(tags);
     Object(_certificates__WEBPACK_IMPORTED_MODULE_5__["createContent"])(certificates, currentPage);
+    _navigation__WEBPACK_IMPORTED_MODULE_3__["setScroll"]();
   })();
 }
 
@@ -1223,11 +1224,10 @@ window.searchByTag = searchByTag;
 
 //save and restore the last scroll position on the page
 window.addEventListener('beforeunload', function () {
-  if (window.location.endsWith('index.html')) {
+  if (window.location.href.includes('index.html')) {
     _navigation__WEBPACK_IMPORTED_MODULE_3__["saveScroll"]();
   }
 });
-window.setScroll = _navigation__WEBPACK_IMPORTED_MODULE_3__["setScroll"];
 
 
 /***/ }),
@@ -1299,7 +1299,6 @@ function setScroll() {
   let y = localStorage.scrollTop;
   window.scrollTo(x, y);
 }
-
 
 /***/ }),
 
