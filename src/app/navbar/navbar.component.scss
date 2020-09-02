@@ -1,7 +1,8 @@
+// Angular material
 .mat-icon-button.large {
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
 
   .mat-icon {
     font-size: 32px;
@@ -12,6 +13,31 @@
 
   &:hover {
     background-color: #eee;
+  }
+}
+
+.mat-icon-button {
+  &:hover {
+    background-color: #eee;
+  }
+}
+
+.mat-menu-item {
+  font-weight: 500;
+}
+
+/* Material icons*/
+a > i.material-icons {
+  border: 0;
+  line-height: 18px;
+  color: rgba(0,0,0,0.6);
+}
+
+.material-icons {
+  vertical-align: text-bottom;
+
+  &.dropdown-button {
+    font-size: 32px;
   }
 }
 
@@ -33,32 +59,15 @@
     text-decoration: none;
   }
 
-  a:first-of-type {
+  .wrapper:first-child a:first-of-type {
     margin-left: 6px;
   }
 }
 
 /* hover & focus */
 .navbar a:hover,
-.dropdown-button:hover, .dropdown-button:focus,
 .cancel-btn:hover {
-  background-color: #ddd;
-}
-
-/* Awesome icons*/
-a > i.material-icons {
-  border: 0;
-  line-height: 18px;
-  color: rgba(0,0,0,0.6);
-}
-
-/* Material icons*/
-.material-icons {
-  vertical-align: text-bottom;
-
-  &.dropdown-button {
-    font-size: 32px;
-  }
+  background-color: #eee;
 }
 
 /* Navbar logo */
@@ -76,18 +85,18 @@ img.avatar-navbar {
   font-weight: 500;
   text-align: left;
   min-width: 210px;
-  padding: 8px;
+  padding: 10px;
   width: 33vw;
 
   &:hover {
-    background-color: rgb(232, 232, 232);
+    background-color:rgb(248, 248, 248);
   }
 
 }
 
 .tag-search-container {
   &:hover {
-    background-color: white;
+    background-color: #f1f1f1;
   }
 
   i {
@@ -95,17 +104,18 @@ img.avatar-navbar {
   }
 
   form input {
-    background-color: #f1f1f1;
     border: none;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
-    padding: 10px 16px;
+    padding: 16px;
     text-align: left;
     width: 160px;
 
     &:hover,
-    &:focus {
-      background-color: white;
+    &:focus,
+    &:active {
+      border: none;
+      background-color: #f1f1f1;
     }
   }
 }
@@ -113,14 +123,7 @@ img.avatar-navbar {
 /* Dropdown Button */
 .dropdown-button {
   align-items: center;
-  background-color: #ffffff;
   border: 1px solid #ccc;
-  color: rgba(0, 0, 0, 0.7);
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 4px;
   margin-right: 4px;
   white-space: nowrap;
 }

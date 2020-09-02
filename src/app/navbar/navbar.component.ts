@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,8 @@ import { MatMenuTrigger } from '@angular/material/menu';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  isFavorite: boolean = false;
+  @ViewChildren(MatMenuTrigger) TagMenuTrigger: QueryList<MatMenuTrigger>;
 
   constructor() { }
 
@@ -15,7 +17,12 @@ export class NavbarComponent implements OnInit {
   }
 
   searchByTag(event: Event) {
-    this.trigger.closeMenu();
-    console.log('search by tag...')
+    event.preventDefault();
+    this.TagMenuTrigger.last.closeMenu();
+    console.log('search by tag...' + event)
+  }
+
+  toggleFavorite() {
+    this.isFavorite = !this.isFavorite;
   }
 }

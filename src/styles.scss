@@ -67,8 +67,8 @@ body {
 
   & > a {
     color: rgba(0, 0, 0, 0.6);
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 500;
     margin: 6px 0;
     padding: 4px;
     text-decoration: none;
@@ -109,10 +109,10 @@ body {
 /* ============================ Main Page ============================= */
 .scroll-top {
   height: 32px;
-  left: 2px;
+  right: 2px;
   opacity: 0.7;
   position: fixed;
-  top: 90vh;
+  top: 93vh;
   width: 32px;
 
   img {
@@ -132,81 +132,6 @@ body {
 
   img {
     @include fit-image(100%, contain);
-  }
-}
-
-
-.categories-panel {
-  box-sizing: border-box;
-  background-color: #ddd;
-  display: inline-flex;
-  flex-wrap: wrap;
-  font-size: 12px;
-  height: calc(60px + 3%);
-  justify-content: center;
-  width: 100%;
-}
-
-.categories-wrapper {
-  align-items: flex-start;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 80%;
-}
-
-.category-figure {
-  align-items: center;
-  background-color: white;
-  background-image: url("./assets/logo.png");
-  background-position: center;
-  border-radius: 5%;
-  display: flex;
-  flex: 0 1 auto;
-  height: 120px;
-  margin: 6px auto;
-  min-height: 60px;
-  min-width: 60px;
-  opacity: 0;
-  transition: opacity 1s 1s;
-  width: 120px;
-
-  &:hover {
-    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)) url("./assets/logo.png");
-    background-color: #ddd;
-    background-size: cover;
-    cursor: pointer;
-    opacity: 0.9;
-
-    .tag-name {
-      display: block;
-    }
-  }
-
-  .tag-name {
-    background-color: rgb(0, 0, 0);
-    border-radius: 7%;
-    color: white;
-    display: none;
-    height: 40px;
-    line-height: 40px;
-    margin: 10px auto;
-    padding: 0 4px;
-    overflow: hidden;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: pre-wrap;
-    width: 90%;
-  }
-
-
-
-  @media (max-width: $mobile-breakpoint) {
-    height: 100px;
-    width: 100px;
-    .tag-name {
-      font-size: 10px;
-    }
   }
 }
 

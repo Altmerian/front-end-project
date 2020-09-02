@@ -19,7 +19,7 @@
       <button mat-menu-item>Sublink 3</button>
     </mat-menu>
     <a href="index.html">
-      <img src="/assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
+      <img src="assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
   </div>
 
   <div class="wrapper">
@@ -29,7 +29,7 @@
         <input type="submit" hidden>
       </form>
     </div>
-    <button mat-button [matMenuTriggerFor]="categories">All categories
+    <button mat-button class="dropdown-button" [matMenuTriggerFor]="categories">All categories
       <i class="material-icons">arrow_drop_down</i></button>
     <mat-menu #categories="matMenu">
       <div class="tag-search-container" (click)="$event.stopPropagation()">
@@ -44,23 +44,10 @@
     </mat-menu>
   </div>
 
-  <!-- <div class="dropdown">
-          <button (click)="toggleShowClass()" class="dropdown-button">All categories
-            <i class="material-icons">arrow_drop_down</i>
-          </button>
-          <div id="myDropdown" [class.show]="showClass" class="dropdown-content">
-            <div class="tag-search-container">
-              <form action="#" onsubmit="searchByTag(event)">
-                <input class="dropdown-input" type="text" placeholder="Tag name..." name="tag">
-                <i class="material-icons">search</i>
-                <input type="submit" hidden />
-              </form>
-            </div>
-          </div>
-        </div> -->
-
   <div class="wrapper">
-    <a href="#favorite"><i class="material-icons">favorite_border</i></a>
+    <button mat-icon-button (click)="toggleFavorite()">
+      <mat-icon>{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+    </button>
     <a href="order.html"><i class="material-icons">local_grocery_store</i></a>
     <a href="login.html">Login</a>
     <a href="register.html">SignUp</a>
