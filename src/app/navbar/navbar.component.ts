@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { MatMenuTrigger, _MatMenu } from '@angular/material/menu';
 import { CertificateService } from '../certificates/certificate.service'
 import { TagService } from '../tags/tag.service';
@@ -15,7 +15,6 @@ export class NavbarComponent implements OnInit {
   isFavorite: boolean = false;
   tags: Tag[] = [];
   tagSearch: string;
-  @ViewChild('categories') tagMenu: _MatMenu;
   @ViewChildren(MatMenuTrigger) tagMenuTrigger: QueryList<MatMenuTrigger>;
 
   constructor(
@@ -25,9 +24,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.tagService.getTags(1, 10).subscribe(data => this.tags = data);
-  }
-
-  ngAfterViewInit() {
     const searchElement = document.getElementById('searchPanel');
     searchElement.addEventListener('input',
       debounce(this.certificateService.searchCertificatesRef, 1000));

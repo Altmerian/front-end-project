@@ -29,7 +29,7 @@ $tablet-breakpoint: 768px;
 @mixin common-button($width) {
   cursor: pointer;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   width: $width;
 }
 
@@ -86,7 +86,7 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* The Close Button */
@@ -334,7 +334,7 @@ body {
   p {
     height: 50px;
     line-height: 50px;
-    margin: 0 3% 0 16%;
+    margin: 0 3% 0 20%;
   }
 }
 
@@ -344,8 +344,9 @@ body {
   flex-direction: column;
   flex: 1 0 auto;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   min-width: 180px;
+  max-width: 480px;
   width: 40%;
 
   & + & {
@@ -363,7 +364,7 @@ body {
   border: 1px solid #ccc;
   color: rgba(0, 0, 0, 0.8);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   margin: 8px 0;
   padding: 8px;
 }
@@ -400,78 +401,4 @@ body {
 /* Add a hover effect for buttons */
 button:hover {
   opacity: 0.8;
-}
-
-.image-input {
-  background-color: white;
-  border: 1px solid #ccc;
-  height: 38px;
-  margin: 8px 0;
-  padding: 2px 2px 2px 8px;
-}
-
-.img-upload {
-  margin: 3px;
-  max-height: 80%;
-  float: right;
-}
-
-#customText {
-  line-height: 32px;
-}
-
-
-/* Register form ---------------------------------------------------------*/
-/* Center content inside form container */
-.register-form-container {
-  background-color: #f9f9f9;
-  box-shadow: 0 15px 30px 0 rgba(0,0,0,0.5);
-  margin: auto;
-  max-width: 1100px;
-  width: 70%;
-
-  form {
-    @include flex-container();
-    padding: 15px;
-  }
-
-  p {
-    margin-left: 3%;
-  }
-
-  button {
-    width: 45%;
-  }
-}
-
-
-/* Add new Certificate form ----------------------------------------------*/
-.add-certificate-wrapper {
-  background-color: #f9f9f9;
-  display: block;
-}
-
-/* Center content inside form container */
-.add-form-container {
-  background-color: #f9f9f9;
-  display: block;
-  margin: 0 auto;
-  width: 70%;
-
-  form {
-    @include flex-container();
-    padding: 15px;
-  }
-
-  button {
-    width: 45%;
-  }
-
-  @media (max-width: $mobile-breakpoint) {
-    width: 90%;
-  }
-}
-
-.add-form-container label {
-  margin-top: 8px;
 }

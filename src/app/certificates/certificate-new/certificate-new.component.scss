@@ -1,0 +1,54 @@
+.add-certificate-wrapper {
+  background-color: #f9f9f9;
+  display: block;
+}
+
+.add-form-container {
+  background-color: #f9f9f9;
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+
+  form {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 15px;
+  }
+
+  button {
+    width: 45%;
+  }
+
+  @media (max-width: 640px) {
+    width: 90%;
+  }
+}
+
+.add-form-container label {
+  margin-top: 8px;
+}
+
+
+.image-input {
+  background-color: white;
+  border: 1px solid #ccc;
+  height: 38px;
+  margin: 8px 0;
+  padding: 2px 2px 2px 8px;
+}
+
+.img-upload {
+  margin: 3px;
+  max-height: 80%;
+  float: right;
+}
+
+#customText {
+  line-height: 32px;
+}
+
+.tag-option {
+  font-size: 14px;
+  font-weight: 500;
+}

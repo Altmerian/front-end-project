@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { Certificate } from 'src/app/models/certificate';
-import { CertificateComponent } from '../certificate/certificate.component';
+import { CertificateService } from '../certificate.service';
 
 @Component({
   selector: 'app-certificates-list',
@@ -14,7 +14,11 @@ export class CertificatesListComponent implements OnInit {
   @Input() noSearchResults: boolean;
   search: string;
 
-  constructor() { }
+  constructor(private certificateService: CertificateService) {
+    certificateService.searchTerm$.subscribe(data => {
+      this.search = data.trim();
+    });
+  }
 
   ngOnInit(): void {
   }

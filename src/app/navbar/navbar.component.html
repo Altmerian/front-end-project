@@ -10,7 +10,7 @@
     </mat-menu>
     <mat-menu #certificates="matMenu">
       <button mat-menu-item routerLink="/home">All certificates</button>
-      <button mat-menu-item routerLink="/">New certificate</button>
+      <button mat-menu-item routerLink="/certificate">New certificate</button>
       <button mat-menu-item>Sublink 3</button>
     </mat-menu>
     <mat-menu #orders="matMenu">
@@ -50,7 +50,7 @@
       <mat-icon>{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
     </button>
     <a routerLink="/"><i class="material-icons">local_grocery_store</i></a>
-    <a routerLink="/login">Login</a>
-    <a routerLink="/">SignUp</a>
+    <a routerLink="user/login">Login</a>
+    <a routerLink="user/register">SignUp</a>
   </div>
 </nav>

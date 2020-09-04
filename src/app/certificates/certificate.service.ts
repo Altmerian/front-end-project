@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 export class CertificateService {
 
   certificates$ = new Subject<Certificate[]>();
+  searchTerm$ = new Subject<string>();
   searchCertificatesRef = this.searchCertificates.bind(this);
   readonly apiUrl = 'http://localhost:8088/gift-rest-service/api/v1/certificates/';
 
@@ -33,6 +34,11 @@ export class CertificateService {
     this.getCertificates(1, 100, search).subscribe(data => {
       console.log(data);
       this.certificates$.next(data);
+      if (search.trim()) {
+        this.searchTerm$.next(`name or description: "${search.trim()}"`);
+      } else {
+        this.searchTerm$.next('');
+      }
     });
     console.log('Searching certificates by: ' + search);
   }
@@ -41,6 +47,11 @@ export class CertificateService {
     this.getCertificates(1, 100, '', tag).subscribe(data => {
       console.log(data);
       this.certificates$.next(data);
+      if (tag.trim()) {
+        this.searchTerm$.next(`tag: "${tag.trim()}"`);
+      }else {
+        this.searchTerm$.next('');
+      }
     });
   }
 }

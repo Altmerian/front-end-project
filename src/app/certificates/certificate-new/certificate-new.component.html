@@ -1,0 +1,40 @@
+<main class="add-certificate-wrapper">
+  <div class="form-header">
+    <p>Add new Certificate</p>
+  </div>
+  <div class="add-form-container">
+    <form action="#addCertificate" method="post" id="addCertificate" class="app-form">
+      <div class="form-wrapper">
+        <label id="item-name" for="item-name">Certificate Name</label>
+        <input type="text" name="item-name" required>
+        <label for="category">Category</label>
+        <input type="text" name="tag" placeholder="Pick a tag"
+          [formControl]="myControl"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let tag of tags" [value]="tag.name" class="tag-option">
+            {{tag.name}}
+          </mat-option>
+        </mat-autocomplete>
+        <label for="validTo">Valid to</label>
+        <input type="datetime-local" id="validTo" name="validTo" required>
+        <label for="price">Price</label>
+        <input type="number" id="price" name="price" min="0" step="0.01">
+      </div>
+      <div class="form-wrapper">
+        <label for="imgBtn">Images</label>
+        <div class="image-input">
+          <span id="customText">No file chosen</span>
+          <img class="img-upload" id="imgUpload" src="/assets/image.png" alt="upload">
+        </div>
+        <input type="file" id="imgRealBtn" name="img" accept="image/*" multiple hidden>
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="6"></textarea>
+        <div class="btn-group">
+          <button type="reset" class="cancel-btn">Cancel</button>
+          <button type="submit" class="btn">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>

@@ -1,6 +1,8 @@
+<p *ngIf="!noSearchResults && search" class="search-text">
+  Searching by {{search}}.</p>
+<p *ngIf="noSearchResults && search" class="search-text">
+  Searching by {{search}} : no results were found.</p>
 <div #container class="certificates-container">
-  <p *ngIf="noSearchResults">
-    No results were found for your search: {{search}}" :(.</p>
   <app-certificate *ngFor="let certificate of certificates"
     [certificate-card]="certificate">
   </app-certificate>

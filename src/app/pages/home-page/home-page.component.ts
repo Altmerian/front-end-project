@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CertificateService } from 'src/app/certificates/certificate.service';
-import { CertificatesListComponent } from 'src/app/certificates/certificates-list/certificates-list.component';
 import { Certificate } from 'src/app/models/certificate';
+import { filter, takeUntil } from 'rxjs/operators';
+import { RouterEvent, NavigationEnd, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -16,8 +18,12 @@ export class HomePageComponent implements OnInit {
   readonly PAGE_SIZE = 10;
   private currentPage: number = 1;
   private timeoutId: number;
+  public destroyed = new Subject<any>();
 
-  constructor(private certificateService: CertificateService) {
+  constructor(
+    private certificateService: CertificateService,
+    private router: Router,
+    ) {
     certificateService.certificates$.subscribe(data => {
       this.currentPage = 1;
       this.certificates = data;
@@ -27,10 +33,26 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fetchData();
+    this.router.events.pipe(
+      filter((event: RouterEvent) => event instanceof NavigationEnd),
+      takeUntil(this.destroyed)
+    ).subscribe(() => {
+      this.fetchData();
+      this.certificateService.searchTerm$.next('');
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed.next();
+    this.destroyed.complete();
+  }
+
+  private fetchData() {
     this.certificateService.getCertificates(1, 100).subscribe(data => {
       this.certificates = data;
       this.certificatesToShow = data.slice(0, this.PAGE_SIZE);
-    })
+    });
   }
 
   ngAfterViewInit() {
@@ -68,7 +90,7 @@ export class HomePageComponent implements OnInit {
   showMoreContent() {
     const startIndex = (this.currentPage - 1) * this.PAGE_SIZE;
     let createContent = this.createContent.bind(this);
-    setTimeout(createContent, 700, startIndex)
+    setTimeout(createContent, 500, startIndex)
   }
 
   createContent(startIndex: number) {
