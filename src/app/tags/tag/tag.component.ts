@@ -7,7 +7,7 @@ import { Tag } from 'src/app/models/tag'
   styleUrls: ['./tag.component.scss']
 })
 export class TagComponent implements OnInit {
-  @Input() tag: Tag;
+  @Input('category-figure') tag: Tag;
 
   constructor(private elRef:ElementRef) { }
 

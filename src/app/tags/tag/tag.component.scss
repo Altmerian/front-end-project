@@ -17,7 +17,7 @@
   &:hover {
     background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)) url("../../../assets/logo.png");
     background-color: #ddd;
-    background-size: cover;
+    // background-size: cover;
     cursor: pointer;
     opacity: 0.9;
 
@@ -27,7 +27,7 @@
   }
 
   .tag-name {
-    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
     border-radius: 7%;
     color: white;
     display: none;

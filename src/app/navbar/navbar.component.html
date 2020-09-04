@@ -9,22 +9,22 @@
       <a mat-menu-item href="http://localhost:8088/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
     </mat-menu>
     <mat-menu #certificates="matMenu">
-      <button mat-menu-item>All certificates</button>
-      <button mat-menu-item>New certificate</button>
+      <button mat-menu-item routerLink="/home">All certificates</button>
+      <button mat-menu-item routerLink="/">New certificate</button>
       <button mat-menu-item>Sublink 3</button>
     </mat-menu>
     <mat-menu #orders="matMenu">
       <button mat-menu-item>All orders</button>
-      <button mat-menu-item>New order</button>
+      <button mat-menu-item routerLink="/">New order</button>
       <button mat-menu-item>Sublink 3</button>
     </mat-menu>
-    <a href="index.html">
+    <a routerLink="/home">
       <img src="assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
   </div>
 
   <div class="wrapper">
     <div class="search-container">
-      <form action="#" onsubmit="event.preventDefault()">
+      <form action="#" (submit)="$event.preventDefault()">
         <input type="text" id="searchPanel" placeholder="Search by name or description..." name="search">
         <input type="submit" hidden>
       </form>
@@ -34,13 +34,14 @@
     <mat-menu #categories="matMenu">
       <div class="tag-search-container" (click)="$event.stopPropagation()">
         <form action="#" (submit)="searchByTag($event)">
-          <input class="dropdown-input" type="text" placeholder="Tag name..." name="tag">
+          <input class="dropdown-input" type="text" [(ngModel)]="tagSearch" placeholder="Tag name..." name="tag">
           <i class="material-icons">search</i>
           <input type="submit" hidden />
         </form>
       </div>
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item (click)="searchByTag($event)" *ngFor="let tag of tags">
+        {{tag.name}}
+      </button>
     </mat-menu>
   </div>
 
@@ -48,8 +49,8 @@
     <button mat-icon-button (click)="toggleFavorite()">
       <mat-icon>{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
     </button>
-    <a href="order.html"><i class="material-icons">local_grocery_store</i></a>
-    <a href="login.html">Login</a>
-    <a href="register.html">SignUp</a>
+    <a routerLink="/"><i class="material-icons">local_grocery_store</i></a>
+    <a routerLink="/login">Login</a>
+    <a routerLink="/">SignUp</a>
   </div>
 </nav>

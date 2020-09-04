@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Certificate } from '../models/certificate'
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CertificateService {
-  certificates: Certificate[];
+
+  certificates$ = new Subject<Certificate[]>();
+  searchCertificatesRef = this.searchCertificates.bind(this);
   readonly apiUrl = 'http://localhost:8088/gift-rest-service/api/v1/certificates/';
 
   constructor(private http: HttpClient) { }
@@ -20,7 +23,24 @@ export class CertificateService {
       .set('search', search)
       .set('tag', tag)
       .set('sort', '-creation_date');
-    //TODO map data to Certificate class
-    return this.http.get<Certificate[]>(this.apiUrl, { params })
+    return this.http.get<Certificate[]>(this.apiUrl, { params }).pipe(
+      map(data => data['certificates']));
+  };
+
+  searchCertificates(event: Event) {
+    let search = (event.target as HTMLInputElement).value;
+
+    this.getCertificates(1, 100, search).subscribe(data => {
+      console.log(data);
+      this.certificates$.next(data);
+    });
+    console.log('Searching certificates by: ' + search);
+  }
+
+  searchCertificatesByTag(tag: string) {
+    this.getCertificates(1, 100, '', tag).subscribe(data => {
+      console.log(data);
+      this.certificates$.next(data);
+    });
   }
 }

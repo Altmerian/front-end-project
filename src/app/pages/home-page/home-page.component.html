@@ -1,6 +1,10 @@
 <app-tags-list></app-tags-list>
-<section class="certificates-container">
-
+<section>
+  <app-certificates-list
+  [loadingIcon]="loading"
+  [displayedItems]="certificatesToShow"
+  [noSearchResults]="emptySearch"
+  ></app-certificates-list>
 </section>
 <div class="scroll-top">
   <img src="assets/top-512.png" alt="scroll-top">

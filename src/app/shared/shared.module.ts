@@ -20,6 +20,8 @@ const materialModules = [
   ],
   exports: [
     ...materialModules,
+    CommonModule,
+    FormsModule,
   ]
 })
 export class SharedModule { }
