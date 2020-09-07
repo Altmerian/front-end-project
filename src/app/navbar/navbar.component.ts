@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, ViewChildren, QueryList, Input, AfterViewInit } from '@angular/core';
 import { MatMenuTrigger, _MatMenu } from '@angular/material/menu';
 import { CertificateService } from '../certificates/certificate.service'
 import { TagService } from '../tags/tag.service';
@@ -11,10 +11,11 @@ import debounce from 'lodash.debounce'
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements AfterViewInit {
   isFavorite: boolean = false;
   tags: Tag[] = [];
   tagSearch: string;
+  @Input() isHomePage: boolean;
   @ViewChildren(MatMenuTrigger) tagMenuTrigger: QueryList<MatMenuTrigger>;
 
   constructor(
@@ -22,11 +23,13 @@ export class NavbarComponent implements OnInit {
     private tagService: TagService,
   ) { }
 
-  ngOnInit(): void {
-    this.tagService.getTags(1, 10).subscribe(data => this.tags = data);
-    const searchElement = document.getElementById('searchPanel');
-    searchElement.addEventListener('input',
-      debounce(this.certificateService.searchCertificatesRef, 1000));
+  ngAfterViewInit() {
+    if (this.isHomePage) {
+      this.tagService.getTags(1, 10).subscribe(data => this.tags = data);
+      const searchElement = document.getElementById('searchPanel');
+      searchElement.addEventListener('input',
+        debounce(this.certificateService.searchCertificatesRef, 1000));
+    }
   }
 
   searchByTag(event: Event) {

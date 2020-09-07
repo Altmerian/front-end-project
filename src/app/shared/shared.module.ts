@@ -7,6 +7,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const materialModules = [
   MatIconModule,
@@ -14,6 +15,7 @@ const materialModules = [
   MatButtonModule,
   MatFormFieldModule,
   MatAutocompleteModule,
+  MatDialogModule,
 ];
 
 @NgModule({

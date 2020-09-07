@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Certificate } from '../models/certificate'
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class CertificateService {
   certificates$ = new Subject<Certificate[]>();
   searchTerm$ = new Subject<string>();
   searchCertificatesRef = this.searchCertificates.bind(this);
-  readonly apiUrl = 'http://localhost:8088/gift-rest-service/api/v1/certificates/';
+  readonly apiUrl = 'http://localhost:8087/gift-rest-service/api/v1/certificates';
 
   constructor(private http: HttpClient) { }
 
@@ -27,6 +27,20 @@ export class CertificateService {
     return this.http.get<Certificate[]>(this.apiUrl, { params }).pipe(
       map(data => data['certificates']));
   };
+
+  getCertificate(id: number): Observable<HttpResponse<Certificate>> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Certificate>(url, { observe: 'response' })
+
+  }
+
+  addCertificate(certificate: Certificate) : Observable<HttpResponse<any>> {
+    return this.http.post<any>(this.apiUrl, certificate, { observe: 'response' })
+    // .pipe(catchError(err => {
+    //   console.log(err.error);
+    //   throw err;
+    // } ));
+  }
 
   searchCertificates(event: Event) {
     let search = (event.target as HTMLInputElement).value;

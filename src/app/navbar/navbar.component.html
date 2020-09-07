@@ -15,14 +15,14 @@
     </mat-menu>
     <mat-menu #orders="matMenu">
       <button mat-menu-item>All orders</button>
-      <button mat-menu-item routerLink="/">New order</button>
+      <button mat-menu-item routerLink="/order">New order</button>
       <button mat-menu-item>Sublink 3</button>
     </mat-menu>
     <a routerLink="/home">
       <img src="assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
   </div>
 
-  <div class="wrapper">
+  <div [style.visibility]="(isHomePage) ? 'visible' : 'hidden'" class="wrapper">
     <div class="search-container">
       <form action="#" (submit)="$event.preventDefault()">
         <input type="text" id="searchPanel" placeholder="Search by name or description..." name="search">
@@ -34,7 +34,7 @@
     <mat-menu #categories="matMenu">
       <div class="tag-search-container" (click)="$event.stopPropagation()">
         <form action="#" (submit)="searchByTag($event)">
-          <input class="dropdown-input" type="text" [(ngModel)]="tagSearch" placeholder="Tag name..." name="tag">
+          <input id="tagSearch" class="dropdown-input" type="text" [(ngModel)]="tagSearch" placeholder="Tag name..." name="tag">
           <i class="material-icons">search</i>
           <input type="submit" hidden />
         </form>
@@ -49,8 +49,8 @@
     <button mat-icon-button (click)="toggleFavorite()">
       <mat-icon>{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
     </button>
-    <a routerLink="/"><i class="material-icons">local_grocery_store</i></a>
-    <a routerLink="user/login">Login</a>
-    <a routerLink="user/register">SignUp</a>
+    <a routerLink="/order"><i class="material-icons">local_grocery_store</i></a>
+    <a routerLink="/user/login">Login</a>
+    <a routerLink="/user/register">SignUp</a>
   </div>
 </nav>

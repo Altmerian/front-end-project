@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TagService {
-  readonly apiUrl = 'http://localhost:8088/gift-rest-service/api/v1/tags/';
+  readonly apiUrl = 'http://localhost:8087/gift-rest-service/api/v1/tags/';
 
   constructor(private http: HttpClient) { }
 

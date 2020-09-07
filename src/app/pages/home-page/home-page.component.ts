@@ -15,17 +15,17 @@ export class HomePageComponent implements OnInit {
   certificatesToShow: Certificate[] = [];
   loading: boolean = false;
   emptySearch: boolean = false;
+  destroyed = new Subject<any>();
   readonly PAGE_SIZE = 10;
-  private currentPage: number = 1;
-  private timeoutId: number;
-  public destroyed = new Subject<any>();
+  private _currentPage: number = 1;
+  private _timeoutId: number;
 
   constructor(
     private certificateService: CertificateService,
     private router: Router,
     ) {
     certificateService.certificates$.subscribe(data => {
-      this.currentPage = 1;
+      this._currentPage = 1;
       this.certificates = data;
       this.certificatesToShow = data.slice(0, this.PAGE_SIZE);
       this.emptySearch = (data.length) ? false : true;
@@ -33,12 +33,12 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchData();
+    this._fetchData();
     this.router.events.pipe(
       filter((event: RouterEvent) => event instanceof NavigationEnd),
       takeUntil(this.destroyed)
     ).subscribe(() => {
-      this.fetchData();
+      this._fetchData();
       this.certificateService.searchTerm$.next('');
     });
   }
@@ -48,7 +48,7 @@ export class HomePageComponent implements OnInit {
     this.destroyed.complete();
   }
 
-  private fetchData() {
+  private _fetchData() {
     this.certificateService.getCertificates(1, 100).subscribe(data => {
       this.certificates = data;
       this.certificatesToShow = data.slice(0, this.PAGE_SIZE);
@@ -66,14 +66,14 @@ export class HomePageComponent implements OnInit {
       this.loading = true;
     }
     let checkWindowScroll = this.checkWindowScroll.bind(this);
-    clearTimeout(this.timeoutId);
-    this.timeoutId = setTimeout(checkWindowScroll, 500);
+    clearTimeout(this._timeoutId);
+    this._timeoutId = setTimeout(checkWindowScroll, 500);
   }
 
   checkWindowScroll(event: Event) {
     if (((window.pageYOffset + document.documentElement.clientHeight + 50) >=
       document.documentElement.scrollHeight) && this.checkMoreContent()) {
-      this.currentPage++;
+      this._currentPage++;
       this.showMoreContent();
     } else {
       this.loading = false;
@@ -81,14 +81,14 @@ export class HomePageComponent implements OnInit {
   }
 
   checkMoreContent(): boolean {
-    if (this.PAGE_SIZE * this.currentPage < this.certificates.length) {
+    if (this.PAGE_SIZE * this._currentPage < this.certificates.length) {
       return true;
     }
     return false;
   }
 
   showMoreContent() {
-    const startIndex = (this.currentPage - 1) * this.PAGE_SIZE;
+    const startIndex = (this._currentPage - 1) * this.PAGE_SIZE;
     let createContent = this.createContent.bind(this);
     setTimeout(createContent, 500, startIndex)
   }
