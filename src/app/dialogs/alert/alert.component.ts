@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogData } from "../alert-data";
 
 @Component({
@@ -9,9 +9,15 @@ import { DialogData } from "../alert-data";
 })
 export class AlertComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+  constructor(
+    public dialogRef: MatDialogRef<AlertComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  ) { }
 
   ngOnInit(): void {
   }
 
+  onLinkClick() {
+    this.dialogRef.close();
+  }
 }

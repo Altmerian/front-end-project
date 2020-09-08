@@ -27,6 +27,14 @@ export class CertificateDetailsComponent implements OnInit {
     });
   }
 
+  editItem() {
+
+  }
+
+  deleteItem() {
+
+  }
+
   save(): void {
     // this.certificateService.updateCertificate(this.certificate);
   }

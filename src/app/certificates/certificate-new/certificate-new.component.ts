@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TagService } from 'src/app/tags/tag.service';
 import { Tag } from 'src/app/models/tag';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Certificate } from 'src/app/models/certificate';
 import { CertificateService } from '../certificate.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertComponent } from 'src/app/dialogs/alert/alert.component';
 
 @Component({
   selector: 'app-certificate-new',
@@ -27,6 +29,7 @@ export class CertificateNewComponent implements OnInit {
   isValid: boolean = this.certificateForm.valid;
 
   constructor(
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private tagService: TagService,
     private certificateService: CertificateService,
@@ -37,7 +40,7 @@ export class CertificateNewComponent implements OnInit {
     this._initImageButton();
     this.filteredTags = this.tagSelect.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value))
+      map(value => this._filter(value)),
     );
   }
 
@@ -46,11 +49,24 @@ export class CertificateNewComponent implements OnInit {
     this.certificateService.addCertificate(certificate).subscribe(resp => {
       console.log(resp);
       if (resp.status === 201) {
-        console.log(resp.headers.get('Location'));
+        certificate.id = resp.headers.get('Location').replace(/^.*[\\\/]/, '');
+        this._openDialog(certificate.id)
       }
     }, error => {
       console.log(error);
     })
+  }
+
+  private _openDialog(id: string) {
+    const loginAlert = this.dialog.open(AlertComponent, {
+      data: {
+        title: 'New Certificate',
+        content: `Certificate has been created with id=${id}. To check out press the link below: `,
+        buttonLabel: 'Got it!',
+        link: `certificate/${id}`
+      }
+    });
+    // loginAlert.afterClosed().subscribe(_ => this.goBack());
   }
 
   private _parseFormValues() {
@@ -59,8 +75,8 @@ export class CertificateNewComponent implements OnInit {
     const tag = new Tag(this.certificateForm.value.tag);
     certificate.tags = new Array<Tag>(tag);
     certificate.description = this.certificateForm.value.description;
-    certificate.price = this.certificateForm.value.price;
-    certificate.durationInDays = this.certificateForm.value.durationInDays;
+    certificate.price = this.certificateForm.value.price.toFixed(2);
+    certificate.durationInDays = this.certificateForm.value.durationInDays.toFixed(0);
     return certificate;
   }
 

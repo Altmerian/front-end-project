@@ -14,7 +14,6 @@
   flex: 1 1 auto;
 
   & + & {
-    padding: 20px;
     margin-left: 20px;
   }
 
@@ -47,7 +46,9 @@
   flex-flow: column;
   justify-content: space-between;
   height: 300px;
+  margin: auto;
   max-width: 500px;
+  padding: 20px;
   width: 300px;
 }
 
@@ -88,4 +89,8 @@
   &:hover {
     background-color: #ddd;
   }
+}
+
+.btn-group {
+  justify-content: space-around;
 }

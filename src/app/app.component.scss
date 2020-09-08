@@ -10,4 +10,8 @@ header {
 .main-page-wrapper {
   position: relative;
   top: 55px;
+
+  @media (max-width: 640px) {
+    top: 94px;
+  }
 }

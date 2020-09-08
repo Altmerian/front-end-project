@@ -1,7 +1,7 @@
 import { Tag } from './tag'
 
 export class Certificate {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: number;

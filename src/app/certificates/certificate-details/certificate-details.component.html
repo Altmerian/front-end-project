@@ -9,19 +9,25 @@
         <p>{{certificate.description}}</p>
       </article>
     </div>
-    <div class="item-card flex-item">
-      <div>
-        <h2 class="item-name">{{certificate.name}}</h2>
-        <p class="item-description">{{certificate.description}}</p>
+    <div class="flex-item">
+      <div class="item-card ">
+        <div>
+          <h2 class="item-name">{{certificate.name}}</h2>
+          <p class="item-description">{{certificate.description}}</p>
+        </div>
+        <div class="expires-block">
+          <div>Time Left To Buy</div>
+          <span>{{certificate.durationInDays}}</span>
+        </div>
+        <div>
+          <span class="item-price">{{certificate.price | currency}}</span>
+          <a class="cart-icon" routerLink='/order'><i class="material-icons">local_grocery_store</i></a>
+          <a class="add-to-cart-link" href="#addToCart">Add to cart</a>
+        </div>
       </div>
-      <div class="expires-block">
-        <div>Time Left To Buy</div>
-        <span>{{certificate.durationInDays}}</span>
-      </div>
-      <div>
-        <span class="item-price">{{certificate.price | currency}}</span>
-        <a class="cart-icon" routerLink='/order'><i class="material-icons">local_grocery_store</i></a>
-        <a class="add-to-cart-link" href="#addToCart">Add to cart</a>
+      <div class="btn-group">
+        <button mat-raised-button color="primary" (click)="editItem()">Edit</button>
+        <button mat-raised-button color="accent" (click)="deleteItem()">Delete</button>
       </div>
     </div>
   </div>

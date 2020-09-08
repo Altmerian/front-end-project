@@ -19,7 +19,8 @@ export class ErrorInterceptor implements HttpInterceptor {
       // retry(1),
       catchError((error: HttpErrorResponse) => {
         console.log(`status: ${error.status}`);
-        console.log('message:', error.error.messages[0])
+        let messages = (error.error.messages as Array<string>).join('; ');
+        console.log(messages);
         return throwError(error);
       }));
   }

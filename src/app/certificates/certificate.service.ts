@@ -31,15 +31,15 @@ export class CertificateService {
   getCertificate(id: number): Observable<HttpResponse<Certificate>> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Certificate>(url, { observe: 'response' })
-
   }
 
-  addCertificate(certificate: Certificate) : Observable<HttpResponse<any>> {
+  addCertificate(certificate: Certificate): Observable<HttpResponse<any>> {
     return this.http.post<any>(this.apiUrl, certificate, { observe: 'response' })
-    // .pipe(catchError(err => {
-    //   console.log(err.error);
-    //   throw err;
-    // } ));
+  }
+
+  updateCertificate(certificate: Certificate): Observable<HttpResponse<any>> {
+    const url = this.apiUrl + '/' + certificate.id;
+    return this.http.post<any>(url , certificate, { observe: 'response' })
   }
 
   searchCertificates(event: Event) {
@@ -63,7 +63,7 @@ export class CertificateService {
       this.certificates$.next(data);
       if (tag.trim()) {
         this.searchTerm$.next(`tag: "${tag.trim()}"`);
-      }else {
+      } else {
         this.searchTerm$.next('');
       }
     });
