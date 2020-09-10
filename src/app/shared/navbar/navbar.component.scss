@@ -56,12 +56,18 @@ a > i.material-icons {
 
   a {
     color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
     text-decoration: none;
   }
 
   .wrapper:first-child a:first-of-type {
     margin-left: 6px;
   }
+
+  .cart {
+    margin-right: 10px;
+  }
+
 }
 
 /* hover & focus */
@@ -86,7 +92,7 @@ img.avatar-navbar {
   text-align: left;
   min-width: 210px;
   padding: 10px;
-  width: 33vw;
+  width: 28vw;
 
   &:hover {
     background-color:rgb(248, 248, 248);

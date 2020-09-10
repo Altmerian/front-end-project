@@ -1,9 +1,9 @@
 <div class="add-entity-wrapper">
   <div class="form-header">
-    <p>Add new Certificate</p>
+    <p>Edit Certificate</p>
   </div>
   <div class="add-form-container">
-    <form id="addCertificate" class="app-form" [formGroup]="certificateForm" (ngSubmit)="addCertificate()">
+    <form id="addCertificate" class="app-form" [formGroup]="certificateForm" (ngSubmit)="confirmChanges()">
       <div class="form-wrapper">
         <label id="item-name" for="item-name">Certificate Name</label>
         <input type="text" formControlName="itemName" required>
@@ -29,7 +29,7 @@
         <label for="description">Description</label>
         <textarea id="description" formControlName="description" rows="6"></textarea>
         <div class="btn-group">
-          <button type="reset" class="cancel-btn">Cancel</button>
+          <button type="button" class="cancel-btn" (click)="goBack()">Cancel</button>
           <button type="submit" class="btn" [disabled]="!certificateForm.valid">Save</button>
         </div>
       </div>

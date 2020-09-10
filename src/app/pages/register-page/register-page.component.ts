@@ -5,9 +5,9 @@ import passwordCheckValidator from "../../shared/pswd-check.directive";
 import { MessageService } from 'src/app/shared/message.service';
 import { UserService } from 'src/app/users/user.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
-import { AlertComponent } from 'src/app/dialogs/alert/alert.component';
-import { Credentials } from 'src/app/models/credentials';
+import { User } from 'src/app/shared/models/user';
+import { AlertComponent } from 'src/app/shared/dialogs/alert/alert.component';
+import { Credentials } from 'src/app/shared/models/credentials';
 
 @Component({
   selector: 'app-register-page',
@@ -53,7 +53,7 @@ export class RegisterPageComponent implements OnInit {
         user.id = resp.headers.get('Location').replace(/^.*[\\\/]/, '');
         this._openDialog(user);
         this.userService.login(new Credentials(user.email, user.password))
-          .subscribe(resp => console.log(`Login as ${user.email}: ${resp.ok}`))
+          .subscribe(resp => this.userService.authorizeUser(resp.body['jwtToken']));
       }
     }, error => {
       const message = (error.error.messages as Array<string>).join('; ');
@@ -75,7 +75,7 @@ export class RegisterPageComponent implements OnInit {
     const loginAlert = this.dialog.open(AlertComponent, {
       data: {
         title: 'Successful registration',
-        content: `New user has been added to the system as "${user.email}" with id=${user.id}.
+        content: `New user has been added to the system: "${user.email}", id=${user.id}.\r\n
         You have been logged in as ${user.email}`,
         buttonLabel: 'Ok'
       }

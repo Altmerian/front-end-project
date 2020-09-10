@@ -1,23 +1,56 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Credentials } from '../models/credentials';
-import { User } from '../models/user';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import jwt_decode from 'jwt-decode';
+
+import { Credentials } from '../shared/models/credentials';
+import { User } from '../shared/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  isAdminUser: boolean = false;
+  currentUser: User;
   readonly loginUrl = 'http://localhost:8087/gift-rest-service/login';
   readonly userUrl = 'http://localhost:8087/gift-rest-service/api/v1/users';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    ) { }
 
-  login(credentials: Credentials) : Observable<HttpResponse<any>> {
+  login(credentials: Credentials): Observable<HttpResponse<any>> {
     return this.http.post<any>(this.loginUrl, credentials, { observe: 'response' })
   }
 
-  createUser(user: User) : Observable<HttpResponse<any>> {
+  logout(): void {
+    this.currentUser = null;
+    this.isAdminUser = false;
+    sessionStorage.clear();
+    console.log('Current user logged out');
+    this.router.navigateByUrl('');
+  }
+
+  authorizeUser(token: string) {
+    sessionStorage.authToken = 'Bearer ' + token;
+    const decodedToken = jwt_decode(token);
+
+    this.getUser(decodedToken['userId']).subscribe(resp => {
+      this.currentUser = resp.body;
+      this.isAdminUser = this.currentUser.userRole === 'ADMIN'
+      console.log('Current user:', this.currentUser);
+    });
+  }
+
+  createUser(user: User): Observable<HttpResponse<any>> {
     return this.http.post<any>(this.userUrl, user, { observe: 'response' });
   }
+
+  getUser(userId: string): Observable<HttpResponse<User>> {
+    const url = `${this.userUrl}/${userId}`;
+    return this.http.get<User>(url, { observe: 'response' })
+  }
+
 }

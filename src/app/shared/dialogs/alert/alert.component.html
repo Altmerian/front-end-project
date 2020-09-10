@@ -1,5 +1,5 @@
 <div class="alert-container">
-  <h2 matDialogTitle>{{data.title}}</h2>
+  <h2 [class.error]="data.error"  matDialogTitle>{{data.title}}</h2>
   <mat-dialog-content>
     <p>{{data.content}}</p>
     <a routerLink="{{data.link}}" (click)="onLinkClick()">{{data.link}}</a>
@@ -10,6 +10,6 @@
       Just make sure that you make it a property binding with those [] brackets
       Example: <button mat-button [matDialogClose]="{'lol': true}">Cancel</button>
     -->
-    <button mat-button matDialogClose="ok" color="primary" cdkFocusInitial>{{data.buttonLabel}}</button>
+    <button mat-button matDialogClose="ok" [color]="data.error ? 'accent' : 'primary'" cdkFocusInitial>{{data.buttonLabel}}</button>
   </mat-dialog-actions>
 </div>

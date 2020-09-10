@@ -1,9 +1,12 @@
-import { Component, ViewChildren, QueryList, Input, AfterViewInit } from '@angular/core';
+import { Component, ViewChildren, QueryList, Input, AfterViewInit, OnInit } from '@angular/core';
 import { MatMenuTrigger, _MatMenu } from '@angular/material/menu';
-import { CertificateService } from '../certificates/certificate.service'
-import { TagService } from '../tags/tag.service';
-import { Tag } from '../models/tag';
 import debounce from 'lodash.debounce'
+
+import { CertificateService } from '../../certificates/certificate.service'
+import { TagService } from '../../tags/tag.service';
+import { Tag } from '../models/tag';
+import { UserService } from '../../users/user.service';
+import { User } from '../models/user';
 
 
 @Component({
@@ -11,7 +14,8 @@ import debounce from 'lodash.debounce'
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements AfterViewInit {
+export class NavbarComponent implements AfterViewInit, OnInit {
+  currentUser: User;
   isFavorite: boolean = false;
   tags: Tag[] = [];
   tagSearch: string;
@@ -21,7 +25,11 @@ export class NavbarComponent implements AfterViewInit {
   constructor(
     private certificateService: CertificateService,
     private tagService: TagService,
+    public userService: UserService,
   ) { }
+
+  ngOnInit(): void {
+  }
 
   ngAfterViewInit() {
     if (this.isHomePage) {
@@ -52,5 +60,9 @@ export class NavbarComponent implements AfterViewInit {
 
   toggleFavorite() {
     this.isFavorite = !this.isFavorite;
+  }
+
+  logout() {
+    this.userService.logout();
   }
 }

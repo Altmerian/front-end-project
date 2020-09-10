@@ -8,6 +8,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatBadgeModule } from '@angular/material/badge';
 
 const materialModules = [
   MatIconModule,
@@ -16,10 +18,13 @@ const materialModules = [
   MatFormFieldModule,
   MatAutocompleteModule,
   MatDialogModule,
+  MatCardModule,
+  MatBadgeModule,
 ];
 
 @NgModule({
   declarations: [
+
   ],
   imports: [
     CommonModule,

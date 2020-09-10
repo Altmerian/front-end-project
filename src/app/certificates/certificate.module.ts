@@ -5,6 +5,7 @@ import { CertificatesListComponent } from './certificates-list/certificates-list
 import { CertificateComponent } from './certificate/certificate.component';
 import { CertificateNewComponent } from './certificate-new/certificate-new.component';
 import { CertificateDetailsComponent } from './certificate-details/certificate-details.component';
+import { CertificateEditComponent } from './certificate-edit/certificate-edit.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { CertificateDetailsComponent } from './certificate-details/certificate-d
     CertificateComponent,
     CertificateNewComponent,
     CertificateDetailsComponent,
+    CertificateEditComponent,
   ],
   imports: [
     SharedModule,

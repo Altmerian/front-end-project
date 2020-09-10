@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
-import { Tag } from 'src/app/models/tag'
+import { Tag } from 'src/app/shared/models/tag'
 
 @Component({
   selector: 'app-tag',

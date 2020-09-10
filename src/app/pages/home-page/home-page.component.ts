@@ -1,9 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { CertificateService } from 'src/app/certificates/certificate.service';
-import { Certificate } from 'src/app/models/certificate';
-import { filter, takeUntil } from 'rxjs/operators';
 import { RouterEvent, NavigationEnd, Router } from '@angular/router';
+import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+
+import { CertificateService } from 'src/app/certificates/certificate.service';
+import { Certificate } from 'src/app/shared/models/certificate';
 
 @Component({
   selector: 'app-home-page',

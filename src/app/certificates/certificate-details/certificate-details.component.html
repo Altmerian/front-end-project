@@ -25,9 +25,9 @@
           <a class="add-to-cart-link" href="#addToCart">Add to cart</a>
         </div>
       </div>
-      <div class="btn-group">
+      <div class="btn-group" *ngIf="userService.isAdminUser">
         <button mat-raised-button color="primary" (click)="editItem()">Edit</button>
-        <button mat-raised-button color="accent" (click)="deleteItem()">Delete</button>
+        <button mat-raised-button color="accent" (click)="confirmDelete()">Delete</button>
       </div>
     </div>
   </div>

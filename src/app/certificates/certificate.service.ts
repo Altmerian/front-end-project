@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { Certificate } from '../models/certificate'
 import { Observable, Subject } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, tap, filter, isEmpty, throwIfEmpty, count } from 'rxjs/operators';
+
+import { Certificate } from '../shared/models/certificate'
+import { NotFoundError } from '../shared/errors/notFoundError'
 
 @Injectable({
   providedIn: 'root'
@@ -28,18 +30,27 @@ export class CertificateService {
       map(data => data['certificates']));
   };
 
-  getCertificate(id: number): Observable<HttpResponse<Certificate>> {
+  getCertificate(id: number): Observable<Certificate> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Certificate>(url, { observe: 'response' })
+    return this.http.get<Certificate>(url).pipe(
+      filter(cert => !cert.deleted),
+      throwIfEmpty(() => new NotFoundError(`Certificate with id=${id} not found`)));
   }
 
   addCertificate(certificate: Certificate): Observable<HttpResponse<any>> {
-    return this.http.post<any>(this.apiUrl, certificate, { observe: 'response' })
+    return this.http.post<any>(this.apiUrl, certificate, { observe: 'response' });
   }
 
   updateCertificate(certificate: Certificate): Observable<HttpResponse<any>> {
     const url = this.apiUrl + '/' + certificate.id;
-    return this.http.post<any>(url , certificate, { observe: 'response' })
+    return this.http.put<any>(url, certificate, { observe: 'response' });
+  }
+
+  deleteCertificate(certificate: Certificate) {
+    const url = this.apiUrl + '/' + certificate.id;
+    return this.http.delete<any>(url).pipe(
+      tap(_ => console.log(`deleted certificate id=${certificate.id}`)),
+    );
   }
 
   searchCertificates(event: Event) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AlertComponent } from "../dialogs/alert/alert.component";
 import { MatDialog } from '@angular/material/dialog';
-import { HttpErrorResponse } from '@angular/common/http';
+
+import { AlertComponent } from "./dialogs/alert/alert.component";
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +13,20 @@ export class MessageService {
   ) { }
 
   errorMessage(message: string) {
-    this._openDialog(message);
+    this._openDialog('Failure', message, 'Ok', true);
   }
 
-  private _openDialog(messages: string) {
+  message(title: string, message: string, label: string) {
+    this._openDialog('Failure', message, 'Ok');
+  }
+
+  private _openDialog(heading: string, message: string, label: string = 'Ok', isError: boolean = false) {
     const loginAlert = this.dialog.open(AlertComponent, {
       data: {
-        title: 'Failure',
-        content: messages,
-        buttonLabel: 'Ok'
+        title: heading,
+        content: message,
+        buttonLabel: label,
+        error: isError,
       }
     });
   }

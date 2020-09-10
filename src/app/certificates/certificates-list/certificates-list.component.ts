@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { Certificate } from 'src/app/models/certificate';
+import { Certificate } from 'src/app/shared/models/certificate';
 import { CertificateService } from '../certificate.service';
 
 @Component({

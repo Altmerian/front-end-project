@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+
 import { UserService } from '../../users/user.service';
-import { AlertComponent } from '../../dialogs/alert/alert.component';
-import { Credentials } from 'src/app/models/credentials';
+import { AlertComponent } from '../../shared/dialogs/alert/alert.component';
+import { Credentials } from 'src/app/shared/models/credentials';
 import { MessageService } from 'src/app/shared/message.service';
+import { CertificateService } from 'src/app/certificates/certificate.service';
 
 @Component({
   selector: 'app-login-page',
@@ -22,6 +24,7 @@ export class LoginPageComponent implements OnInit {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private userService: UserService,
+    private certificateService: CertificateService,
     private messageService: MessageService,
     private location: Location,
   ) { }
@@ -31,19 +34,16 @@ export class LoginPageComponent implements OnInit {
 
   login() {
     const credentials: Credentials = this.loginForm.value;
-    console.log(credentials);
     this.userService.login(credentials).subscribe(resp => {
       console.log(resp.status);
       if (resp.status == 200) {
-        console.log(resp.body);
-        sessionStorage.authToken = 'Bearer ' + resp.body['jwtToken'];
+        const token = resp.body['jwtToken'];
+        this.userService.authorizeUser(token);
         this._openDialog(credentials);
-      } else {
-        console.log('Invalid credentials');
       }
     }, error => {
       console.log(error);
-      this.messageService.errorMessage('Invalid email or password.');
+      // this.messageService.errorMessage('Invalid email or password.');
     })
   }
 
@@ -51,7 +51,7 @@ export class LoginPageComponent implements OnInit {
     const loginAlert = this.dialog.open(AlertComponent, {
       data: {
         title: 'Successfully login',
-        content: `You have been entered into the system as ${credentials.email}`,
+        content: `You have been logged in as ${credentials.email}`,
         buttonLabel: 'Go back'
       }
     });
