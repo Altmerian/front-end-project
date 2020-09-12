@@ -3,8 +3,9 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { map, tap, filter, isEmpty, throwIfEmpty, count } from 'rxjs/operators';
 
-import { Certificate } from '../shared/models/certificate'
-import { NotFoundError } from '../shared/errors/notFoundError'
+import { Certificate } from '../shared/models/certificate';
+import { CertificatesData } from '../shared/models/types';
+import { NotFoundError } from '../shared/errors/notFoundError';
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +21,15 @@ export class CertificateService {
 
   getCertificates(page: number, size: number, search: string = '', tag: string = '')
     : Observable<Certificate[]> {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
       .set('search', search)
       .set('tag', tag)
       .set('sort', '-creation_date');
-    return this.http.get<Certificate[]>(this.apiUrl, { params }).pipe(
-      map(data => data['certificates']));
-  };
+    return this.http.get<CertificatesData>(this.apiUrl, { params }).pipe(
+      map(data => data.certificates));
+  }
 
   getCertificate(id: number): Observable<Certificate> {
     const url = `${this.apiUrl}/${id}`;
@@ -46,15 +47,15 @@ export class CertificateService {
     return this.http.put<any>(url, certificate, { observe: 'response' });
   }
 
-  deleteCertificate(certificate: Certificate) {
+  deleteCertificate(certificate: Certificate): Observable<HttpResponse<any>> {
     const url = this.apiUrl + '/' + certificate.id;
-    return this.http.delete<any>(url).pipe(
+    return this.http.delete<any>(url, { observe: 'response' } ).pipe(
       tap(_ => console.log(`deleted certificate id=${certificate.id}`)),
     );
   }
 
-  searchCertificates(event: Event) {
-    let search = (event.target as HTMLInputElement).value;
+  searchCertificates(event: Event): void {
+    const search = (event.target as HTMLInputElement).value;
 
     this.getCertificates(1, 100, search).subscribe(data => {
       console.log(data);
@@ -68,7 +69,7 @@ export class CertificateService {
     console.log('Searching certificates by: ' + search);
   }
 
-  searchCertificatesByTag(tag: string) {
+  searchCertificatesByTag(tag: string): void {
     this.getCertificates(1, 100, '', tag).subscribe(data => {
       console.log(data);
       this.certificates$.next(data);

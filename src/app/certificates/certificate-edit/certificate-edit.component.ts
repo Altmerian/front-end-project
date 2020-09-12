@@ -9,8 +9,9 @@ import { Certificate } from 'src/app//shared/models/certificate';
 import { CertificateService } from '../certificate.service';
 import { Tag } from 'src/app/shared/models/tag';
 import { TagService } from 'src/app/tags/tag.service';
-import { MessageService } from 'src/app/shared/message.service';
+import { MessageService } from 'src/app/shared/services/message.service';
 import { ConfirmComponent } from 'src/app/shared/dialogs/confirm/confirm.component';
+import { EventService } from 'src/app/shared/services/event.service';
 
 @Component({
   selector: 'app-certificate-edit',
@@ -41,20 +42,21 @@ export class CertificateEditComponent implements OnInit {
     private router: Router,
     private tagService: TagService,
     private certificateService: CertificateService,
+    private eventService: EventService,
     private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this._getCertificate();
     this.tagService.getTags(1, 50).subscribe(data => this.tags = data);
-    this._initImageButton();
+    this.eventService.initImageButton();
     this.filteredTags = this.tagSelect.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
     );
   }
 
-  confirmChanges() {
+  confirmChanges(): void {
     const editConfirm = this.dialog.open(ConfirmComponent, {
       data: {
         title: 'Certificate update',
@@ -73,7 +75,7 @@ export class CertificateEditComponent implements OnInit {
     this.router.navigateByUrl(`/certificate/${this.certificate.id}`);
   }
 
-  private _editCertificate() {
+  private _editCertificate(): void {
     const certificate = this._parseFormValues();
     this.certificateService.updateCertificate(certificate).subscribe(resp => {
       console.log(resp);
@@ -85,7 +87,7 @@ export class CertificateEditComponent implements OnInit {
     }, error => {
       this.messageService.errorMessage(error.error.messages[0]);
       console.log(error);
-    })
+    });
   }
 
   private _getCertificate(): void {
@@ -96,7 +98,7 @@ export class CertificateEditComponent implements OnInit {
     });
   }
 
-  private _initForm() {
+  private _initForm(): void {
     this.tagSelect.setValue(this.certificate.tags[0].name);
     this.certificateForm.get('itemName').setValue(this.certificate.name);
     this.certificateForm.get('tag').setValue(this.certificate.tags[0].name);
@@ -105,7 +107,7 @@ export class CertificateEditComponent implements OnInit {
     this.certificateForm.get('description').setValue(this.certificate.description);
   }
 
-  private _parseFormValues() {
+  private _parseFormValues(): Certificate {
     const certificate = new Certificate();
     certificate.id = this.certificate.id;
     certificate.name = this.certificateForm.value.itemName;
@@ -126,28 +128,6 @@ export class CertificateEditComponent implements OnInit {
 
   private _normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '');
-  }
-
-  // hidden real button will be pressed
-  // on custom image upload button click
-  private _initImageButton() {
-    const customText = document.getElementById('customText');
-    const realFileBtn = document.getElementById('imgRealBtn') as HTMLInputElement;
-    realFileBtn.addEventListener('change', function () {
-      if (realFileBtn.value) {
-        customText.innerHTML = realFileBtn.value.replace(/^.*[\\\/]/, '');
-      }
-    });
-
-    const certificateForm = document.getElementById('addCertificate');
-    certificateForm.addEventListener('reset', function () {
-      customText.innerHTML = 'No file chosen';
-    });
-
-    const customBtn = document.getElementById('imgUpload');
-    customBtn.addEventListener('click', function () {
-      realFileBtn.click();
-    });
   }
 
 }

@@ -2,7 +2,7 @@
   <div class="item-wrapper">
     <div class="item-container flex-item">
       <div class="item-img">
-        <img src="/assets/logo1.png" alt="Certificate img">
+        <img src="assets/logo1.png" alt="Certificate img">
       </div>
       <article class="item-description-large">
         <h2>Item Detailed Description</h2>
@@ -22,7 +22,7 @@
         <div>
           <span class="item-price">{{certificate.price | currency}}</span>
           <a class="cart-icon" routerLink='/order'><i class="material-icons">local_grocery_store</i></a>
-          <a class="add-to-cart-link" href="#addToCart">Add to cart</a>
+          <a class="add-to-cart-link" (click)="addToOrder()">Add to cart</a>
         </div>
       </div>
       <div class="btn-group" *ngIf="userService.isAdminUser">

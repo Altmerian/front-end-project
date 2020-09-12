@@ -14,12 +14,15 @@ export class CertificatesListComponent implements OnInit {
   @Input() noSearchResults: boolean;
   search: string;
 
-  constructor(private certificateService: CertificateService) {
-    certificateService.searchTerm$.subscribe(data => {
-      this.search = data.trim();
-    });
+  constructor(
+    private certificateService: CertificateService,
+    ) {
+
   }
 
   ngOnInit(): void {
+    this.certificateService.searchTerm$.subscribe(data => {
+      this.search = data.trim();
+    });
   }
 }

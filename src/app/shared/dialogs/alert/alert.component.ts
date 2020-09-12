@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DialogData } from "../alert-data";
+import { DialogData } from '../alert-data';
 
 @Component({
   selector: 'app-alert',
@@ -17,7 +17,7 @@ export class AlertComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onLinkClick() {
+  onLinkClick(): void {
     this.dialogRef.close();
   }
 }

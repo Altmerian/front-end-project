@@ -1,12 +1,13 @@
 import { Component, ViewChildren, QueryList, Input, AfterViewInit, OnInit } from '@angular/core';
 import { MatMenuTrigger, _MatMenu } from '@angular/material/menu';
-import debounce from 'lodash.debounce'
+import debounce from 'lodash.debounce';
 
-import { CertificateService } from '../../certificates/certificate.service'
+import { CertificateService } from '../../certificates/certificate.service';
 import { TagService } from '../../tags/tag.service';
 import { Tag } from '../models/tag';
 import { UserService } from '../../users/user.service';
 import { User } from '../models/user';
+import { OrderService } from 'src/app/orders/order.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { User } from '../models/user';
 })
 export class NavbarComponent implements AfterViewInit, OnInit {
   currentUser: User;
-  isFavorite: boolean = false;
+  isFavorite = false;
   tags: Tag[] = [];
   tagSearch: string;
   @Input() isHomePage: boolean;
@@ -26,12 +27,13 @@ export class NavbarComponent implements AfterViewInit, OnInit {
     private certificateService: CertificateService,
     private tagService: TagService,
     public userService: UserService,
+    public orderService: OrderService,
   ) { }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.isHomePage) {
       this.tagService.getTags(1, 10).subscribe(data => this.tags = data);
       const searchElement = document.getElementById('searchPanel');
@@ -40,17 +42,17 @@ export class NavbarComponent implements AfterViewInit, OnInit {
     }
   }
 
-  searchByTag(event: Event) {
-    //clear certificate name/description text
+  searchByTag(event: Event): void {
+    // clear certificate name/description text
     const searchElement = document.getElementById('searchPanel');
     (searchElement as HTMLInputElement).value = '';
 
-    let target = event.currentTarget;
-    if (target['tagName'] === 'FORM') {
+    const target = event.currentTarget as HTMLElement;
+    if (target.tagName === 'FORM') {
       event.preventDefault();
       this.tagMenuTrigger.last.closeMenu();
     } else {
-      this.tagSearch = target['textContent'].trim();
+      this.tagSearch = target.textContent.trim();
     }
 
     this.certificateService.searchCertificatesByTag(this.tagSearch);
@@ -58,11 +60,11 @@ export class NavbarComponent implements AfterViewInit, OnInit {
     this.tagSearch = '';
   }
 
-  toggleFavorite() {
+  toggleFavorite(): void {
     this.isFavorite = !this.isFavorite;
   }
 
-  logout() {
+  logout(): void {
     this.userService.logout();
   }
 }

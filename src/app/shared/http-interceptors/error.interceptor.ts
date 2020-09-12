@@ -9,7 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { MessageService } from '../message.service';
+import { MessageService } from '../services/message.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -41,8 +41,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               break;
             }
             case 401:
-              this.router.navigate(['/error'],
-                { state: { status: 401, text: message } });
+              this.messageService.errorMessage(message);
               break;
             case 403: {
               this.router.navigate(['/error'],

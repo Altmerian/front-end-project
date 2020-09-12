@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./error-page.component.scss']
 })
 export class ErrorPageComponent implements OnInit {
-  status: number = 404;
-  text: string = 'Page not found';
+  status = 404;
+  text = 'Page not found';
 
   constructor(private router: Router) {
     const state = this.router.getCurrentNavigation().extras.state;

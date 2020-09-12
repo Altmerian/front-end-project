@@ -7,6 +7,7 @@ import { Certificate } from 'src/app//shared/models/certificate';
 import { UserService } from 'src/app/users/user.service';
 import { AlertComponent } from 'src/app/shared/dialogs/alert/alert.component';
 import { ConfirmComponent } from 'src/app/shared/dialogs/confirm/confirm.component';
+import { OrderService } from 'src/app/orders/order.service';
 
 @Component({
   selector: 'app-certificate-details',
@@ -23,6 +24,7 @@ export class CertificateDetailsComponent implements OnInit {
     private dialog: MatDialog,
     private certificateService: CertificateService,
     public userService: UserService,
+    public orderService: OrderService,
   ) { }
 
   ngOnInit(): void {
@@ -36,11 +38,11 @@ export class CertificateDetailsComponent implements OnInit {
     });
   }
 
-  editItem() {
-    this.router.navigate([this.router.url, 'edit'], {state: this.certificate});
+  editItem(): void{
+    this.router.navigate([this.router.url, 'edit'], { state: this.certificate });
   }
 
-  confirmDelete() {
+  confirmDelete(): void {
     const deleteConfirm = this.dialog.open(ConfirmComponent, {
       data: {
         title: 'Certificate delete',
@@ -55,15 +57,25 @@ export class CertificateDetailsComponent implements OnInit {
     });
   }
 
-  private _deleteItem() {
-    this.certificateService.deleteCertificate(this.certificate).subscribe(_ => {
-        this._openDialog(this.certificate.id);
-      }
-
-    );
+  addToOrder(): void {
+    this.orderService.addCertificate(this.certificate);
   }
 
-  private _openDialog(id: string) {
+  private _deleteItem(): void {
+    this.certificateService.deleteCertificate(this.certificate).subscribe(resp => {
+      console.log(resp);
+      if (resp.ok) {
+        this._openDialog(this.certificate.id);
+        const updatedOrder = this.orderService.currentOrder.filter(cert => cert.id !== this.certificate.id);
+        this.orderService.currentOrder = updatedOrder;
+        this.orderService.syncOrder(updatedOrder);
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  private _openDialog(id: string): void {
     const dialogAlert = this.dialog.open(AlertComponent, {
       data: {
         title: 'Deleted',

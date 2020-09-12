@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Tag } from 'src/app/shared/models/tag';
-import { TagService } from '../tag.service'
+import { TagService } from '../tag.service';
 import { CertificateService } from 'src/app/certificates/certificate.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { CertificateService } from 'src/app/certificates/certificate.service';
 })
 export class TagsListComponent implements OnInit {
   tags: Tag[] = new Array<Tag>();
-  TAGS_ON_PAGE: number = 6;
+  TAGS_ON_PAGE = 6;
 
   constructor(
     private tagService: TagService,
@@ -24,7 +24,7 @@ export class TagsListComponent implements OnInit {
     });
   }
 
-  onTagClick(targetTag: Tag) {
+  onTagClick(targetTag: Tag): void {
     console.log('search by tag... ' + targetTag.name);
     this.certificateService.searchCertificatesByTag(targetTag.name);
   }

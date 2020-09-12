@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Tag } from '../shared/models/tag';
+import { TagsData } from '../shared/models/types';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class TagService {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
-    return this.http.get<Tag[]>(this.apiUrl, { params }).pipe(
-      map(data => data['tags']));
+    return this.http.get<TagsData>(this.apiUrl, { params }).pipe(
+      map(data => data.tags));
   }
 }

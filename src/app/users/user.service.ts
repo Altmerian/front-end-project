@@ -6,12 +6,13 @@ import jwt_decode from 'jwt-decode';
 
 import { Credentials } from '../shared/models/credentials';
 import { User } from '../shared/models/user';
+import { JwtToken } from '../shared/models/types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  isAdminUser: boolean = false;
+  isAdminUser = false;
   currentUser: User;
   readonly loginUrl = 'http://localhost:8087/gift-rest-service/login';
   readonly userUrl = 'http://localhost:8087/gift-rest-service/api/v1/users';
@@ -22,24 +23,24 @@ export class UserService {
     ) { }
 
   login(credentials: Credentials): Observable<HttpResponse<any>> {
-    return this.http.post<any>(this.loginUrl, credentials, { observe: 'response' })
+    return this.http.post<any>(this.loginUrl, credentials, { observe: 'response' });
   }
 
   logout(): void {
     this.currentUser = null;
     this.isAdminUser = false;
-    sessionStorage.clear();
+    localStorage.removeItem('authToken');
     console.log('Current user logged out');
     this.router.navigateByUrl('');
   }
 
-  authorizeUser(token: string) {
-    sessionStorage.authToken = 'Bearer ' + token;
-    const decodedToken = jwt_decode(token);
+  authorizeUser(token: string): void {
+    localStorage.authToken = 'Bearer ' + token;
+    const decodedToken = jwt_decode(token) as JwtToken;
 
-    this.getUser(decodedToken['userId']).subscribe(resp => {
+    this.getUser(decodedToken.userId).subscribe(resp => {
       this.currentUser = resp.body;
-      this.isAdminUser = this.currentUser.userRole === 'ADMIN'
+      this.isAdminUser = this.currentUser.userRole === 'ADMIN';
       console.log('Current user:', this.currentUser);
     });
   }
@@ -50,7 +51,7 @@ export class UserService {
 
   getUser(userId: string): Observable<HttpResponse<User>> {
     const url = `${this.userUrl}/${userId}`;
-    return this.http.get<User>(url, { observe: 'response' })
+    return this.http.get<User>(url, { observe: 'response' });
   }
 
 }

@@ -8,7 +8,7 @@ import { UserService } from '../../users/user.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor (
+  constructor(
     private userService: UserService,
     private router: Router,
     ) {}
@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const user = this.userService.currentUser;
       const userRole = user?.userRole;
-      if (userRole  == 'ADMIN') {
+      if (userRole  === 'ADMIN') {
         return true;
       } else {
        this.router.navigateByUrl('/');

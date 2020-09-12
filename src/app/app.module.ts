@@ -14,7 +14,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AlertComponent } from './shared/dialogs/alert/alert.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
-import { ErrorHandlerService } from "./shared/error-handler.service";
+import { ErrorHandlerService } from './shared/services/error-handler.service';
 import { ConfirmComponent } from './shared/dialogs/confirm/confirm.component';
 
 @NgModule({

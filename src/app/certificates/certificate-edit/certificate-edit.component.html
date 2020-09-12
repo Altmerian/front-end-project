@@ -23,14 +23,14 @@
         <label for="imgBtn">Images</label>
         <div class="image-input">
           <span id="customText">No file chosen</span>
-          <img class="img-upload" id="imgUpload" src="/assets/image.png" alt="upload">
+          <img class="img-upload" id="imgUpload" src="assets/image.png" alt="upload">
         </div>
         <input type="file" id="imgRealBtn" formControlName="image" accept="image/*" multiple hidden>
         <label for="description">Description</label>
         <textarea id="description" formControlName="description" rows="6"></textarea>
         <div class="btn-group">
           <button type="button" class="cancel-btn" (click)="goBack()">Cancel</button>
-          <button type="submit" class="btn" [disabled]="!certificateForm.valid">Save</button>
+          <button type="submit" class="btn" [disabled]="!certificateForm.valid || !certificateForm.dirty">Save</button>
         </div>
       </div>
     </form>

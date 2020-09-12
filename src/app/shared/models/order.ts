@@ -1,5 +1,5 @@
 import { Certificate } from './certificate';
-import { User } from "./user";
+import { User } from './user';
 
 export class Order {
   id: string;
@@ -8,6 +8,10 @@ export class Order {
   user: User;
   deleted: boolean;
   certificates: Certificate[];
+
+  constructor(certificates: Certificate[]) {
+    this.certificates = certificates;
+  }
 }
 
 

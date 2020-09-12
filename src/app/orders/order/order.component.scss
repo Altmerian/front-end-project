@@ -13,13 +13,12 @@
 }
 
 .order-wrapper {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.7);
   display: grid;
   grid-template-columns: 15% auto 15% 15%;
-  grid-template-rows: repeat(var(--cart-items-count), 2fr) 0.7fr;
   margin-top: 30px;
 
-  & > div:nth-last-of-type(3) {
+  & > div:nth-last-of-type(4) {
     border-bottom: 2px ridge #ddd;
   }
 }
@@ -81,24 +80,25 @@
   flex: 1 1 15%;
 }
 
+.clear-btn {
+  grid-column: 2 / 3;
+  margin: auto 0;
+}
+
 .total-text {
   @include cart-font;
   grid-column: 3 / 4;
-  grid-row: 4 / 5 ;
-
-  @media (max-width: $mobile-breakpoint) {
-    grid-column: 2 / 3;
-    grid-row: 4 / 5 ;
-  }
 }
 
 .total-cost {
   @include cart-font;
   grid-column: 4 / 5;
-  grid-row: 4 / 5 ;
 }
 
-.order-btn-group {
-  text-align: right;
+.btn {
+  width: 40%;
 }
 
+.mat-icon-button {
+  margin-top: 8px;
+}

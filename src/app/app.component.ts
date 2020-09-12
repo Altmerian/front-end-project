@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, RouterEvent, NavigationEnd, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { UserService } from './users/user.service';
 import { Subscription } from 'rxjs';
+import { OrderService } from './orders/order.service';
 
 
 @Component({
@@ -11,18 +12,24 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  isHomePage: boolean = true;
+  title = 'front-end-project';
+  isHomePage = true;
   subscription: Subscription;
 
   constructor(
     private router: Router,
     public userService: UserService,
+    public orderService: OrderService,
   ) {
     this.subscription = router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        let token = sessionStorage.getItem('authToken') as string;
-        if (token && !router.navigated) {
+      if (event instanceof NavigationStart && !router.navigated) {
+        const token = localStorage.getItem('authToken') as string;
+        if (token) {
           this.userService.authorizeUser(token.replace('Bearer ', ''));
+        }
+        const order = localStorage.getItem('order') as string;
+        if (order) {
+          this.orderService.currentOrder = JSON.parse(order);
         }
       }
     });
@@ -38,8 +45,33 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  @HostListener('window:storage', ['$event'])
+  syncStorageChanges(event: StorageEvent): void {
+    switch (event.key) {
+      case 'order': {
+        const newOrder = JSON.parse(event.newValue);
+        this.orderService.currentOrder = newOrder;
+        this.orderService.order$.next(newOrder);
+        break;
+      }
+      case 'authToken': {
+        if (event.newValue) {
+          const newToken = (event.newValue).replace('Bearer ', '');
+          this.userService.authorizeUser(newToken);
+        } else {
+          this.userService.logout();
+        }
+        break;
+      }
+      default:
+        break;
+    }
+
   }
 
 }

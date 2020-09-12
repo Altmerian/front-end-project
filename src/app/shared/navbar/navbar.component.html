@@ -1,24 +1,24 @@
 <nav class="navbar">
   <div class="wrapper">
-    <button mat-icon-button class="large" [matMenuTriggerFor]="menu">
+    <button mat-icon-button matTooltip="Menu" class="large" [matMenuTriggerFor]="menu">
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item [matMenuTriggerFor]="certificates">Certificates</button>
       <button mat-menu-item [matMenuTriggerFor]="orders">Orders</button>
-      <a mat-menu-item href="http://localhost:8088/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
+      <a mat-menu-item href="http://localhost:8087/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
     </mat-menu>
     <mat-menu #certificates="matMenu">
       <button mat-menu-item routerLink="/home">All certificates</button>
-      <button mat-menu-item routerLink="/certificate">New certificate</button>
-      <button mat-menu-item>Sublink 3</button>
+      <button *ngIf="this.userService.isAdminUser" mat-menu-item routerLink="/certificate">New certificate</button>
     </mat-menu>
     <mat-menu #orders="matMenu">
-      <button mat-menu-item>All orders</button>
+      <button *ngIf="this.userService.isAdminUser" mat-menu-item>All orders</button>
+      <button mat-menu-item
+        [routerLink]="[this.currentUser.id, 'orders']">User orders</button>
       <button mat-menu-item routerLink="/order">New order</button>
-      <button mat-menu-item>Sublink 3</button>
     </mat-menu>
-    <a routerLink="/home">
+    <a routerLink="/home" matTooltip="Home">
       <img src="assets/logo2.png" alt="Logo" class="avatar-navbar"></a>
   </div>
 
@@ -34,7 +34,8 @@
     <mat-menu #categories="matMenu">
       <div class="tag-search-container" (click)="$event.stopPropagation()">
         <form action="#" (submit)="searchByTag($event)">
-          <input id="tagSearch" class="dropdown-input" type="text" [(ngModel)]="tagSearch" placeholder="Tag name..." name="tag">
+          <input id="tagSearch" class="dropdown-input" type="text" [(ngModel)]="tagSearch" placeholder="Tag name..."
+            name="tag">
           <i class="material-icons">search</i>
           <input type="submit" hidden />
         </form>
@@ -49,7 +50,11 @@
     <button mat-icon-button (click)="toggleFavorite()">
       <mat-icon>{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
     </button>
-    <a class="cart" routerLink="/order"><mat-icon [matBadge]="3" matBadgeColor="primary">local_grocery_store</mat-icon></a>
+    <a class="cart" routerLink="/order">
+      <mat-icon matTooltip="shopping cart" [matBadge]="this.orderService.currentOrder.length ? this.orderService.currentOrder.length : ''"
+        matBadgeColor="primary">local_grocery_store
+      </mat-icon>
+    </a>
     <a *ngIf="userService.currentUser" (click)="logout()">Logout ({{userService.currentUser.email}})</a>
     <a *ngIf="!userService.currentUser" routerLink="/user/login">Login</a>
     <a *ngIf="!userService.currentUser" routerLink="/user/register">SignUp</a>

@@ -8,7 +8,8 @@ import { TagService } from 'src/app/tags/tag.service';
 import { Tag } from 'src/app//shared/models/tag';
 import { Certificate } from 'src/app//shared/models/certificate';
 import { CertificateService } from '../certificate.service';
-import { AlertComponent } from 'src/app//shared/dialogs/alert/alert.component';
+import { EventService } from 'src/app/shared/services/event.service';
+import { AlertComponent } from 'src/app/shared/dialogs/alert/alert.component';
 
 @Component({
   selector: 'app-certificate-new',
@@ -34,31 +35,32 @@ export class CertificateNewComponent implements OnInit {
     private fb: FormBuilder,
     private tagService: TagService,
     private certificateService: CertificateService,
+    private eventService: EventService,
   ) { }
 
   ngOnInit(): void {
     this.tagService.getTags(1, 50).subscribe(data => this.tags = data);
-    this._initImageButton();
+    this.eventService.initImageButton();
     this.filteredTags = this.tagSelect.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
     );
   }
 
-  addCertificate() {
+  addCertificate(): void {
     const certificate = this._parseFormValues();
     this.certificateService.addCertificate(certificate).subscribe(resp => {
       console.log(resp);
       if (resp.status === 201) {
         certificate.id = resp.headers.get('Location').replace(/^.*[\\\/]/, '');
-        this._openDialog(certificate.id)
+        this._openDialog(certificate.id);
       }
     }, error => {
       console.log(error);
-    })
+    });
   }
 
-  private _openDialog(id: string) {
+  private _openDialog(id: string): void {
     const loginAlert = this.dialog.open(AlertComponent, {
       data: {
         title: 'New Certificate',
@@ -70,7 +72,7 @@ export class CertificateNewComponent implements OnInit {
     // loginAlert.afterClosed().subscribe(_ => this.goBack());
   }
 
-  private _parseFormValues() {
+  private _parseFormValues(): Certificate {
     const certificate = new Certificate();
     certificate.name = this.certificateForm.value.itemName;
     const tag = new Tag(this.certificateForm.value.tag);
@@ -89,30 +91,7 @@ export class CertificateNewComponent implements OnInit {
   }
 
   private _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
+    return value?.toLowerCase().replace(/\s/g, '');
   }
 
-  // hidden real button will be pressed
-  // on custom image upload button click
-  private _initImageButton() {
-    const customText = document.getElementById('customText');
-    const realFileBtn = document.getElementById('imgRealBtn') as HTMLInputElement;
-    realFileBtn.addEventListener('change', function () {
-      if (realFileBtn.value) {
-        customText.innerHTML = realFileBtn.value.replace(/^.*[\\\/]/, '');
-      }
-    });
-
-    const certificateForm = document.getElementById('addCertificate');
-    certificateForm.addEventListener('reset', function () {
-      customText.innerHTML = 'No file chosen';
-    });
-
-    const customBtn = document.getElementById('imgUpload');
-    customBtn.addEventListener('click', function () {
-      realFileBtn.click();
-    });
-  }
 }
-
-

@@ -3,11 +3,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
-/* this variable will be retained after sccs transpires to css  */
-:root {
-  --cart-items-count: 3;
-}
-
 $mobile-breakpoint: 640px;
 $tablet-breakpoint: 768px;
 
@@ -224,6 +219,24 @@ body {
 /* Add a hover effect for buttons */
 button:hover {
   opacity: 0.8;
+}
+
+// Material button
+.mat-icon-button.large {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+
+  .mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+  &:hover {
+    background-color: #eee;
+  }
 }
 
 .ng-valid[required], .ng-valid.required  {

@@ -3,5 +3,5 @@ export class DialogData {
   content: string;
   buttonLabel: string;
   link: string;
-  error: boolean = false;
+  error = false;
 }

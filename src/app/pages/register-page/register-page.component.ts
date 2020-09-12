@@ -1,8 +1,8 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import passwordCheckValidator from "../../shared/pswd-check.directive";
-import { MessageService } from 'src/app/shared/message.service';
+import passwordCheckValidator from '../../shared/pswd-check.directive';
+import { MessageService } from 'src/app/shared/services/message.service';
 import { UserService } from 'src/app/users/user.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/shared/models/user';
@@ -23,11 +23,11 @@ export class RegisterPageComponent implements OnInit {
     lastName: [''],
   });
 
-  get password() {
+  get password(): AbstractControl {
     return this.registerForm.get('password');
   }
 
-  get rptPassword() {
+  get rptPassword(): AbstractControl {
     return this.registerForm.get('rptPassword');
   }
 
@@ -45,7 +45,7 @@ export class RegisterPageComponent implements OnInit {
     this.rptPassword.updateValueAndValidity();
   }
 
-  addUser() {
+  addUser(): void {
     const user = this._parseFormValues();
     this.userService.createUser(user).subscribe(resp => {
       console.log(resp);
@@ -53,16 +53,16 @@ export class RegisterPageComponent implements OnInit {
         user.id = resp.headers.get('Location').replace(/^.*[\\\/]/, '');
         this._openDialog(user);
         this.userService.login(new Credentials(user.email, user.password))
-          .subscribe(resp => this.userService.authorizeUser(resp.body['jwtToken']));
+          .subscribe(response => this.userService.authorizeUser(response.body.jwtToken));
       }
     }, error => {
       const message = (error.error.messages as Array<string>).join('; ');
       this.messageService.errorMessage(message);
       console.log(error);
-    })
+    });
   }
 
-  private _parseFormValues() {
+  private _parseFormValues(): User {
     const user = new User();
     user.email = this.registerForm.value.email;
     user.password = this.registerForm.value.password;
@@ -71,7 +71,7 @@ export class RegisterPageComponent implements OnInit {
     return user;
   }
 
-  private _openDialog(user: User) {
+  private _openDialog(user: User): void {
     const loginAlert = this.dialog.open(AlertComponent, {
       data: {
         title: 'Successful registration',
@@ -84,13 +84,11 @@ export class RegisterPageComponent implements OnInit {
   }
 
   // autofill email field in register form with login value
-  private _initEmailAutocomplete() {
+  private _initEmailAutocomplete(): void {
     const login = document.getElementById('login') as HTMLInputElement;
     const email = document.getElementById('email') as HTMLInputElement;
-    login.addEventListener('input', function () {
+    login.addEventListener('input', () => {
       email.value = login.value;
     });
   }
-
-
 }

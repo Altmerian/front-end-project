@@ -2,7 +2,7 @@
   <div id=login class="login-form-container">
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="img-container">
-        <img src="/assets/logo2.png" alt="Logo" class="avatar">
+        <img src="assets/logo2.png" alt="Logo" class="avatar">
       </div>
       <div class="input-container">
         <input type="email" placeholder="Login" formControlName="email" pattern="\w{2,40}@\w{2,20}.\w{2,4}" required>

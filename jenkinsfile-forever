@@ -1,0 +1,30 @@
+pipeline {
+  agent any
+  stages {
+    stage('Clone sources') {
+        steps {
+            echo 'Cloning...'
+            git branch: 'module5', url: 'https://github.com/Altmerian/front-end-project'
+        }
+    }
+    stage('Install dependencies') {
+        steps {
+            echo 'Instaling...'
+            bat 'npm install'
+        }
+    }
+    stage('Static code analysis') {
+        steps {
+          bat 'npm run lint'
+          }
+    }
+    stage('Build and serve project') {
+      steps {
+        echo 'Building...'
+        bat 'chcp 65001'
+        bat 'forever stopall'
+        bat 'forever start -a node_modules/@angular/cli/bin/ng serve --port=4400'
+      }
+    }
+  }
+}
