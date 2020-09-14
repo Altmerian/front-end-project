@@ -29,13 +29,13 @@ export class UserService {
   logout(): void {
     this.currentUser = null;
     this.isAdminUser = false;
-    localStorage.removeItem('authToken');
+    sessionStorage.removeItem('authToken');
     console.log('Current user logged out');
     this.router.navigateByUrl('');
   }
 
   authorizeUser(token: string): void {
-    localStorage.authToken = 'Bearer ' + token;
+    sessionStorage.authToken = 'Bearer ' + token;
     const decodedToken = jwt_decode(token) as JwtToken;
 
     this.getUser(decodedToken.userId).subscribe(resp => {

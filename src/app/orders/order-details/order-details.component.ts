@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/users/user.service';
 import { OrderService } from '../order.service';
+import { AlertComponent } from 'src/app/shared/dialogs/alert/alert.component';
+import { ConfirmComponent } from 'src/app/shared/dialogs/confirm/confirm.component';
 
 @Component({
   selector: 'app-order-details',
@@ -33,7 +35,40 @@ export class OrderDetailsComponent implements OnInit {
     this.location.back();
   }
 
-  deleteOrder(): void {
-    // TODO
+  confirmDelete(): void {
+    const deleteConfirm = this.dialog.open(ConfirmComponent, {
+      data: {
+        title: 'Order delete',
+        content: `Do you really want to delete Order with id=${this.order.id}?`,
+        buttonLabel: 'Yes'
+      }
+    });
+    deleteConfirm.afterClosed().subscribe(result => {
+      if (result === 'ok') {
+        this._deleteItem(this.order.id);
+      }
+    });
+  }
+
+  private _deleteItem(id: string): void {
+    this.orderService.deleteOrder(id).subscribe(resp => {
+      console.log(resp);
+      if (resp.ok) {
+        this._openDialog(id);
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  private _openDialog(id: string): void {
+    const dialogAlert = this.dialog.open(AlertComponent, {
+      data: {
+        title: 'Deleted',
+        content: `Order with id=${id} was deleted`,
+        buttonLabel: 'Ok'
+      }
+    });
+    dialogAlert.afterClosed().subscribe(_ => this.goBack());
   }
 }

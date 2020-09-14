@@ -16,7 +16,7 @@
       <button *ngIf="this.userService.isAdminUser" mat-menu-item>All orders</button>
       <button mat-menu-item
         *ngIf="this.userService.currentUser"
-        [routerLink]="['user',this.userService.currentUser?.id, 'orders']">User
+        [routerLink]="['user', this.userService.currentUser?.id, 'orders']">User
         orders</button>
       <button mat-menu-item routerLink="/order">New order</button>
     </mat-menu>
@@ -58,7 +58,7 @@
         matBadgeColor="primary">local_grocery_store
       </mat-icon>
     </a>
-    <a *ngIf="userService.currentUser" (click)="logout()">Logout ({{userService.currentUser.email}})</a>
+    <a *ngIf="userService.currentUser" (click)="logout()">Logout ({{userService.currentUser?.email}})</a>
     <a *ngIf="!userService.currentUser" routerLink="/user/login">Login</a>
     <a *ngIf="!userService.currentUser" routerLink="/user/register">SignUp</a>
   </div>

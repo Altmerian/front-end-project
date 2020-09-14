@@ -6,8 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../users/user.service';
 import { AlertComponent } from '../../shared/dialogs/alert/alert.component';
 import { Credentials } from 'src/app/shared/models/credentials';
-import { MessageService } from 'src/app/shared/services/message.service';
-import { CertificateService } from 'src/app/certificates/certificate.service';
+import { OrderService } from 'src/app/orders/order.service';
 
 @Component({
   selector: 'app-login-page',
@@ -24,8 +23,7 @@ export class LoginPageComponent implements OnInit {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private userService: UserService,
-    private certificateService: CertificateService,
-    private messageService: MessageService,
+    private orderService: OrderService,
     private location: Location,
   ) { }
 
@@ -55,7 +53,15 @@ export class LoginPageComponent implements OnInit {
         buttonLabel: 'Go back'
       }
     });
-    loginAlert.afterClosed().subscribe(_ => this.goBack());
+    loginAlert.afterClosed().subscribe(_ => {
+      const order = localStorage.getItem('order|' + this.userService.currentUser?.id) as string;
+      if (order) {
+        const parsedOrder = JSON.parse(order);
+        this.orderService.currentOrder = parsedOrder;
+        this.orderService.order$.next(parsedOrder);
+      }
+      this.goBack();
+    });
   }
 
   goBack(): void {

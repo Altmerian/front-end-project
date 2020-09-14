@@ -9,7 +9,6 @@ import { OrderComponent } from './orders/order/order.component';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { CertificateEditComponent } from './certificates/certificate-edit/certificate-edit.component';
-import { AuthGuard } from './shared/guards/auth.guard';
 import { OrderListComponent } from './orders/order-list/order-list.component';
 
 const routes: Routes = [

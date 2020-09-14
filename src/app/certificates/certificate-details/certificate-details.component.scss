@@ -26,6 +26,10 @@
   max-width: 1000px;
   width: 500px;
 
+  article > h2 {
+    text-align: center;
+  }
+
   p {
     font-size: large;
   }
@@ -103,5 +107,9 @@
 }
 
 .btn-group {
-  justify-content: space-around;
+  justify-content: space-evenly;
+
+  div > button {
+    margin-left: 10px;
+  }
 }

@@ -31,7 +31,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.orderService.order$.subscribe(order => {
-      this.certificates = order.filter(certificate => !certificate.deleted);
+      this.certificates = order?.filter(certificate => !certificate.deleted);
       this.total = order.reduce((sum, item) => sum + item.price, 0);
     });
   }

@@ -17,7 +17,7 @@
         </div>
         <div class="tags">
           <div>Tags:</div>
-          <span>{{this.tags.join(', ')}}</span>
+          <span>{{this.tags}}</span>
         </div>
         <div class="expires-block">
           <div>Time Left To Buy</div>
@@ -29,9 +29,12 @@
           <a class="add-to-cart-link" (click)="addToOrder()">Add to cart</a>
         </div>
       </div>
-      <div class="btn-group" *ngIf="userService.isAdminUser">
-        <button mat-raised-button color="primary" (click)="editItem()">Edit</button>
-        <button mat-raised-button color="accent" (click)="confirmDelete()">Delete</button>
+      <div class="btn-group">
+        <button mat-raised-button color="basic" (click)="goBack()">Back</button>
+        <div *ngIf="userService.isAdminUser">
+          <button  mat-raised-button color="primary" (click)="editItem()">Edit</button>
+          <button *ngIf="userService.isAdminUser" mat-raised-button color="accent" (click)="confirmDelete()">Delete</button>
+        </div>
       </div>
     </div>
   </div>

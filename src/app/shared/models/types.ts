@@ -2,18 +2,18 @@ import { Certificate } from './certificate';
 import { Order } from './order';
 import { Tag } from './tag';
 
-export interface CertificatesData {
+export type CertificatesData = {
   certificates: Certificate[];
-}
+};
 
-export interface OrdersData {
+export type OrdersData = {
   orders: Order[];
-}
+};
 
-export interface TagsData {
+export type TagsData = {
   tags: Tag[];
-}
+};
 
-export interface JwtToken {
+export type JwtToken = {
   userId: string;
-}
+};

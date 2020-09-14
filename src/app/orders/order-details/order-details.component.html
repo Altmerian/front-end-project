@@ -23,12 +23,12 @@
         <p>Total</p>
       </div>
       <div class="total-cost">
-        <p>{{this.order.cost | customCurrency}}</p>
+        <p>{{this.order.cost | currency}}</p>
       </div>
     </div>
     <div class="btn-group">
       <button mat-raised-button color="primary" (click)="goBack()">Back</button>
-      <button mat-raised-button color="accent" (click)="deleteOrder()">Delete</button>
+      <button mat-raised-button color="accent" (click)="confirmDelete()">Delete</button>
     </div>
   </div>
 </div>

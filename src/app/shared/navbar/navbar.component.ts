@@ -64,5 +64,7 @@ export class NavbarComponent implements AfterViewInit, OnInit {
 
   logout(): void {
     this.userService.logout();
+    this.orderService.currentOrder = [];
+    this.orderService.order$.next([]);
   }
 }

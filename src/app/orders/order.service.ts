@@ -32,13 +32,31 @@ export class OrderService {
 
   syncOrder(changedOrder: Certificate[]): void {
     this.order$.next(changedOrder);
-    localStorage.order = JSON.stringify(changedOrder);
+    localStorage.setItem('order|' + this.userService.currentUser?.id, JSON.stringify(changedOrder));
   }
 
   removeCertificate(index: number): void {
     this.currentOrder.splice(index, 1);
     this.syncOrder(this.currentOrder);
   }
+
+  removeDeletedItem(id: string): void {
+    const updatedOrder = this.currentOrder.filter(cert => cert.id !== id);
+    this.currentOrder = updatedOrder;
+    this.syncOrder(updatedOrder);
+    this.syncAllCurrentOrders(id);
+  }
+
+  syncAllCurrentOrders(id: string): void {
+    for (const key in Object.keys(localStorage)) {
+      if (key.startsWith('order|')) {
+        const order = JSON.parse(localStorage.getItem(key)) as Certificate[];
+        const updatedOrder = order.filter(cert => cert.id !== id);
+        localStorage.setItem(key, JSON.stringify(updatedOrder));
+      }
+    }
+  }
+
 
   createOrder(order: Order): Observable<HttpResponse<any>> {
     const url = `${this.apiUrl}/users/${this.userService.currentUser?.id}/orders`;
@@ -60,13 +78,18 @@ export class OrderService {
 
   deleteOrder(id: string): Observable<HttpResponse<any>> {
     const url = `${this.apiUrl}/users/${this.userService.currentUser?.id}/orders/${id}`;
-    return this.http.delete<any>(url, { observe: 'response' } ).pipe(
+    return this.http.delete<any>(url, { observe: 'response' }).pipe(
       tap(_ => console.log(`deleted order id=${id}`)),
     );
   }
 
   _getLastOrder(): Certificate[] {
-    return JSON.parse(localStorage.getItem('order'));
+    let order: Certificate[] = [];
+    const userId = this.userService.currentUser;
+    if (userId) {
+      order = JSON.parse(localStorage.getItem('order|' + userId));
+    }
+    return order;
   }
 
 }

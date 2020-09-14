@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, RouterEvent, NavigationEnd, NavigationStart } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { combineAll, filter } from 'rxjs/operators';
 import { UserService } from './users/user.service';
 import { Subscription } from 'rxjs';
 import { OrderService } from './orders/order.service';
+import jwt_decode from 'jwt-decode';
+import { JwtToken } from './shared/models/types';
 
 
 @Component({
@@ -23,13 +25,16 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {
     this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart && !router.navigated) {
-        const token = localStorage.getItem('authToken') as string;
+        const token = sessionStorage.getItem('authToken') as string;
         if (token) {
           this.userService.authorizeUser(token.replace('Bearer ', ''));
-        }
-        const order = localStorage.getItem('order') as string;
-        if (order) {
-          this.orderService.currentOrder = JSON.parse(order);
+          const userId = (jwt_decode(token) as JwtToken).userId;
+          const order = localStorage.getItem('order|' + userId);
+          if (order) {
+            const parsedOrder = JSON.parse(order);
+            this.orderService.currentOrder = parsedOrder;
+            this.orderService.order$.next(parsedOrder);
+          }
         }
       }
     });
@@ -52,26 +57,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @HostListener('window:storage', ['$event'])
   syncStorageChanges(event: StorageEvent): void {
-    switch (event.key) {
-      case 'order': {
-        const newOrder = JSON.parse(event.newValue);
-        this.orderService.currentOrder = newOrder;
-        this.orderService.order$.next(newOrder);
-        break;
+    if (event.key.startsWith('order|' + this.userService.currentUser?.id)) {
+      const newOrder = JSON.parse(event.newValue);
+      this.orderService.currentOrder = newOrder;
+      this.orderService.order$.next(newOrder);
+    } else if (event.key === 'authToken') {
+      if (event.newValue) {
+        const newToken = (event.newValue).replace('Bearer ', '');
+        this.userService.authorizeUser(newToken);
+      } else {
+        this.userService.logout();
       }
-      case 'authToken': {
-        if (event.newValue) {
-          const newToken = (event.newValue).replace('Bearer ', '');
-          this.userService.authorizeUser(newToken);
-        } else {
-          this.userService.logout();
-        }
-        break;
-      }
-      default:
-        break;
     }
-
   }
 
 }

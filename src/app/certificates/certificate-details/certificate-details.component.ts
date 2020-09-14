@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { Location } from '@angular/common';
 
 import { CertificateService } from '../certificate.service';
 import { Certificate } from 'src/app//shared/models/certificate';
@@ -17,9 +18,10 @@ import { OrderService } from 'src/app/orders/order.service';
 export class CertificateDetailsComponent implements OnInit {
 
   certificate: Certificate = new Certificate();
-  tags: string[] = [];
+  tags = '';
 
   constructor(
+    private location: Location,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -36,7 +38,7 @@ export class CertificateDetailsComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.certificateService.getCertificate(id).subscribe(data => {
       this.certificate = data;
-      this.tags = data.tags.map(tag => tag.name);
+      this.tags = data.tags.map(tag => tag.name).join(', ');
     });
   }
 
@@ -63,14 +65,16 @@ export class CertificateDetailsComponent implements OnInit {
     this.orderService.addCertificate(this.certificate);
   }
 
+  goBack(): void {
+    this.location.back();
+  }
+
   private _deleteItem(): void {
     this.certificateService.deleteCertificate(this.certificate).subscribe(resp => {
       console.log(resp);
       if (resp.ok) {
         this._openDialog(this.certificate.id);
-        const updatedOrder = this.orderService.currentOrder.filter(cert => cert.id !== this.certificate.id);
-        this.orderService.currentOrder = updatedOrder;
-        this.orderService.syncOrder(updatedOrder);
+        this.orderService.removeDeletedItem(this.certificate.id);
       }
     }, error => {
       console.log(error);
