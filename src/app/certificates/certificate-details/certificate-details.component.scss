@@ -52,13 +52,23 @@
   width: 300px;
 }
 
-.expires-block {
+.expires-block, .tags {
   div {
     font-size: 12px;
   }
 
   span {
     font-size: x-large;
+  }
+}
+
+.tags {
+  div {
+    font-size: 13px;
+  }
+
+  span {
+    font-size: larger;
   }
 }
 

@@ -17,6 +17,7 @@ import { OrderService } from 'src/app/orders/order.service';
 export class CertificateDetailsComponent implements OnInit {
 
   certificate: Certificate = new Certificate();
+  tags: string[] = [];
 
   constructor(
     private router: Router,
@@ -35,6 +36,7 @@ export class CertificateDetailsComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.certificateService.getCertificate(id).subscribe(data => {
       this.certificate = data;
+      this.tags = data.tags.map(tag => tag.name);
     });
   }
 

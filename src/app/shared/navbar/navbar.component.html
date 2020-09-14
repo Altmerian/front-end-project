@@ -6,7 +6,7 @@
     <mat-menu #menu="matMenu">
       <button mat-menu-item [matMenuTriggerFor]="certificates">Certificates</button>
       <button mat-menu-item [matMenuTriggerFor]="orders">Orders</button>
-      <a mat-menu-item href="http://localhost:8087/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
+      <a mat-menu-item href="http://localhost:8088/gift-rest-service/swagger-ui/" target="_blank">API docs</a>
     </mat-menu>
     <mat-menu #certificates="matMenu">
       <button mat-menu-item routerLink="/home">All certificates</button>
@@ -15,7 +15,9 @@
     <mat-menu #orders="matMenu">
       <button *ngIf="this.userService.isAdminUser" mat-menu-item>All orders</button>
       <button mat-menu-item
-        [routerLink]="[this.currentUser.id, 'orders']">User orders</button>
+        *ngIf="this.userService.currentUser"
+        [routerLink]="['user',this.userService.currentUser?.id, 'orders']">User
+        orders</button>
       <button mat-menu-item routerLink="/order">New order</button>
     </mat-menu>
     <a routerLink="/home" matTooltip="Home">
@@ -51,7 +53,8 @@
       <mat-icon>{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
     </button>
     <a class="cart" routerLink="/order">
-      <mat-icon matTooltip="shopping cart" [matBadge]="this.orderService.currentOrder.length ? this.orderService.currentOrder.length : ''"
+      <mat-icon matTooltip="shopping cart"
+        [matBadge]="this.orderService.currentOrder.length ? this.orderService.currentOrder.length : ''"
         matBadgeColor="primary">local_grocery_store
       </mat-icon>
     </a>

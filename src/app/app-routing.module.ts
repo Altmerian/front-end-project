@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'certificate', component: CertificateNewComponent },
   { path: 'certificate/:id', component: CertificateDetailsComponent },
-  { path: 'certificate/:id/edit', component: CertificateEditComponent, canActivate: [AuthGuard] },
+  { path: 'certificate/:id/edit', component: CertificateEditComponent },
   { path: 'user', loadChildren: () => import('./users/user.module').then(m => m.UserModule) },
   { path: 'order', component: OrderComponent },
   { path: 'orders', component: OrderListComponent },

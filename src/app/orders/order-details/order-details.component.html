@@ -1,1 +1,34 @@
-<p>order-details works!</p>
+<div class="add-entity-wrapper">
+  <div class="form-header">
+    <p>order id={{this.order.id}}; {{order.creationDate | date}}</p>
+  </div>
+  <div class="order-container">
+    <div class="order-wrapper">
+      <div *ngFor="let item of this.order.certificates; let index = index" class="order-item">
+        <div class="order-item-img">
+          <img src="assets/logo1.png" alt="Certificate img">
+        </div>
+        <div class="order-item-description">
+          <a [routerLink]="['/certificate', item.id ]">
+            <h3 class="order-item-name">{{item.name}}</h3>
+          </a>
+          <p class="item-description">{{item.description}}</p>
+        </div>
+        <div class="empty-block"></div>
+        <div class="order-item-price">
+          <p>{{item.price | currency}}</p>
+        </div>
+      </div>
+      <div class="total-text">
+        <p>Total</p>
+      </div>
+      <div class="total-cost">
+        <p>{{this.order.cost | customCurrency}}</p>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+      <button mat-raised-button color="accent" (click)="deleteOrder()">Delete</button>
+    </div>
+  </div>
+</div>

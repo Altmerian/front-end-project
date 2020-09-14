@@ -1,1 +1,35 @@
-<p>order-list works!</p>
+<div class="add-entity-wrapper">
+  <div class="form-header">
+    <p>User orders</p>
+  </div>
+  <div class="orders-container">
+    <div *ngIf="!this.orders.length">
+      <h3>You haven't had any orders yet. Add some goods to the shopping cart and create a new order</h3>
+    </div>
+    <div *ngIf="this.orders.length" class="orders-wrapper">
+      <div *ngFor="let order of orders; let index = index" class="order">
+        <div class="order-number">
+          <p>{{index + 1}}</p>
+        </div>
+        <div class="order-id">
+          <a [routerLink]="[order.id]">
+            <p>order id={{order.id}}</p>
+          </a>
+        </div>
+        <div class="order-cost">
+          <p>{{order.cost | currency}}</p>
+        </div>
+        <div class="creation-date">
+          <p>{{order.creationDate | date}}</p>
+        </div>
+        <div class="delete-block">
+          <button mat-icon-button class="large" color="primary" (click)="this.confirmDelete(order.id)"
+            matTooltip="delete order">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+      <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+  </div>
+</div>

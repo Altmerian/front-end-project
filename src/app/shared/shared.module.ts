@@ -10,7 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatBadgeModule } from '@angular/material/badge';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { CustomCurrencyPipe } from './custom-currency.pipe';
 
 const materialModules = [
   MatIconModule,
@@ -26,7 +27,7 @@ const materialModules = [
 
 @NgModule({
   declarations: [
-
+    CustomCurrencyPipe,
   ],
   imports: [
     CommonModule,
@@ -39,6 +40,7 @@ const materialModules = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    CustomCurrencyPipe,
   ]
 })
 export class SharedModule { }

@@ -6,7 +6,6 @@ import { CertificateService } from '../../certificates/certificate.service';
 import { TagService } from '../../tags/tag.service';
 import { Tag } from '../models/tag';
 import { UserService } from '../../users/user.service';
-import { User } from '../models/user';
 import { OrderService } from 'src/app/orders/order.service';
 
 
@@ -16,7 +15,6 @@ import { OrderService } from 'src/app/orders/order.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements AfterViewInit, OnInit {
-  currentUser: User;
   isFavorite = false;
   tags: Tag[] = [];
   tagSearch: string;

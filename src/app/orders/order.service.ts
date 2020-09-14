@@ -1,13 +1,14 @@
-import { Injectable, OnInit, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Order } from '../shared/models/order';
 import { UserService } from '../users/user.service';
 import { Certificate } from '../shared/models/certificate';
-import { filter, throwIfEmpty } from 'rxjs/operators';
+import { filter, map, tap, throwIfEmpty } from 'rxjs/operators';
 import { NotFoundError } from '../shared/errors/notFoundError';
 import { MessageService } from '../shared/services/message.service';
+import { OrdersData } from '../shared/models/types';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ import { MessageService } from '../shared/services/message.service';
 export class OrderService {
   order$ = new BehaviorSubject<Certificate[]>(this._getLastOrder());
   currentOrder: Certificate[] = [];
-  readonly apiUrl = 'http://localhost:8087/gift-rest-service/api/v1';
+  readonly apiUrl = 'http://localhost:8088/gift-rest-service/api/v1';
 
   constructor(
     private messageService: MessageService,
@@ -40,15 +41,28 @@ export class OrderService {
   }
 
   createOrder(order: Order): Observable<HttpResponse<any>> {
-    const url = `${this.apiUrl}/users/${this.userService.currentUser.id}/orders`;
+    const url = `${this.apiUrl}/users/${this.userService.currentUser?.id}/orders`;
     return this.http.post<any>(url, order, { observe: 'response' });
   }
 
+  getUserOrders(): Observable<Order[]> {
+    const url = `${this.apiUrl}/users/${this.userService.currentUser?.id}/orders`;
+    return this.http.get<OrdersData>(url).pipe(
+      map(data => data.orders.filter(order => !order.deleted)));
+  }
+
   getOrder(id: string): Observable<Order> {
-    const url = `${this.apiUrl}/users/${this.userService.currentUser.id}/orders/${id}`;
+    const url = `${this.apiUrl}/users/${this.userService.currentUser?.id}/orders/${id}`;
     return this.http.get<Order>(url).pipe(
       filter(order => !order.deleted),
       throwIfEmpty(() => new NotFoundError(`Order with id=${id} not found`)));
+  }
+
+  deleteOrder(id: string): Observable<HttpResponse<any>> {
+    const url = `${this.apiUrl}/users/${this.userService.currentUser?.id}/orders/${id}`;
+    return this.http.delete<any>(url, { observe: 'response' } ).pipe(
+      tap(_ => console.log(`deleted order id=${id}`)),
+    );
   }
 
   _getLastOrder(): Certificate[] {

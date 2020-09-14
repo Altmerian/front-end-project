@@ -14,8 +14,8 @@ import { JwtToken } from '../shared/models/types';
 export class UserService {
   isAdminUser = false;
   currentUser: User;
-  readonly loginUrl = 'http://localhost:8087/gift-rest-service/login';
-  readonly userUrl = 'http://localhost:8087/gift-rest-service/api/v1/users';
+  readonly loginUrl = 'http://localhost:8088/gift-rest-service/login';
+  readonly userUrl = 'http://localhost:8088/gift-rest-service/api/v1/users';
 
   constructor(
     private http: HttpClient,

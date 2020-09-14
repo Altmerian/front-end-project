@@ -6,7 +6,7 @@
       <i class="material-icons">favorite_border</i>
     </div>
     <div class="card-description">{{certificate.description}}</div>
-    <span>Expires in ${{certificate.durationInDays}} days</span>
+    <span>Expires in {{certificate.durationInDays}} days</span>
     <div>
       <span class="price">{{certificate.price.toFixed(2) | currency}}</span>
       <button class="card-btn" (click)="addToOrder()">Add to Cart</button>

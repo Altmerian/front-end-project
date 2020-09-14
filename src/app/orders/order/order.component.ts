@@ -107,13 +107,13 @@ export class OrderComponent implements OnInit, OnDestroy {
         title: 'New Order',
         content: `Order has been created with id=${id}. To check out press the link below: `,
         buttonLabel: 'Got it!',
-        link: `orders/${id}`
+        link: `user/${this.userService.currentUser.id}/orders/${id}`
       }
     });
     orderAlert.afterClosed().subscribe(_ => {
       this.router.navigateByUrl('');
-      // clear current order
-      this.orderService.order$.next([]);
+      this.orderService.currentOrder = ([]);
+      this.orderService.syncOrder([]);
     });
   }
 
