@@ -1,0 +1,17 @@
+header {
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.main-page-wrapper {
+  position: relative;
+  top: 55px;
+
+  @media (max-width: 640px) {
+    top: 94px;
+  }
+}

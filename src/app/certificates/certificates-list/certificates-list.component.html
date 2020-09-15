@@ -1,0 +1,12 @@
+<p *ngIf="!noSearchResults && search" class="search-text">
+  Searching by {{search}}.</p>
+<p *ngIf="noSearchResults && search" class="search-text">
+  Searching by {{search}} : no results were found.</p>
+<div #container class="certificates-container">
+  <app-certificate *ngFor="let certificate of certificates"
+    [certificate-card]="certificate">
+  </app-certificate>
+  <div *ngIf="loading" class="loading-icon">
+    <img src="assets/loading.gif" alt="loading...">
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/assets/logo1.png">
+  <!-- reset and normalize embedded styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+  <!-- awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Material icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- main css style -->
+  <link rel="stylesheet" href="./css/main.css">
+  <title>Main page</title>
+</head>
+
+<body onload="setScroll()">
+  <header>
+    <html-include src="navbar.html"></html-include>
+  </header>
+  <main class="main-page-wrapper">
+    <div class="categories-panel">
+      <div class="categories-wrapper">
+        
+      </div>
+    </div>
+    <section class="certificates-container">
+      
+    </section>
+    <div class="scroll-top">
+      <img src="/assets/top-512.png" alt="scroll-top">    
+    </div>
+  </main>
+  <script src="./bundle.js"></script>
+  <script>
+    let bodyLoaded = new Event('body-loaded');
+    window.dispatchEvent(bodyLoaded);
+  </script>
+</body>
+
+</html>

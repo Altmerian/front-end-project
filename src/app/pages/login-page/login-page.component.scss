@@ -1,0 +1,53 @@
+.login-form-container {
+  background-color: #f9f9f9;
+  border: 2px solid #a0a0a0;
+  font-size: larger;
+  margin: auto;
+  min-width: 300px;
+  max-width: 600px;
+  width: 40%;
+
+  button,
+  &::placeholder {
+    font-size: 19px;
+    font-weight: 500;
+  }
+
+  input {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    display: block;
+    margin: 8px 0;
+    padding: 8px;
+    text-align: center;
+    width: 100%;
+
+    &.ng-valid[required], .ng-valid.required  {
+      border-left: 5px solid #42A948; /* green */
+    }
+
+    &.ng-invalid:not(form)  {
+      border-left: 5px solid #a94442; /* red */
+    }
+  }
+}
+
+/* Center the avatar image inside this container */
+.img-container {
+  margin: -15% auto;
+  max-width: 150px;
+  text-align: center;
+  width: 45%;
+
+  .avatar {
+    border-radius: 0 0 50% 50%;
+    width: 80%;
+  }
+}
+
+/* Add padding to containers */
+.input-container {
+  margin: 15% auto 20px;
+  padding: 16px;
+  width: 70%;
+}

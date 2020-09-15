@@ -1,0 +1,248 @@
+@charset 'utf-8';
+
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+$mobile-breakpoint: 640px;
+$tablet-breakpoint: 768px;
+
+@mixin flex-container($justify: space-between) {
+  display: flex;
+  justify-content: $justify;
+  flex-wrap: wrap;
+}
+
+@mixin fit-image($height, $fit: cover) {
+  width: 100%;
+  height: $height;
+  object-fit: $fit;
+}
+
+@mixin cart-font {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+@mixin common-button($width) {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  width: $width;
+}
+
+html { height: 100%; }
+
+body {
+  background-color: #f0f0f0;
+  color: rgba(0, 0, 0, 0.75);
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  // font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 100%;
+  margin: 0;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 12px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.main-wrapper {
+  align-items: flex-start;
+  display: flex;
+  height: 90vh;
+}
+
+.wrapper {
+  align-items: center;
+  display: flex;
+
+  & > a {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 15px;
+    font-weight: 500;
+    margin: 6px 0;
+    padding: 4px;
+    text-decoration: none;
+  }
+}
+
+/* The Modal (background) */
+.modal {
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  display: none;
+  justify-items: center;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+/* The Close Button */
+.close {
+  color: rgb(255, 254, 254);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+
+  &:hover,
+  &:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+
+/* ============================ Main Page ============================= */
+.scroll-top {
+  height: 32px;
+  right: 2px;
+  opacity: 0.7;
+  position: fixed;
+  top: 93vh;
+  width: 32px;
+
+  img {
+    @include fit-image(100%)
+  }
+
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+  }
+}
+
+.loading-icon {
+  height: 50px;
+  margin: 10px auto;
+  width: 100%;
+
+  img {
+    @include fit-image(100%, contain);
+  }
+}
+
+.add-entity-wrapper {
+  background-color: #f9f9f9;
+  display: block;
+}
+
+
+/* ============================ Forms ============================ */
+.form-header {
+  background-color: #a0a0a0;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+
+  p {
+    height: 50px;
+    line-height: 50px;
+    margin: 0 3% 0 20%;
+  }
+}
+
+.form-wrapper {
+  color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  font-size: 12px;
+  font-weight: 500;
+  min-width: 180px;
+  max-width: 480px;
+  width: 40%;
+
+  & + & {
+    margin-left: 5%;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    margin-left: 0;
+  }
+}
+
+.app-form input,
+.app-form select,
+.app-form textarea {
+  border: 1px solid #ccc;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 8px 0;
+  padding: 8px;
+}
+
+.app-form input:hover,
+.app-form select:hover,
+.img-upload:hover {
+  background-color: #f3f3f3;
+}
+
+/* Set a style for submit buttons */
+.btn {
+  @include common-button(100%);
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px;
+
+  &:disabled {
+    background-color: rgb(163, 162, 162);
+    cursor: default;
+  }
+}
+
+/* Set a style for cancel buttons */
+.cancel-btn {
+  @include common-button(40%);
+  background-color: white;
+  border: 2px solid #ccc;
+  color: rgba(0, 0, 0, 0.7);
+  padding: 8px;
+}
+
+.btn-group {
+  @include flex-container(space-between);
+  margin: 16px 0 10px;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+// Material button
+.mat-icon-button.large {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+
+  .mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+  &:hover {
+    background-color: #eee;
+  }
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}

@@ -1,0 +1,47 @@
+pipeline {
+  agent any
+  stages {
+    stage('Clone sources') {
+        steps {
+            echo 'Cloning...'
+            git branch: 'module5', url: 'https://github.com/Altmerian/front-end-project'
+        }
+    }
+    stage('Install dependencies') {
+        steps {
+            echo 'Instaling...'
+            bat 'npm install'
+        }
+    }
+    stage('Static code analysis') {
+        steps {
+          bat 'npm run lint'
+          }
+    }
+    stage('Build') {
+      steps {
+        echo 'Building...'
+        bat 'chcp 65001'
+        bat 'npm run build:tomcat'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploying...'
+        bat 'chcp 65001'
+        fileOperations([folderDeleteOperation(
+          folderPath: "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\front-end-project"
+        )])
+        fileOperations([folderCopyOperation(
+          sourceFolderPath: 'dist\\front-end-project',
+          destinationFolderPath: "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\front-end-project"
+        )])
+      }
+    }
+  }
+  post ('Clear sources'){
+    always{
+        deleteDir()
+    }
+  }
+}

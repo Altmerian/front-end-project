@@ -1,0 +1,105 @@
+@import '../../../styles.scss';
+
+.card {
+  background-color: white;
+  height: 300px;
+  margin: 8px;
+  max-width: 160px;
+  min-width: 100px;
+  opacity: 0;
+  transition: opacity 1s;
+
+  img {
+    background-color: #ddd;
+    border-block-end: 2px ridge rgb(226, 226, 226);
+    @include fit-image(66%);
+
+    &:hover {
+      cursor: pointer;
+      object-fit: scale-down;
+    }
+
+    @media (max-width: $mobile-breakpoint) {
+      max-height: 50%;
+    }
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+      height: 250px;
+      max-width: 120px;
+  }
+}
+
+.card-text {
+  display: flex;
+  flex-flow: column nowrap;
+  font-size: 12px;
+  justify-content: space-between;
+  height: 33%;
+  padding: 0 8px;
+
+  & > * {
+    flex: 1 0 auto;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 11px;
+    padding: 2px;
+  }
+}
+
+.card i {
+  float: right;
+
+  &:hover {
+    background-color: rgb(218, 218, 218);
+    cursor: pointer;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    display: inline-block;
+    float: none;
+  }
+}
+
+.card-description {
+  font-weight: 400;
+  max-height: 2.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+}
+
+.card-item-name,
+.price {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 2em;
+  max-height: 2em;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: $mobile-breakpoint) {
+    line-height: 1em;
+    font-size: 13px;
+  }
+}
+
+.price {
+  @media (max-width: $mobile-breakpoint) {
+      margin-top: 10px;
+    }
+  }
+
+.card-btn {
+  float: right;
+  cursor: pointer;
+  margin: 4px;
+  padding: 1px;
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 50px;
+  }
+}

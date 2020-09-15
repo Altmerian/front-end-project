@@ -1,0 +1,15 @@
+<div class="card">
+  <a routerLink="/certificate/{{certificate.id}}"><img src="assets/logo1.png" alt="Certificate img"></a>
+  <div class="card-text">
+    <div>
+      <span class="card-item-name">{{certificate.name}}</span>
+      <i class="material-icons">favorite_border</i>
+    </div>
+    <div class="card-description">{{certificate.description}}</div>
+    <span>Expires in {{certificate.durationInDays}} days</span>
+    <div>
+      <span class="price">{{certificate.price.toFixed(2) | currency}}</span>
+      <button class="card-btn" (click)="addToOrder()">Add to Cart</button>
+    </div>
+  </div>
+</div>

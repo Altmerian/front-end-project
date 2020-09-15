@@ -1,0 +1,7 @@
+<div class="categories-panel">
+  <div class="categories-wrapper">
+    <app-tag *ngFor="let tag of tags"
+      [category-figure]="tag" (click)="onTagClick(tag)">
+    </app-tag>
+  </div>
+</div>
