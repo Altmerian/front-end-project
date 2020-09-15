@@ -5,14 +5,17 @@ import { map } from 'rxjs/operators';
 
 import { Tag } from '../shared/models/tag';
 import { TagsData } from '../shared/models/types';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagService {
-  readonly apiUrl = 'http://localhost:8088/gift-rest-service/api/v1/tags/';
+  readonly apiUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiUrl = environment.apiUrl + '/api/v1/tags';
+   }
 
   getTags(page: number, size: number): Observable<Tag[]> {
     const params = new HttpParams()

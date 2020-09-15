@@ -9,6 +9,7 @@ import { filter, map, tap, throwIfEmpty } from 'rxjs/operators';
 import { NotFoundError } from '../shared/errors/notFoundError';
 import { MessageService } from '../shared/services/message.service';
 import { OrdersData } from '../shared/models/types';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,15 @@ import { OrdersData } from '../shared/models/types';
 export class OrderService {
   order$ = new BehaviorSubject<Certificate[]>(this._getLastOrder());
   currentOrder: Certificate[] = [];
-  readonly apiUrl = 'http://localhost:8088/gift-rest-service/api/v1';
+  readonly apiUrl: string;
 
   constructor(
     private messageService: MessageService,
     private http: HttpClient,
     private userService: UserService,
-  ) { }
+  ) {
+    this.apiUrl = environment.apiUrl + '/api/v1';
+  }
 
   addCertificate(certificate: Certificate): void {
     this.currentOrder.push(certificate);

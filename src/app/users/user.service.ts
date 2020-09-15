@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import jwt_decode from 'jwt-decode';
 import { Credentials } from '../shared/models/credentials';
 import { User } from '../shared/models/user';
 import { JwtToken } from '../shared/models/types';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,16 @@ import { JwtToken } from '../shared/models/types';
 export class UserService {
   isAdminUser = false;
   currentUser: User;
-  readonly loginUrl = 'http://localhost:8088/gift-rest-service/login';
-  readonly userUrl = 'http://localhost:8088/gift-rest-service/api/v1/users';
+  readonly loginUrl: string;
+  readonly userUrl;
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    ) { }
+  ) {
+    this.loginUrl = environment.apiUrl + '/login';
+    this.userUrl = environment.apiUrl + '/api/v1/users';
+  }
 
   login(credentials: Credentials): Observable<HttpResponse<any>> {
     return this.http.post<any>(this.loginUrl, credentials, { observe: 'response' });
