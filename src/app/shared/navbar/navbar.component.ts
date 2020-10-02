@@ -7,6 +7,7 @@ import { TagService } from '../../tags/tag.service';
 import { Tag } from '../models/tag';
 import { UserService } from '../../users/user.service';
 import { OrderService } from 'src/app/orders/order.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class NavbarComponent implements AfterViewInit, OnInit {
   isFavorite = false;
   tags: Tag[] = [];
   tagSearch: string;
+  readonly apiDocsUrl: string;
   @Input() isHomePage: boolean;
   @ViewChildren(MatMenuTrigger) tagMenuTrigger: QueryList<MatMenuTrigger>;
 
@@ -26,7 +28,9 @@ export class NavbarComponent implements AfterViewInit, OnInit {
     private tagService: TagService,
     public userService: UserService,
     public orderService: OrderService,
-  ) { }
+  ) {
+    this.apiDocsUrl = environment.apiUrl + '/swagger-ui/';
+  }
 
   ngOnInit(): void {
   }
@@ -41,7 +45,6 @@ export class NavbarComponent implements AfterViewInit, OnInit {
   }
 
   searchByTag(event: Event): void {
-    // clear certificate name/description text
     const searchElement = document.getElementById('searchPanel');
     (searchElement as HTMLInputElement).value = '';
 

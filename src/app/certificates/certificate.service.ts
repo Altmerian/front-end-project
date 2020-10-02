@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { map, tap, filter, isEmpty, throwIfEmpty, count, catchError } from 'rxjs/operators';
+import { map, tap, filter, throwIfEmpty } from 'rxjs/operators';
 
 import { Certificate } from '../shared/models/certificate';
 import { CertificatesData } from '../shared/models/types';
 import { NotFoundError } from '../shared/errors/notFoundError';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,12 @@ export class CertificateService {
   certificates$ = new Subject<Certificate[]>();
   searchTerm$ = new Subject<string>();
   searchCertificatesRef = this.searchCertificates.bind(this);
-  readonly apiUrl = 'http://localhost:8088/gift-rest-service/api/v1/certificates';
+  readonly apiUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiUrl = environment.apiUrl + '/api/v1/certificates';
+   }
+
 
   getCertificates(page: number, size: number, search: string = '', tag: string = '')
     : Observable<Certificate[]> {

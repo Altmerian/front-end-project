@@ -1,0 +1,51 @@
+pipeline {
+  agent {label 'master'}
+  tools {nodejs "nodejs"}
+  stages {
+    stage('Clone sources') {
+      steps {
+        echo 'Cloning...'
+        git branch: 'module6',
+        credentialsId: '74d64b48-ed59-4324-819b-e8e8be1f5dbd',
+        url: 'https://github.com/Altmerian/front-end-project'
+      }
+    }
+    stage('Install dependencies') {
+      steps {
+        echo 'Instaling...'
+        bat 'chcp 65001'
+        bat 'npm install'
+      }
+    }
+    stage('Static code analysis') {
+      steps {
+        bat 'chcp 65001'
+        bat 'npm run lint'
+      }
+    }
+    stage('Build') {
+      steps {
+        echo 'Building...'
+        bat 'chcp 65001'
+        bat 'npm run build:aws'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploying to AWS s3 bucket...'
+        withAWS (region:'eu-central-1', credentials:'AWS_CRD') {
+          s3Delete(bucket: 'mjcs-front-end-client', path:'/')
+          s3Upload(bucket: 'mjcs-front-end-client',
+            includePathPattern:'**/*',
+            workingDir:'dist/front-end-project',
+            acl:'PublicRead')
+        }
+      }
+    }
+  }
+  post ('Clear sources'){
+    always{
+        deleteDir()
+    }
+  }
+}

@@ -1,10 +1,10 @@
 pipeline {
-  agent any
+  agent { label 'master' }
   stages {
     stage('Clone sources') {
         steps {
             echo 'Cloning...'
-            git branch: 'module5', url: 'https://github.com/Altmerian/front-end-project'
+            git branch: 'module6', url: 'https://github.com/Altmerian/front-end-project'
         }
     }
     stage('Install dependencies') {
